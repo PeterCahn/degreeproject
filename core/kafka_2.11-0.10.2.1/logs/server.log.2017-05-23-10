@@ -1,0 +1,327 @@
+[2017-05-23 10:54:05,239] INFO KafkaConfig values: 
+	advertised.host.name = null
+	advertised.listeners = PLAINTEXT://sky1.it.kth.se:9092
+	advertised.port = null
+	authorizer.class.name = 
+	auto.create.topics.enable = true
+	auto.leader.rebalance.enable = true
+	background.threads = 10
+	broker.id = 0
+	broker.id.generation.enable = true
+	broker.rack = null
+	compression.type = producer
+	connections.max.idle.ms = 600000
+	controlled.shutdown.enable = true
+	controlled.shutdown.max.retries = 3
+	controlled.shutdown.retry.backoff.ms = 5000
+	controller.socket.timeout.ms = 30000
+	create.topic.policy.class.name = null
+	default.replication.factor = 1
+	delete.topic.enable = false
+	fetch.purgatory.purge.interval.requests = 1000
+	group.max.session.timeout.ms = 300000
+	group.min.session.timeout.ms = 6000
+	host.name = 
+	inter.broker.listener.name = null
+	inter.broker.protocol.version = 0.10.2-IV0
+	leader.imbalance.check.interval.seconds = 300
+	leader.imbalance.per.broker.percentage = 10
+	listener.security.protocol.map = SSL:SSL,SASL_PLAINTEXT:SASL_PLAINTEXT,TRACE:TRACE,SASL_SSL:SASL_SSL,PLAINTEXT:PLAINTEXT
+	listeners = PLAINTEXT://sky1.it.kth.se:9092
+	log.cleaner.backoff.ms = 15000
+	log.cleaner.dedupe.buffer.size = 134217728
+	log.cleaner.delete.retention.ms = 86400000
+	log.cleaner.enable = true
+	log.cleaner.io.buffer.load.factor = 0.9
+	log.cleaner.io.buffer.size = 524288
+	log.cleaner.io.max.bytes.per.second = 1.7976931348623157E308
+	log.cleaner.min.cleanable.ratio = 0.5
+	log.cleaner.min.compaction.lag.ms = 0
+	log.cleaner.threads = 1
+	log.cleanup.policy = [delete]
+	log.dir = /tmp/kafka-logs
+	log.dirs = /tmp/kafka-logs
+	log.flush.interval.messages = 9223372036854775807
+	log.flush.interval.ms = null
+	log.flush.offset.checkpoint.interval.ms = 60000
+	log.flush.scheduler.interval.ms = 9223372036854775807
+	log.index.interval.bytes = 4096
+	log.index.size.max.bytes = 10485760
+	log.message.format.version = 0.10.2-IV0
+	log.message.timestamp.difference.max.ms = 9223372036854775807
+	log.message.timestamp.type = CreateTime
+	log.preallocate = false
+	log.retention.bytes = -1
+	log.retention.check.interval.ms = 300000
+	log.retention.hours = 168
+	log.retention.minutes = null
+	log.retention.ms = null
+	log.roll.hours = 168
+	log.roll.jitter.hours = 0
+	log.roll.jitter.ms = null
+	log.roll.ms = null
+	log.segment.bytes = 1073741824
+	log.segment.delete.delay.ms = 60000
+	max.connections.per.ip = 2147483647
+	max.connections.per.ip.overrides = 
+	message.max.bytes = 1000012
+	metric.reporters = []
+	metrics.num.samples = 2
+	metrics.recording.level = INFO
+	metrics.sample.window.ms = 30000
+	min.insync.replicas = 1
+	num.io.threads = 8
+	num.network.threads = 3
+	num.partitions = 1
+	num.recovery.threads.per.data.dir = 1
+	num.replica.fetchers = 1
+	offset.metadata.max.bytes = 4096
+	offsets.commit.required.acks = -1
+	offsets.commit.timeout.ms = 5000
+	offsets.load.buffer.size = 5242880
+	offsets.retention.check.interval.ms = 600000
+	offsets.retention.minutes = 1440
+	offsets.topic.compression.codec = 0
+	offsets.topic.num.partitions = 50
+	offsets.topic.replication.factor = 3
+	offsets.topic.segment.bytes = 104857600
+	port = 9092
+	principal.builder.class = class org.apache.kafka.common.security.auth.DefaultPrincipalBuilder
+	producer.purgatory.purge.interval.requests = 1000
+	queued.max.requests = 500
+	quota.consumer.default = 9223372036854775807
+	quota.producer.default = 9223372036854775807
+	quota.window.num = 11
+	quota.window.size.seconds = 1
+	replica.fetch.backoff.ms = 1000
+	replica.fetch.max.bytes = 1048576
+	replica.fetch.min.bytes = 1
+	replica.fetch.response.max.bytes = 10485760
+	replica.fetch.wait.max.ms = 500
+	replica.high.watermark.checkpoint.interval.ms = 5000
+	replica.lag.time.max.ms = 10000
+	replica.socket.receive.buffer.bytes = 65536
+	replica.socket.timeout.ms = 30000
+	replication.quota.window.num = 11
+	replication.quota.window.size.seconds = 1
+	request.timeout.ms = 30000
+	reserved.broker.max.id = 1000
+	sasl.enabled.mechanisms = [GSSAPI]
+	sasl.kerberos.kinit.cmd = /usr/bin/kinit
+	sasl.kerberos.min.time.before.relogin = 60000
+	sasl.kerberos.principal.to.local.rules = [DEFAULT]
+	sasl.kerberos.service.name = null
+	sasl.kerberos.ticket.renew.jitter = 0.05
+	sasl.kerberos.ticket.renew.window.factor = 0.8
+	sasl.mechanism.inter.broker.protocol = GSSAPI
+	security.inter.broker.protocol = PLAINTEXT
+	socket.receive.buffer.bytes = 102400
+	socket.request.max.bytes = 104857600
+	socket.send.buffer.bytes = 102400
+	ssl.cipher.suites = null
+	ssl.client.auth = none
+	ssl.enabled.protocols = [TLSv1.2, TLSv1.1, TLSv1]
+	ssl.endpoint.identification.algorithm = null
+	ssl.key.password = null
+	ssl.keymanager.algorithm = SunX509
+	ssl.keystore.location = null
+	ssl.keystore.password = null
+	ssl.keystore.type = JKS
+	ssl.protocol = TLS
+	ssl.provider = null
+	ssl.secure.random.implementation = null
+	ssl.trustmanager.algorithm = PKIX
+	ssl.truststore.location = null
+	ssl.truststore.password = null
+	ssl.truststore.type = JKS
+	unclean.leader.election.enable = true
+	zookeeper.connect = sky1.it.kth.se:2180
+	zookeeper.connection.timeout.ms = 6000
+	zookeeper.session.timeout.ms = 6000
+	zookeeper.set.acl = false
+	zookeeper.sync.time.ms = 2000
+ (kafka.server.KafkaConfig)
+[2017-05-23 10:54:05,287] INFO starting (kafka.server.KafkaServer)
+[2017-05-23 10:54:05,289] INFO Connecting to zookeeper on sky1.it.kth.se:2180 (kafka.server.KafkaServer)
+[2017-05-23 10:54:05,598] INFO Cluster ID = ih9TmIYmSOu0Vn7lysmWng (kafka.server.KafkaServer)
+[2017-05-23 10:54:05,620] INFO [ThrottledRequestReaper-Fetch], Starting  (kafka.server.ClientQuotaManager$ThrottledRequestReaper)
+[2017-05-23 10:54:05,622] INFO [ThrottledRequestReaper-Produce], Starting  (kafka.server.ClientQuotaManager$ThrottledRequestReaper)
+[2017-05-23 10:54:05,677] INFO Loading logs. (kafka.log.LogManager)
+[2017-05-23 10:54:05,722] INFO Completed load of log __consumer_offsets-34 with 1 log segments and log end offset 0 in 21 ms (kafka.log.Log)
+[2017-05-23 10:54:05,728] INFO Completed load of log __consumer_offsets-2 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,732] INFO Completed load of log __consumer_offsets-46 with 1 log segments and log end offset 0 in 0 ms (kafka.log.Log)
+[2017-05-23 10:54:05,738] INFO Completed load of log __consumer_offsets-42 with 1 log segments and log end offset 3 in 4 ms (kafka.log.Log)
+[2017-05-23 10:54:05,742] INFO Completed load of log __consumer_offsets-32 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,745] INFO Completed load of log __consumer_offsets-11 with 1 log segments and log end offset 5 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,748] INFO Completed load of log __consumer_offsets-1 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,751] INFO Completed load of log __consumer_offsets-12 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,754] INFO Completed load of log __consumer_offsets-20 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,757] INFO Completed load of log __consumer_offsets-19 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,760] INFO Completed load of log __consumer_offsets-30 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,764] INFO Completed load of log __consumer_offsets-22 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,767] INFO Completed load of log __consumer_offsets-28 with 1 log segments and log end offset 0 in 0 ms (kafka.log.Log)
+[2017-05-23 10:54:05,769] INFO Completed load of log __consumer_offsets-16 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,772] INFO Completed load of log __consumer_offsets-18 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,776] INFO Completed load of log test-0 with 1 log segments and log end offset 19833 in 2 ms (kafka.log.Log)
+[2017-05-23 10:54:05,778] INFO Completed load of log __consumer_offsets-24 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,780] INFO Completed load of log __consumer_offsets-0 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,783] INFO Completed load of log __consumer_offsets-10 with 1 log segments and log end offset 0 in 0 ms (kafka.log.Log)
+[2017-05-23 10:54:05,785] INFO Completed load of log __consumer_offsets-47 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,788] INFO Completed load of log __consumer_offsets-40 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,790] INFO Completed load of log __consumer_offsets-37 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,792] INFO Completed load of log __consumer_offsets-35 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,796] INFO Completed load of log __consumer_offsets-31 with 1 log segments and log end offset 0 in 2 ms (kafka.log.Log)
+[2017-05-23 10:54:05,800] INFO Completed load of log __consumer_offsets-5 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,803] INFO Completed load of log __consumer_offsets-33 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,807] INFO Completed load of log __consumer_offsets-9 with 1 log segments and log end offset 0 in 2 ms (kafka.log.Log)
+[2017-05-23 10:54:05,810] INFO Completed load of log __consumer_offsets-26 with 1 log segments and log end offset 0 in 2 ms (kafka.log.Log)
+[2017-05-23 10:54:05,812] INFO Completed load of log __consumer_offsets-44 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,814] INFO Completed load of log __consumer_offsets-23 with 1 log segments and log end offset 0 in 0 ms (kafka.log.Log)
+[2017-05-23 10:54:05,817] INFO Completed load of log __consumer_offsets-7 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,819] INFO Completed load of log __consumer_offsets-6 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,824] INFO Completed load of log __consumer_offsets-45 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,826] INFO Completed load of log __consumer_offsets-29 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,829] INFO Completed load of log __consumer_offsets-4 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,831] INFO Completed load of log __consumer_offsets-41 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,834] INFO Completed load of log __consumer_offsets-38 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,836] INFO Completed load of log __consumer_offsets-8 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,839] INFO Completed load of log __consumer_offsets-36 with 1 log segments and log end offset 0 in 0 ms (kafka.log.Log)
+[2017-05-23 10:54:05,841] INFO Completed load of log __consumer_offsets-15 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,843] INFO Completed load of log __consumer_offsets-21 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,845] INFO Completed load of log __consumer_offsets-27 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,847] INFO Completed load of log __consumer_offsets-25 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,848] INFO Completed load of log __consumer_offsets-17 with 1 log segments and log end offset 0 in 0 ms (kafka.log.Log)
+[2017-05-23 10:54:05,850] INFO Completed load of log __consumer_offsets-48 with 1 log segments and log end offset 4 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,852] INFO Completed load of log __consumer_offsets-49 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,854] INFO Completed load of log __consumer_offsets-14 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,856] INFO Completed load of log __consumer_offsets-39 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,858] INFO Completed load of log __consumer_offsets-13 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,860] INFO Completed load of log __consumer_offsets-3 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,861] INFO Completed load of log __consumer_offsets-43 with 1 log segments and log end offset 0 in 1 ms (kafka.log.Log)
+[2017-05-23 10:54:05,863] INFO Logs loading complete in 186 ms. (kafka.log.LogManager)
+[2017-05-23 10:54:05,908] INFO Starting log cleanup with a period of 300000 ms. (kafka.log.LogManager)
+[2017-05-23 10:54:05,910] INFO Starting log flusher with a default period of 9223372036854775807 ms. (kafka.log.LogManager)
+[2017-05-23 10:54:05,946] INFO Awaiting socket connections on sky1.it.kth.se:9092. (kafka.network.Acceptor)
+[2017-05-23 10:54:05,949] INFO [Socket Server on Broker 0], Started 1 acceptor threads (kafka.network.SocketServer)
+[2017-05-23 10:54:05,963] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2017-05-23 10:54:05,964] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2017-05-23 10:54:06,004] INFO Creating /controller (is it secure? false) (kafka.utils.ZKCheckedEphemeral)
+[2017-05-23 10:54:06,015] INFO Result of znode creation is: OK (kafka.utils.ZKCheckedEphemeral)
+[2017-05-23 10:54:06,015] INFO 0 successfully elected as leader (kafka.server.ZookeeperLeaderElector)
+[2017-05-23 10:54:06,622] INFO New leader is 0 (kafka.server.ZookeeperLeaderElector$LeaderChangeListener)
+[2017-05-23 10:54:06,623] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2017-05-23 10:54:06,626] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2017-05-23 10:54:06,626] INFO [ExpirationReaper-0], Starting  (kafka.server.DelayedOperationPurgatory$ExpiredOperationReaper)
+[2017-05-23 10:54:06,655] INFO [GroupCoordinator 0]: Starting up. (kafka.coordinator.GroupCoordinator)
+[2017-05-23 10:54:06,655] INFO [GroupCoordinator 0]: Startup complete. (kafka.coordinator.GroupCoordinator)
+[2017-05-23 10:54:06,656] INFO [Group Metadata Manager on Broker 0]: Removed 0 expired offsets in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:06,673] INFO Will not load MX4J, mx4j-tools.jar is not in the classpath (kafka.utils.Mx4jLoader$)
+[2017-05-23 10:54:06,712] INFO Creating /brokers/ids/0 (is it secure? false) (kafka.utils.ZKCheckedEphemeral)
+[2017-05-23 10:54:06,715] INFO Result of znode creation is: OK (kafka.utils.ZKCheckedEphemeral)
+[2017-05-23 10:54:06,715] INFO Registered broker 0 at path /brokers/ids/0 with addresses: EndPoint(sky1.it.kth.se,9092,ListenerName(PLAINTEXT),PLAINTEXT) (kafka.utils.ZkUtils)
+[2017-05-23 10:54:06,729] INFO [Kafka Server 0], started (kafka.server.KafkaServer)
+[2017-05-23 10:54:06,931] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions __consumer_offsets-22,__consumer_offsets-30,__consumer_offsets-8,__consumer_offsets-21,__consumer_offsets-4,__consumer_offsets-27,__consumer_offsets-7,__consumer_offsets-9,__consumer_offsets-46,__consumer_offsets-25,__consumer_offsets-35,__consumer_offsets-41,__consumer_offsets-33,__consumer_offsets-23,__consumer_offsets-49,__consumer_offsets-47,__consumer_offsets-16,test-0,__consumer_offsets-28,__consumer_offsets-31,__consumer_offsets-36,__consumer_offsets-42,__consumer_offsets-3,__consumer_offsets-18,__consumer_offsets-37,__consumer_offsets-15,__consumer_offsets-24,__consumer_offsets-38,__consumer_offsets-17,__consumer_offsets-48,__consumer_offsets-19,__consumer_offsets-11,__consumer_offsets-13,__consumer_offsets-2,__consumer_offsets-43,__consumer_offsets-6,__consumer_offsets-14,__consumer_offsets-20,__consumer_offsets-0,__consumer_offsets-44,__consumer_offsets-39,__consumer_offsets-12,__consumer_offsets-45,__consumer_offsets-1,__consumer_offsets-5,__consumer_offsets-26,__consumer_offsets-29,__consumer_offsets-34,__consumer_offsets-10,__consumer_offsets-32,__consumer_offsets-40 (kafka.server.ReplicaFetcherManager)
+[2017-05-23 10:54:07,128] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-22 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,140] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-22 in 11 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,140] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-25 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,143] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-25 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,143] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-28 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,145] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-28 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,146] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-31 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,148] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-31 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,148] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-34 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,151] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-34 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,151] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-37 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,154] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-37 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,154] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-40 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,157] INFO [ReplicaFetcherManager on broker 0] Removed fetcher for partitions __consumer_offsets-22,__consumer_offsets-30,__consumer_offsets-8,__consumer_offsets-21,__consumer_offsets-4,__consumer_offsets-27,__consumer_offsets-7,__consumer_offsets-9,__consumer_offsets-46,__consumer_offsets-25,__consumer_offsets-35,__consumer_offsets-41,__consumer_offsets-33,__consumer_offsets-23,__consumer_offsets-49,__consumer_offsets-47,__consumer_offsets-16,test-0,__consumer_offsets-28,__consumer_offsets-31,__consumer_offsets-36,__consumer_offsets-42,__consumer_offsets-3,__consumer_offsets-18,__consumer_offsets-37,__consumer_offsets-15,__consumer_offsets-24,__consumer_offsets-38,__consumer_offsets-17,__consumer_offsets-48,__consumer_offsets-19,__consumer_offsets-11,__consumer_offsets-13,__consumer_offsets-2,__consumer_offsets-43,__consumer_offsets-6,__consumer_offsets-14,__consumer_offsets-20,__consumer_offsets-0,__consumer_offsets-44,__consumer_offsets-39,__consumer_offsets-12,__consumer_offsets-45,__consumer_offsets-1,__consumer_offsets-5,__consumer_offsets-26,__consumer_offsets-29,__consumer_offsets-34,__consumer_offsets-10,__consumer_offsets-32,__consumer_offsets-40 (kafka.server.ReplicaFetcherManager)
+[2017-05-23 10:54:07,157] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-40 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,157] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-43 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,160] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-43 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,160] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-46 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,162] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-46 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,162] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-49 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,165] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-49 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,165] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-41 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,168] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-41 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,168] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-44 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,170] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-44 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,171] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-47 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,173] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-47 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,173] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-1 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,175] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-1 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,176] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-4 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,178] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-4 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,178] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-7 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,181] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-7 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,181] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-10 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,183] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-10 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,183] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-13 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,186] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-13 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,186] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-16 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,188] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-16 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,188] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-19 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,191] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-19 in 3 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,191] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-2 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,193] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-2 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,193] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-5 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,195] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-5 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,196] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-8 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,197] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-8 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,197] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-11 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,220] INFO [GroupCoordinator 0]: Loading group metadata for console-consumer-16454 with generation 2 (kafka.coordinator.GroupCoordinator)
+[2017-05-23 10:54:07,220] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-11 in 22 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,220] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-14 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,222] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-14 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,222] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-17 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,224] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-17 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,224] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-20 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,226] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-20 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,226] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-23 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,228] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-23 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,228] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-26 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,229] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-26 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,230] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-29 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,231] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-29 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,231] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-32 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,233] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-32 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,233] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-35 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,235] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-35 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,235] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-38 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,237] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-38 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,237] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-0 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,239] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-0 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,239] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-3 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,240] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-3 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,240] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-6 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,242] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-6 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,242] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-9 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,244] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-9 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,244] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-12 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,271] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-12 in 27 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,271] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-15 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,272] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-15 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,272] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-18 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,274] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-18 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,274] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-21 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,275] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-21 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,275] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-24 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,276] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-24 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,276] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-27 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,306] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-27 in 29 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,307] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-30 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,308] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-30 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,308] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-33 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,310] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-33 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,310] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-36 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,311] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-36 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,311] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-39 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,313] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-39 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,313] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-42 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,315] INFO [GroupCoordinator 0]: Loading group metadata for console-consumer-59782 with generation 2 (kafka.coordinator.GroupCoordinator)
+[2017-05-23 10:54:07,316] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-42 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,316] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-45 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,317] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-45 in 1 milliseconds. (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,317] INFO [Group Metadata Manager on Broker 0]: Loading offsets and group metadata from __consumer_offsets-48 (kafka.coordinator.GroupMetadataManager)
+[2017-05-23 10:54:07,319] INFO [GroupCoordinator 0]: Loading group metadata for console-consumer-90107 with generation 2 (kafka.coordinator.GroupCoordinator)
+[2017-05-23 10:54:07,319] INFO [Group Metadata Manager on Broker 0]: Finished loading offsets from __consumer_offsets-48 in 2 milliseconds. (kafka.coordinator.GroupMetadataManager)

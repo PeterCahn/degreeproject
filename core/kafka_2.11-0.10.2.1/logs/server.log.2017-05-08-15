@@ -1,0 +1,10 @@
+[2017-05-08 15:19:36,786] FATAL  (kafka.Kafka$)
+org.apache.kafka.common.config.ConfigException: Missing required configuration "zookeeper.connect" which has no default value.
+	at org.apache.kafka.common.config.ConfigDef.parse(ConfigDef.java:436)
+	at org.apache.kafka.common.config.AbstractConfig.<init>(AbstractConfig.java:56)
+	at kafka.server.KafkaConfig.<init>(KafkaConfig.scala:811)
+	at kafka.server.KafkaConfig$.fromProps(KafkaConfig.scala:795)
+	at kafka.server.KafkaConfig$.fromProps(KafkaConfig.scala:792)
+	at kafka.server.KafkaServerStartable$.fromProps(KafkaServerStartable.scala:28)
+	at kafka.Kafka$.main(Kafka.scala:58)
+	at kafka.Kafka.main(Kafka.scala)
