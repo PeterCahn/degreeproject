@@ -1,0 +1,636 @@
+Spark Command: /usr/lib/jvm/java-8-oracle/bin/java -cp /home/pietro/spark/conf/:/home/pietro/spark/assembly/target/scala-2.11/jars/* -Xmx1g org.apache.spark.deploy.master.Master --host sky1.it.kth.se --port 7077 --webui-port 8080
+========================================
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/05/22 21:04:16 INFO Master: Started daemon with process name: 31921@sky1
+17/05/22 21:04:16 INFO SignalUtils: Registered signal handler for TERM
+17/05/22 21:04:16 INFO SignalUtils: Registered signal handler for HUP
+17/05/22 21:04:16 INFO SignalUtils: Registered signal handler for INT
+17/05/22 21:04:16 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/22 21:04:16 INFO SecurityManager: Changing view acls to: pietro
+17/05/22 21:04:16 INFO SecurityManager: Changing modify acls to: pietro
+17/05/22 21:04:16 INFO SecurityManager: Changing view acls groups to: 
+17/05/22 21:04:16 INFO SecurityManager: Changing modify acls groups to: 
+17/05/22 21:04:16 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(pietro); groups with view permissions: Set(); users  with modify permissions: Set(pietro); groups with modify permissions: Set()
+17/05/22 21:04:16 INFO Utils: Successfully started service 'sparkMaster' on port 7077.
+17/05/22 21:04:16 INFO Master: Starting Spark master at spark://sky1.it.kth.se:7077
+17/05/22 21:04:16 INFO Master: Running Spark version 2.3.0-SNAPSHOT
+17/05/22 21:04:17 INFO Utils: Successfully started service 'MasterUI' on port 8080.
+17/05/22 21:04:17 INFO MasterWebUI: Bound MasterWebUI to 0.0.0.0, and started at http://130.237.212.71:8080
+17/05/22 21:04:17 INFO Utils: Successfully started service on port 6066.
+17/05/22 21:04:17 INFO StandaloneRestServer: Started REST server for submitting applications on port 6066
+17/05/22 21:04:17 INFO Master: I have been elected leader! New state: ALIVE
+17/05/22 21:04:22 INFO Master: Registering worker 130.237.212.71:34210 with 16 cores, 4.0 GB RAM
+17/05/22 21:04:25 INFO Master: Registering worker 130.237.212.71:42074 with 16 cores, 4.0 GB RAM
+17/05/22 21:04:27 INFO Master: Registering worker 130.237.212.71:33887 with 16 cores, 4.0 GB RAM
+17/05/22 21:04:30 INFO Master: Registering worker 130.237.212.71:35376 with 16 cores, 4.0 GB RAM
+17/05/22 21:04:38 INFO Master: Registering app KafkaWordCount
+17/05/22 21:04:38 INFO Master: Registered app KafkaWordCount with ID app-20170522210438-0000
+17/05/22 21:04:38 INFO Master: Launching executor app-20170522210438-0000/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:04:38 INFO Master: Launching executor app-20170522210438-0000/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:04:38 INFO Master: Launching executor app-20170522210438-0000/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:04:38 INFO Master: Launching executor app-20170522210438-0000/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:04:38 INFO Master: Received unregister request from application app-20170522210438-0000
+17/05/22 21:04:38 INFO Master: Removing app app-20170522210438-0000
+17/05/22 21:04:38 WARN Master: Got status update for unknown executor app-20170522210438-0000/2
+17/05/22 21:04:38 WARN Master: Got status update for unknown executor app-20170522210438-0000/1
+17/05/22 21:04:38 WARN Master: Got status update for unknown executor app-20170522210438-0000/3
+17/05/22 21:04:38 WARN Master: Got status update for unknown executor app-20170522210438-0000/0
+17/05/22 21:04:38 INFO Master: 130.237.212.71:35028 got disassociated, removing it.
+17/05/22 21:04:38 INFO Master: 130.237.212.71:41168 got disassociated, removing it.
+17/05/22 21:05:03 INFO Master: Registering app KafkaWordCount
+17/05/22 21:05:03 INFO Master: Registered app KafkaWordCount with ID app-20170522210503-0001
+17/05/22 21:05:03 INFO Master: Launching executor app-20170522210503-0001/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:05:03 INFO Master: Launching executor app-20170522210503-0001/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:05:03 INFO Master: Launching executor app-20170522210503-0001/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:05:03 INFO Master: Launching executor app-20170522210503-0001/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:05:16 INFO Master: Received unregister request from application app-20170522210503-0001
+17/05/22 21:05:16 INFO Master: Removing app app-20170522210503-0001
+17/05/22 21:05:16 INFO Master: 130.237.212.71:35030 got disassociated, removing it.
+17/05/22 21:05:16 INFO Master: 130.237.212.71:44583 got disassociated, removing it.
+17/05/22 21:05:16 WARN Master: Got status update for unknown executor app-20170522210503-0001/0
+17/05/22 21:05:16 WARN Master: Got status update for unknown executor app-20170522210503-0001/3
+17/05/22 21:05:16 WARN Master: Got status update for unknown executor app-20170522210503-0001/2
+17/05/22 21:05:16 WARN Master: Got status update for unknown executor app-20170522210503-0001/1
+17/05/22 21:15:16 INFO Master: Registering app KafkaWordCount
+17/05/22 21:15:16 INFO Master: Registered app KafkaWordCount with ID app-20170522211516-0002
+17/05/22 21:15:16 INFO Master: Launching executor app-20170522211516-0002/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:15:16 INFO Master: Launching executor app-20170522211516-0002/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:15:16 INFO Master: Launching executor app-20170522211516-0002/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:15:16 INFO Master: Launching executor app-20170522211516-0002/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:15:26 INFO Master: Received unregister request from application app-20170522211516-0002
+17/05/22 21:15:26 INFO Master: Removing app app-20170522211516-0002
+17/05/22 21:15:26 INFO Master: 130.237.212.71:35096 got disassociated, removing it.
+17/05/22 21:15:26 INFO Master: 130.237.212.71:39700 got disassociated, removing it.
+17/05/22 21:15:26 WARN Master: Got status update for unknown executor app-20170522211516-0002/1
+17/05/22 21:15:26 WARN Master: Got status update for unknown executor app-20170522211516-0002/2
+17/05/22 21:15:26 WARN Master: Got status update for unknown executor app-20170522211516-0002/3
+17/05/22 21:15:26 WARN Master: Got status update for unknown executor app-20170522211516-0002/0
+17/05/22 21:15:45 INFO Master: Registering app KafkaWordCount
+17/05/22 21:15:45 INFO Master: Registered app KafkaWordCount with ID app-20170522211545-0003
+17/05/22 21:15:45 INFO Master: Launching executor app-20170522211545-0003/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:15:45 INFO Master: Launching executor app-20170522211545-0003/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:15:45 INFO Master: Launching executor app-20170522211545-0003/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:15:45 INFO Master: Launching executor app-20170522211545-0003/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:15:45 INFO Master: Received unregister request from application app-20170522211545-0003
+17/05/22 21:15:45 INFO Master: Removing app app-20170522211545-0003
+17/05/22 21:15:45 WARN Master: Got status update for unknown executor app-20170522211545-0003/2
+17/05/22 21:15:45 WARN Master: Got status update for unknown executor app-20170522211545-0003/0
+17/05/22 21:15:45 WARN Master: Got status update for unknown executor app-20170522211545-0003/1
+17/05/22 21:15:45 WARN Master: Got status update for unknown executor app-20170522211545-0003/3
+17/05/22 21:15:45 INFO Master: 130.237.212.71:35162 got disassociated, removing it.
+17/05/22 21:15:45 INFO Master: 130.237.212.71:45398 got disassociated, removing it.
+17/05/22 21:16:30 INFO Master: Registering app KafkaWordCount
+17/05/22 21:16:30 INFO Master: Registered app KafkaWordCount with ID app-20170522211630-0004
+17/05/22 21:16:30 INFO Master: Launching executor app-20170522211630-0004/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:16:30 INFO Master: Launching executor app-20170522211630-0004/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:16:30 INFO Master: Launching executor app-20170522211630-0004/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:16:30 INFO Master: Launching executor app-20170522211630-0004/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:16:40 INFO Master: Received unregister request from application app-20170522211630-0004
+17/05/22 21:16:40 INFO Master: Removing app app-20170522211630-0004
+17/05/22 21:16:40 INFO Master: 130.237.212.71:35166 got disassociated, removing it.
+17/05/22 21:16:40 INFO Master: 130.237.212.71:35985 got disassociated, removing it.
+17/05/22 21:16:41 WARN Master: Got status update for unknown executor app-20170522211630-0004/0
+17/05/22 21:16:41 WARN Master: Got status update for unknown executor app-20170522211630-0004/2
+17/05/22 21:16:41 WARN Master: Got status update for unknown executor app-20170522211630-0004/3
+17/05/22 21:16:41 WARN Master: Got status update for unknown executor app-20170522211630-0004/1
+17/05/22 21:17:11 INFO Master: Registering app KafkaWordCount
+17/05/22 21:17:11 INFO Master: Registered app KafkaWordCount with ID app-20170522211711-0005
+17/05/22 21:17:11 INFO Master: Launching executor app-20170522211711-0005/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:17:11 INFO Master: Launching executor app-20170522211711-0005/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:17:11 INFO Master: Launching executor app-20170522211711-0005/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:17:11 INFO Master: Launching executor app-20170522211711-0005/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:17:12 INFO Master: Received unregister request from application app-20170522211711-0005
+17/05/22 21:17:12 INFO Master: Removing app app-20170522211711-0005
+17/05/22 21:17:12 WARN Master: Got status update for unknown executor app-20170522211711-0005/1
+17/05/22 21:17:12 WARN Master: Got status update for unknown executor app-20170522211711-0005/3
+17/05/22 21:17:12 WARN Master: Got status update for unknown executor app-20170522211711-0005/0
+17/05/22 21:17:12 WARN Master: Got status update for unknown executor app-20170522211711-0005/2
+17/05/22 21:17:12 INFO Master: 130.237.212.71:35234 got disassociated, removing it.
+17/05/22 21:17:12 INFO Master: 130.237.212.71:35842 got disassociated, removing it.
+17/05/22 21:17:39 INFO Master: Registering app KafkaWordCount
+17/05/22 21:17:39 INFO Master: Registered app KafkaWordCount with ID app-20170522211739-0006
+17/05/22 21:17:39 INFO Master: Launching executor app-20170522211739-0006/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:17:39 INFO Master: Launching executor app-20170522211739-0006/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:17:39 INFO Master: Launching executor app-20170522211739-0006/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:17:39 INFO Master: Launching executor app-20170522211739-0006/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:17:47 INFO Master: Received unregister request from application app-20170522211739-0006
+17/05/22 21:17:47 INFO Master: Removing app app-20170522211739-0006
+17/05/22 21:17:47 INFO Master: 130.237.212.71:35238 got disassociated, removing it.
+17/05/22 21:17:47 INFO Master: 130.237.212.71:36338 got disassociated, removing it.
+17/05/22 21:17:47 WARN Master: Got status update for unknown executor app-20170522211739-0006/0
+17/05/22 21:17:47 WARN Master: Got status update for unknown executor app-20170522211739-0006/2
+17/05/22 21:17:47 WARN Master: Got status update for unknown executor app-20170522211739-0006/1
+17/05/22 21:17:47 WARN Master: Got status update for unknown executor app-20170522211739-0006/3
+17/05/22 21:36:19 INFO Master: Registering app KafkaWordCount
+17/05/22 21:36:19 INFO Master: Registered app KafkaWordCount with ID app-20170522213619-0007
+17/05/22 21:36:19 INFO Master: Launching executor app-20170522213619-0007/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:36:19 INFO Master: Launching executor app-20170522213619-0007/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:36:19 INFO Master: Launching executor app-20170522213619-0007/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:36:19 INFO Master: Launching executor app-20170522213619-0007/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:36:19 INFO Master: Received unregister request from application app-20170522213619-0007
+17/05/22 21:36:19 INFO Master: Removing app app-20170522213619-0007
+17/05/22 21:36:19 WARN Master: Got status update for unknown executor app-20170522213619-0007/2
+17/05/22 21:36:19 WARN Master: Got status update for unknown executor app-20170522213619-0007/3
+17/05/22 21:36:19 WARN Master: Got status update for unknown executor app-20170522213619-0007/1
+17/05/22 21:36:19 WARN Master: Got status update for unknown executor app-20170522213619-0007/0
+17/05/22 21:36:19 INFO Master: 130.237.212.71:35304 got disassociated, removing it.
+17/05/22 21:36:19 INFO Master: 130.237.212.71:46295 got disassociated, removing it.
+17/05/22 21:37:19 INFO Master: Registering app KafkaWordCount
+17/05/22 21:37:19 INFO Master: Registered app KafkaWordCount with ID app-20170522213719-0008
+17/05/22 21:37:19 INFO Master: Launching executor app-20170522213719-0008/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 21:37:19 INFO Master: Launching executor app-20170522213719-0008/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 21:37:19 INFO Master: Launching executor app-20170522213719-0008/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 21:37:19 INFO Master: Launching executor app-20170522213719-0008/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 21:37:19 INFO Master: Received unregister request from application app-20170522213719-0008
+17/05/22 21:37:19 INFO Master: Removing app app-20170522213719-0008
+17/05/22 21:37:19 WARN Master: Got status update for unknown executor app-20170522213719-0008/3
+17/05/22 21:37:19 WARN Master: Got status update for unknown executor app-20170522213719-0008/0
+17/05/22 21:37:19 WARN Master: Got status update for unknown executor app-20170522213719-0008/1
+17/05/22 21:37:19 WARN Master: Got status update for unknown executor app-20170522213719-0008/2
+17/05/22 21:37:19 INFO Master: 130.237.212.71:35312 got disassociated, removing it.
+17/05/22 21:37:19 INFO Master: 130.237.212.71:36220 got disassociated, removing it.
+17/05/22 23:02:52 INFO Master: Registering app KafkaWordCount
+17/05/22 23:02:52 INFO Master: Registered app KafkaWordCount with ID app-20170522230252-0009
+17/05/22 23:02:52 INFO Master: Launching executor app-20170522230252-0009/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:02:52 INFO Master: Launching executor app-20170522230252-0009/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:02:52 INFO Master: Launching executor app-20170522230252-0009/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:02:52 INFO Master: Launching executor app-20170522230252-0009/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:02:52 INFO Master: Received unregister request from application app-20170522230252-0009
+17/05/22 23:02:52 INFO Master: Removing app app-20170522230252-0009
+17/05/22 23:02:52 WARN Master: Got status update for unknown executor app-20170522230252-0009/1
+17/05/22 23:02:52 WARN Master: Got status update for unknown executor app-20170522230252-0009/0
+17/05/22 23:02:52 WARN Master: Got status update for unknown executor app-20170522230252-0009/2
+17/05/22 23:02:52 WARN Master: Got status update for unknown executor app-20170522230252-0009/3
+17/05/22 23:02:52 INFO Master: 130.237.212.71:35320 got disassociated, removing it.
+17/05/22 23:02:52 INFO Master: 130.237.212.71:38848 got disassociated, removing it.
+17/05/22 23:03:44 INFO Master: Registering app KafkaWordCount
+17/05/22 23:03:44 INFO Master: Registered app KafkaWordCount with ID app-20170522230344-0010
+17/05/22 23:03:44 INFO Master: Launching executor app-20170522230344-0010/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:03:44 INFO Master: Launching executor app-20170522230344-0010/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:03:44 INFO Master: Launching executor app-20170522230344-0010/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:03:44 INFO Master: Launching executor app-20170522230344-0010/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:03:45 INFO Master: Received unregister request from application app-20170522230344-0010
+17/05/22 23:03:45 INFO Master: Removing app app-20170522230344-0010
+17/05/22 23:03:45 WARN Master: Got status update for unknown executor app-20170522230344-0010/1
+17/05/22 23:03:45 WARN Master: Got status update for unknown executor app-20170522230344-0010/2
+17/05/22 23:03:45 WARN Master: Got status update for unknown executor app-20170522230344-0010/0
+17/05/22 23:03:45 WARN Master: Got status update for unknown executor app-20170522230344-0010/3
+17/05/22 23:03:45 INFO Master: 130.237.212.71:35324 got disassociated, removing it.
+17/05/22 23:03:45 INFO Master: 130.237.212.71:34885 got disassociated, removing it.
+17/05/22 23:04:13 INFO Master: Registering app KafkaWordCount
+17/05/22 23:04:13 INFO Master: Registered app KafkaWordCount with ID app-20170522230413-0011
+17/05/22 23:04:13 INFO Master: Launching executor app-20170522230413-0011/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:04:13 INFO Master: Launching executor app-20170522230413-0011/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:04:13 INFO Master: Launching executor app-20170522230413-0011/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:04:13 INFO Master: Launching executor app-20170522230413-0011/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:04:21 INFO Master: Received unregister request from application app-20170522230413-0011
+17/05/22 23:04:21 INFO Master: Removing app app-20170522230413-0011
+17/05/22 23:04:21 INFO Master: 130.237.212.71:35326 got disassociated, removing it.
+17/05/22 23:04:21 INFO Master: 130.237.212.71:46224 got disassociated, removing it.
+17/05/22 23:04:21 WARN Master: Got status update for unknown executor app-20170522230413-0011/3
+17/05/22 23:04:21 WARN Master: Got status update for unknown executor app-20170522230413-0011/0
+17/05/22 23:04:21 WARN Master: Got status update for unknown executor app-20170522230413-0011/1
+17/05/22 23:04:21 WARN Master: Got status update for unknown executor app-20170522230413-0011/2
+17/05/22 23:04:30 INFO Master: Registering app KafkaWordCount
+17/05/22 23:04:30 INFO Master: Registered app KafkaWordCount with ID app-20170522230430-0012
+17/05/22 23:04:30 INFO Master: Launching executor app-20170522230430-0012/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:04:30 INFO Master: Launching executor app-20170522230430-0012/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:04:30 INFO Master: Launching executor app-20170522230430-0012/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:04:30 INFO Master: Launching executor app-20170522230430-0012/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:04:30 INFO Master: Received unregister request from application app-20170522230430-0012
+17/05/22 23:04:30 INFO Master: Removing app app-20170522230430-0012
+17/05/22 23:04:30 WARN Master: Got status update for unknown executor app-20170522230430-0012/3
+17/05/22 23:04:30 WARN Master: Got status update for unknown executor app-20170522230430-0012/1
+17/05/22 23:04:30 WARN Master: Got status update for unknown executor app-20170522230430-0012/2
+17/05/22 23:04:30 WARN Master: Got status update for unknown executor app-20170522230430-0012/0
+17/05/22 23:04:30 INFO Master: 130.237.212.71:35392 got disassociated, removing it.
+17/05/22 23:04:30 INFO Master: 130.237.212.71:38012 got disassociated, removing it.
+17/05/22 23:06:30 INFO Master: Registering app KafkaWordCount
+17/05/22 23:06:30 INFO Master: Registered app KafkaWordCount with ID app-20170522230630-0013
+17/05/22 23:06:30 INFO Master: Launching executor app-20170522230630-0013/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:06:30 INFO Master: Launching executor app-20170522230630-0013/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:06:30 INFO Master: Launching executor app-20170522230630-0013/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:06:30 INFO Master: Launching executor app-20170522230630-0013/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:06:31 INFO Master: Received unregister request from application app-20170522230630-0013
+17/05/22 23:06:31 INFO Master: Removing app app-20170522230630-0013
+17/05/22 23:06:31 WARN Master: Got status update for unknown executor app-20170522230630-0013/3
+17/05/22 23:06:31 WARN Master: Got status update for unknown executor app-20170522230630-0013/2
+17/05/22 23:06:31 WARN Master: Got status update for unknown executor app-20170522230630-0013/0
+17/05/22 23:06:31 WARN Master: Got status update for unknown executor app-20170522230630-0013/1
+17/05/22 23:06:31 INFO Master: 130.237.212.71:35396 got disassociated, removing it.
+17/05/22 23:06:31 INFO Master: 130.237.212.71:40185 got disassociated, removing it.
+17/05/22 23:07:00 INFO Master: Registering app KafkaWordCount
+17/05/22 23:07:00 INFO Master: Registered app KafkaWordCount with ID app-20170522230700-0014
+17/05/22 23:07:00 INFO Master: Launching executor app-20170522230700-0014/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:07:00 INFO Master: Launching executor app-20170522230700-0014/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:07:00 INFO Master: Launching executor app-20170522230700-0014/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:07:00 INFO Master: Launching executor app-20170522230700-0014/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:07:00 INFO Master: Received unregister request from application app-20170522230700-0014
+17/05/22 23:07:00 INFO Master: Removing app app-20170522230700-0014
+17/05/22 23:07:00 WARN Master: Got status update for unknown executor app-20170522230700-0014/1
+17/05/22 23:07:00 WARN Master: Got status update for unknown executor app-20170522230700-0014/2
+17/05/22 23:07:00 WARN Master: Got status update for unknown executor app-20170522230700-0014/3
+17/05/22 23:07:00 WARN Master: Got status update for unknown executor app-20170522230700-0014/0
+17/05/22 23:07:00 INFO Master: 130.237.212.71:35400 got disassociated, removing it.
+17/05/22 23:07:00 INFO Master: 130.237.212.71:44578 got disassociated, removing it.
+17/05/22 23:07:06 INFO Master: Registering app KafkaWordCount
+17/05/22 23:07:06 INFO Master: Registered app KafkaWordCount with ID app-20170522230706-0015
+17/05/22 23:07:06 INFO Master: Launching executor app-20170522230706-0015/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:07:06 INFO Master: Launching executor app-20170522230706-0015/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:07:06 INFO Master: Launching executor app-20170522230706-0015/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:07:06 INFO Master: Launching executor app-20170522230706-0015/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:07:09 INFO Master: Received unregister request from application app-20170522230706-0015
+17/05/22 23:07:09 INFO Master: Removing app app-20170522230706-0015
+17/05/22 23:07:09 INFO Master: 130.237.212.71:35402 got disassociated, removing it.
+17/05/22 23:07:09 INFO Master: 130.237.212.71:46246 got disassociated, removing it.
+17/05/22 23:07:09 WARN Master: Got status update for unknown executor app-20170522230706-0015/0
+17/05/22 23:07:09 WARN Master: Got status update for unknown executor app-20170522230706-0015/2
+17/05/22 23:07:09 WARN Master: Got status update for unknown executor app-20170522230706-0015/1
+17/05/22 23:07:09 WARN Master: Got status update for unknown executor app-20170522230706-0015/3
+17/05/22 23:09:04 INFO Master: Registering app KafkaWordCount
+17/05/22 23:09:04 INFO Master: Registered app KafkaWordCount with ID app-20170522230904-0016
+17/05/22 23:09:04 INFO Master: Launching executor app-20170522230904-0016/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:09:04 INFO Master: Launching executor app-20170522230904-0016/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:09:04 INFO Master: Launching executor app-20170522230904-0016/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:09:04 INFO Master: Launching executor app-20170522230904-0016/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:09:04 INFO Master: Received unregister request from application app-20170522230904-0016
+17/05/22 23:09:04 INFO Master: Removing app app-20170522230904-0016
+17/05/22 23:09:04 WARN Master: Got status update for unknown executor app-20170522230904-0016/3
+17/05/22 23:09:04 WARN Master: Got status update for unknown executor app-20170522230904-0016/1
+17/05/22 23:09:04 WARN Master: Got status update for unknown executor app-20170522230904-0016/0
+17/05/22 23:09:04 WARN Master: Got status update for unknown executor app-20170522230904-0016/2
+17/05/22 23:09:04 INFO Master: 130.237.212.71:35446 got disassociated, removing it.
+17/05/22 23:09:04 INFO Master: 130.237.212.71:33749 got disassociated, removing it.
+17/05/22 23:09:41 INFO Master: Registering app KafkaWordCount
+17/05/22 23:09:41 INFO Master: Registered app KafkaWordCount with ID app-20170522230941-0017
+17/05/22 23:09:41 INFO Master: Launching executor app-20170522230941-0017/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:09:41 INFO Master: Launching executor app-20170522230941-0017/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:09:41 INFO Master: Launching executor app-20170522230941-0017/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:09:41 INFO Master: Launching executor app-20170522230941-0017/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:09:42 INFO Master: Received unregister request from application app-20170522230941-0017
+17/05/22 23:09:42 INFO Master: Removing app app-20170522230941-0017
+17/05/22 23:09:42 WARN Master: Got status update for unknown executor app-20170522230941-0017/3
+17/05/22 23:09:42 WARN Master: Got status update for unknown executor app-20170522230941-0017/0
+17/05/22 23:09:42 WARN Master: Got status update for unknown executor app-20170522230941-0017/1
+17/05/22 23:09:42 WARN Master: Got status update for unknown executor app-20170522230941-0017/2
+17/05/22 23:09:42 INFO Master: 130.237.212.71:35450 got disassociated, removing it.
+17/05/22 23:09:42 INFO Master: 130.237.212.71:35664 got disassociated, removing it.
+17/05/22 23:15:32 INFO Master: Registering app KafkaWordCount
+17/05/22 23:15:32 INFO Master: Registered app KafkaWordCount with ID app-20170522231532-0018
+17/05/22 23:15:32 INFO Master: Launching executor app-20170522231532-0018/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:15:32 INFO Master: Launching executor app-20170522231532-0018/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:15:32 INFO Master: Launching executor app-20170522231532-0018/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:15:32 INFO Master: Launching executor app-20170522231532-0018/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:15:32 INFO Master: Received unregister request from application app-20170522231532-0018
+17/05/22 23:15:32 INFO Master: Removing app app-20170522231532-0018
+17/05/22 23:15:32 WARN Master: Got status update for unknown executor app-20170522231532-0018/2
+17/05/22 23:15:32 WARN Master: Got status update for unknown executor app-20170522231532-0018/1
+17/05/22 23:15:33 WARN Master: Got status update for unknown executor app-20170522231532-0018/3
+17/05/22 23:15:33 WARN Master: Got status update for unknown executor app-20170522231532-0018/0
+17/05/22 23:15:33 INFO Master: 130.237.212.71:35454 got disassociated, removing it.
+17/05/22 23:15:33 INFO Master: 130.237.212.71:33467 got disassociated, removing it.
+17/05/22 23:21:12 INFO Master: Registering app KafkaWordCount
+17/05/22 23:21:12 INFO Master: Registered app KafkaWordCount with ID app-20170522232112-0019
+17/05/22 23:21:12 INFO Master: Launching executor app-20170522232112-0019/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:21:12 INFO Master: Launching executor app-20170522232112-0019/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:21:12 INFO Master: Launching executor app-20170522232112-0019/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:21:12 INFO Master: Launching executor app-20170522232112-0019/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:21:12 INFO Master: Received unregister request from application app-20170522232112-0019
+17/05/22 23:21:12 INFO Master: Removing app app-20170522232112-0019
+17/05/22 23:21:12 WARN Master: Got status update for unknown executor app-20170522232112-0019/3
+17/05/22 23:21:12 WARN Master: Got status update for unknown executor app-20170522232112-0019/0
+17/05/22 23:21:12 WARN Master: Got status update for unknown executor app-20170522232112-0019/2
+17/05/22 23:21:12 WARN Master: Got status update for unknown executor app-20170522232112-0019/1
+17/05/22 23:21:12 INFO Master: 130.237.212.71:35474 got disassociated, removing it.
+17/05/22 23:21:12 INFO Master: 130.237.212.71:43689 got disassociated, removing it.
+17/05/22 23:49:55 INFO Master: Registering app KafkaWordCount
+17/05/22 23:49:55 INFO Master: Registered app KafkaWordCount with ID app-20170522234955-0020
+17/05/22 23:49:55 INFO Master: Launching executor app-20170522234955-0020/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:49:55 INFO Master: Launching executor app-20170522234955-0020/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:49:55 INFO Master: Launching executor app-20170522234955-0020/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:49:55 INFO Master: Launching executor app-20170522234955-0020/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:49:55 INFO Master: Received unregister request from application app-20170522234955-0020
+17/05/22 23:49:55 INFO Master: Removing app app-20170522234955-0020
+17/05/22 23:49:55 WARN Master: Got status update for unknown executor app-20170522234955-0020/1
+17/05/22 23:49:55 WARN Master: Got status update for unknown executor app-20170522234955-0020/0
+17/05/22 23:49:55 WARN Master: Got status update for unknown executor app-20170522234955-0020/3
+17/05/22 23:49:55 WARN Master: Got status update for unknown executor app-20170522234955-0020/2
+17/05/22 23:49:55 INFO Master: 130.237.212.71:35554 got disassociated, removing it.
+17/05/22 23:49:55 INFO Master: 130.237.212.71:32897 got disassociated, removing it.
+17/05/22 23:51:24 INFO Master: Registering app KafkaWordCount
+17/05/22 23:51:24 INFO Master: Registered app KafkaWordCount with ID app-20170522235124-0021
+17/05/22 23:51:24 INFO Master: Launching executor app-20170522235124-0021/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:51:24 INFO Master: Launching executor app-20170522235124-0021/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:51:24 INFO Master: Launching executor app-20170522235124-0021/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:51:24 INFO Master: Launching executor app-20170522235124-0021/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:51:24 INFO Master: Received unregister request from application app-20170522235124-0021
+17/05/22 23:51:24 INFO Master: Removing app app-20170522235124-0021
+17/05/22 23:51:24 WARN Master: Got status update for unknown executor app-20170522235124-0021/3
+17/05/22 23:51:24 WARN Master: Got status update for unknown executor app-20170522235124-0021/0
+17/05/22 23:51:24 WARN Master: Got status update for unknown executor app-20170522235124-0021/2
+17/05/22 23:51:24 WARN Master: Got status update for unknown executor app-20170522235124-0021/1
+17/05/22 23:51:24 INFO Master: 130.237.212.71:35556 got disassociated, removing it.
+17/05/22 23:51:24 INFO Master: 130.237.212.71:35950 got disassociated, removing it.
+17/05/22 23:51:49 INFO Master: Registering app KafkaWordCount
+17/05/22 23:51:49 INFO Master: Registered app KafkaWordCount with ID app-20170522235149-0022
+17/05/22 23:51:49 INFO Master: Launching executor app-20170522235149-0022/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:51:49 INFO Master: Launching executor app-20170522235149-0022/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:51:49 INFO Master: Launching executor app-20170522235149-0022/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:51:49 INFO Master: Launching executor app-20170522235149-0022/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:51:56 INFO Master: Received unregister request from application app-20170522235149-0022
+17/05/22 23:51:56 INFO Master: Removing app app-20170522235149-0022
+17/05/22 23:51:56 INFO Master: 130.237.212.71:35558 got disassociated, removing it.
+17/05/22 23:51:56 INFO Master: 130.237.212.71:34440 got disassociated, removing it.
+17/05/22 23:51:57 WARN Master: Got status update for unknown executor app-20170522235149-0022/3
+17/05/22 23:51:57 WARN Master: Got status update for unknown executor app-20170522235149-0022/0
+17/05/22 23:51:57 WARN Master: Got status update for unknown executor app-20170522235149-0022/1
+17/05/22 23:51:57 WARN Master: Got status update for unknown executor app-20170522235149-0022/2
+17/05/22 23:58:10 INFO Master: Registering app KafkaWordCount
+17/05/22 23:58:10 INFO Master: Registered app KafkaWordCount with ID app-20170522235810-0023
+17/05/22 23:58:10 INFO Master: Launching executor app-20170522235810-0023/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/22 23:58:10 INFO Master: Launching executor app-20170522235810-0023/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/22 23:58:10 INFO Master: Launching executor app-20170522235810-0023/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/22 23:58:10 INFO Master: Launching executor app-20170522235810-0023/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/22 23:58:10 INFO Master: Received unregister request from application app-20170522235810-0023
+17/05/22 23:58:10 INFO Master: Removing app app-20170522235810-0023
+17/05/22 23:58:11 WARN Master: Got status update for unknown executor app-20170522235810-0023/1
+17/05/22 23:58:11 WARN Master: Got status update for unknown executor app-20170522235810-0023/0
+17/05/22 23:58:11 WARN Master: Got status update for unknown executor app-20170522235810-0023/2
+17/05/22 23:58:11 WARN Master: Got status update for unknown executor app-20170522235810-0023/3
+17/05/22 23:58:11 INFO Master: 130.237.212.71:35622 got disassociated, removing it.
+17/05/22 23:58:11 INFO Master: 130.237.212.71:45180 got disassociated, removing it.
+17/05/23 00:18:45 INFO Master: Registering app KafkaWordCount
+17/05/23 00:18:45 INFO Master: Registered app KafkaWordCount with ID app-20170523001845-0024
+17/05/23 00:18:45 INFO Master: Launching executor app-20170523001845-0024/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/23 00:18:45 INFO Master: Launching executor app-20170523001845-0024/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/23 00:18:45 INFO Master: Launching executor app-20170523001845-0024/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/23 00:18:45 INFO Master: Launching executor app-20170523001845-0024/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/23 00:18:45 INFO Master: Received unregister request from application app-20170523001845-0024
+17/05/23 00:18:45 INFO Master: Removing app app-20170523001845-0024
+17/05/23 00:18:45 WARN Master: Got status update for unknown executor app-20170523001845-0024/1
+17/05/23 00:18:45 WARN Master: Got status update for unknown executor app-20170523001845-0024/3
+17/05/23 00:18:45 WARN Master: Got status update for unknown executor app-20170523001845-0024/0
+17/05/23 00:18:45 WARN Master: Got status update for unknown executor app-20170523001845-0024/2
+17/05/23 00:18:45 INFO Master: 130.237.212.71:35654 got disassociated, removing it.
+17/05/23 00:18:45 INFO Master: 130.237.212.71:37718 got disassociated, removing it.
+17/05/23 00:19:00 INFO Master: Registering app KafkaWordCount
+17/05/23 00:19:00 INFO Master: Registered app KafkaWordCount with ID app-20170523001900-0025
+17/05/23 00:19:00 INFO Master: Launching executor app-20170523001900-0025/0 on worker worker-20170522210422-130.237.212.71-34210
+17/05/23 00:19:00 INFO Master: Launching executor app-20170523001900-0025/1 on worker worker-20170522210424-130.237.212.71-42074
+17/05/23 00:19:00 INFO Master: Launching executor app-20170523001900-0025/2 on worker worker-20170522210429-130.237.212.71-35376
+17/05/23 00:19:00 INFO Master: Launching executor app-20170523001900-0025/3 on worker worker-20170522210427-130.237.212.71-33887
+17/05/23 00:19:41 INFO Master: Received unregister request from application app-20170523001900-0025
+17/05/23 00:19:41 INFO Master: Removing app app-20170523001900-0025
+17/05/23 00:19:41 INFO Master: 130.237.212.71:35656 got disassociated, removing it.
+17/05/23 00:19:41 INFO Master: 130.237.212.71:40266 got disassociated, removing it.
+17/05/23 00:19:41 WARN Master: Got status update for unknown executor app-20170523001900-0025/3
+17/05/23 00:19:41 WARN Master: Got status update for unknown executor app-20170523001900-0025/0
+17/05/23 00:19:41 WARN Master: Got status update for unknown executor app-20170523001900-0025/2
+17/05/23 00:19:41 WARN Master: Got status update for unknown executor app-20170523001900-0025/1
+17/05/24 04:19:55 WARN HttpParser: Illegal character 0x4 in state=START for buffer HeapByteBuffer@5493e4f5[p=1,l=10,c=8192,r=9]={\x04<<<\x01\x00P\xC0c\xF660\x00>>>00 OK\r\nDate: Wed,...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/24 04:19:55 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x4 for HttpChannelOverHttp@70183869{r=0,c=false,a=IDLE,uri=null}
+17/05/24 04:19:55 WARN HttpParser: Illegal character 0x4 in state=START for buffer HeapByteBuffer@82ab849[p=1,l=10,c=8192,r=9]={\x04<<<\x01\x00P\xC0c\xF660\x00>>>/httpheader.net/ ...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/24 04:19:55 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x4 for HttpChannelOverHttp@304e6fca{r=0,c=false,a=IDLE,uri=null}
+17/05/24 04:19:55 WARN HttpParser: Illegal character 0x5 in state=START for buffer HeapByteBuffer@5493e4f5[p=1,l=3,c=8192,r=2]={\x05<<<\x01\x00>>>P\xC0c\xF660\x0000 OK\r\nDat...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/24 04:19:55 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x5 for HttpChannelOverHttp@559c2fdf{r=0,c=false,a=IDLE,uri=null}
+17/05/24 05:05:05 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@9f1715d[p=1,l=70,c=8192,r=69]={\x16<<<\x03\x01\x00A\x01\x00\x00=\x03\x01Y$\xF8%\xBfkF...d\x00b\x00\x03\x00\x06\x00\x13\x00\x12\x00c\x01\x00>>>xt/html;charset=u...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/24 05:05:05 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@4cf3fe07{r=0,c=false,a=IDLE,uri=null}
+17/05/24 23:10:25 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@5493e4f5[p=1,l=157,c=8192,r=156]={\x16<<<\x03\x01\x00\x98\x01\x00\x00\x94\x03\x03\xEc\x12S\xDf\n\xE3^...\x01\x05\x01\x06\x01\x02\x01\x04\x02\x05\x02\x06\x02\x02\x02>>>Gecko/20100101 Fi...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/24 23:10:25 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@5b6da632{r=0,c=false,a=IDLE,uri=null}
+17/05/25 02:09:08 WARN HttpParser: Illegal character 0x4 in state=START for buffer HeapByteBuffer@82ab849[p=1,l=9,c=8192,r=8]={\x04<<<\x01\x00P\xB4\xA3qR\x00>>>200 OK\r\nDate: Wed...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 02:09:08 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x4 for HttpChannelOverHttp@586203e6{r=0,c=false,a=IDLE,uri=null}
+17/05/25 02:37:43 WARN HttpParser: Illegal character 0x5 in state=START for buffer HeapByteBuffer@9f1715d[p=1,l=4,c=8192,r=3]={\x05<<<\x02\x00\x02>>>http://www.google...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 02:37:43 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x5 for HttpChannelOverHttp@286c42cb{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:33:51 WARN HttpParser: bad HTTP parsed: 400 Unknown Version for HttpChannelOverHttp@16165088{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:34:56 WARN TransportChannelHandler: Exception in connection from /130.237.31.152:33733
+java.io.IOException: Connection reset by peer
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380)
+	at io.netty.buffer.PooledUnsafeDirectByteBuf.setBytes(PooledUnsafeDirectByteBuf.java:221)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:899)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:275)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:119)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:643)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:566)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:480)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:442)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:745)
+17/05/25 09:34:56 INFO Master: 130.237.31.152:33733 got disassociated, removing it.
+17/05/25 09:35:01 WARN TransportChannelHandler: Exception in connection from /130.237.31.152:35172
+java.io.IOException: Connection reset by peer
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380)
+	at io.netty.buffer.PooledUnsafeDirectByteBuf.setBytes(PooledUnsafeDirectByteBuf.java:221)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:899)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:275)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:119)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:643)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:566)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:480)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:442)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:745)
+17/05/25 09:35:01 INFO Master: 130.237.31.152:35172 got disassociated, removing it.
+17/05/25 09:35:05 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@28bd8129[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x01\xB0G\xB6\x0c\x07\xC5\xDe...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>ge/x-xbitmap, ima...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:35:05 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@1171e3b8{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:05 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@5493e4f5[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x010\xC07\x14\x91\x865...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>SNAPSHOT)\r\n\r\n\r\n\r\n...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:35:05 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@470c3aa4{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:08 WARN HttpParser: bad HTTP parsed: 400 No Host for HttpChannelOverHttp@1184cd79{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:13 WARN HttpParser: bad HTTP parsed: 400 No Host for HttpChannelOverHttp@1e173d{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:18 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@3b44eca6[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x01X\xCaKG\xC6[\xBc...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:35:18 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@7e4675aa{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:18 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@82ab849[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x01\x15\x9cR\x126\x8c\x81...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>3.z-SNAPSHOT)\r\n\r\n...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:35:18 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@628d7cfd{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:23 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@28bd8129[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x01?\xA87X\x88\xE0f...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>ge/x-xbitmap, ima...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:35:23 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@36a58963{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:23 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@9f1715d[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x01\xB7\x1df\x0b7\xE3\xCe...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>ge/x-xbitmap, ima...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:35:23 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@463bf234{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:30 WARN HttpParser: bad HTTP parsed: 400 HTTP/0.9 not supported for HttpChannelOverHttp@3e8a4e57{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:30 WARN HttpParser: bad HTTP parsed: 400 HTTP/0.9 not supported for HttpChannelOverHttp@56d436ef{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:30 WARN HttpParser: bad HTTP parsed: 400 HTTP/0.9 not supported for HttpChannelOverHttp@16669ecb{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:30 WARN HttpParser: bad HTTP parsed: 400 HTTP/0.9 not supported for HttpChannelOverHttp@35eb7f37{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:31 WARN HttpParser: bad HTTP parsed: 400 Unknown Version for HttpChannelOverHttp@7af8e7c2{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:31 WARN HttpParser: bad HTTP parsed: 400 Unknown Version for HttpChannelOverHttp@4347523{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:31 WARN HttpParser: bad HTTP parsed: 400 Unknown Version for HttpChannelOverHttp@480bd1a0{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:31 WARN HttpParser: bad HTTP parsed: 400 Unknown Version for HttpChannelOverHttp@5e586c22{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:35:46 WARN HttpParser: parse exception: java.lang.NumberFormatException: !hex N in END for HttpChannelOverHttp@3ee522d5{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se/%NETHOOD%/}
+17/05/25 09:35:46 WARN HttpParser: parse exception: java.lang.NumberFormatException: !hex N in END for HttpChannelOverHttp@7035c8a4{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se/%NETHOOD%/}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@2e3a3aa5{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/../../../../../../../../../../../../windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@5a9380c{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/../../../../../../../../../../../../winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@1e7baf51{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066../../../../../../../../../../../../windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@5a1273bf{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066../../../../../../../../../../../../winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@1fd07f1b{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066..\..\..\..\..\..\..\..\..\..\windows\win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@61cf342b{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066..\..\..\..\..\..\..\..\..\..\winnt\win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@27da540e{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fwindows%2fwin.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@10d39d3{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fwinnt%2fwin.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@4f40f61b{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@37d5f887{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@6721511d{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cwinnt%5cwin.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@37b0edb3{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/././././././../../../../../windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@75b7f84e{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/././././././../../../../../winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@312e963f{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066.\.\.\.\.\.\.\.\.\.\/windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@1a440817{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066.\.\.\.\.\.\.\.\.\.\/winnt/win.ini}
+17/05/25 09:35:56 WARN URIUtil: /%80../%80../%80../%80../%80../%80../windows/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte 80 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%80../%80../%80../%80../%80../%80../winnt/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte 80 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./windows/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./winnt/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/windows/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/winnt/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@2e3c30a4{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/../../../../../../../../../../../../etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@671c0044{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/./../../../../../../../../../../../etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@67e5d06c{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066//../../../../../../../../../../../../etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@4f900e5b{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@1fa479b3{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@9f7abf7{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/.%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@151b28f2{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@5453a7ab{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066/././././././../../../../../etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@280b71ca{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/../../../../../../../../../../../../windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@30ef36c6{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/../../../../../../../../../../../../winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@719c5875{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080../../../../../../../../../../../../windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@753d18e1{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080../../../../../../../../../../../../winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@5409afb0{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080..\..\..\..\..\..\..\..\..\..\windows\win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@4cbf6de2{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080..\..\..\..\..\..\..\..\..\..\winnt\win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@44dd3328{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fwindows%2fwin.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@2e9e05a7{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fwinnt%2fwin.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@7db3305c{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@6b9cfd27{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@5a2413ac{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5c%2e%2e%5cwinnt%5cwin.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@253ebfec{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/././././././../../../../../windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@6518defa{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/././././././../../../../../winnt/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@549e6d42{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080.\.\.\.\.\.\.\.\.\.\/windows/win.ini}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@2ce29195{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080.\.\.\.\.\.\.\.\.\.\/winnt/win.ini}
+17/05/25 09:35:56 WARN URIUtil: /%80../%80../%80../%80../%80../%80../windows/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte 80 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%80../%80../%80../%80../%80../%80../winnt/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte 80 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./windows/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./winnt/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/windows/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN URIUtil: /%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/%c0%2e%c0%2e/winnt/win.ini org.spark_project.jetty.util.Utf8Appendable$NotUtf8Exception: Not valid UTF8! byte C0 in state 0
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@62abc22e{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/../../../../../../../../../../../../etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@53a47ae3{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/./../../../../../../../../../../../etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@68ebdc9d{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080//../../../../../../../../../../../../etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@68cc74c3{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@6eeb003e{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@447b0a12{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/.%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2f..%2fetc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@79d04257{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2f%2e%2e%2fetc/passwd}
+17/05/25 09:35:56 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@53a6a23d{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080/././././././../../../../../etc/passwd}
+17/05/25 09:35:58 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@6408e7b4{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066..\..\..\..\..\..\windows\win.ini}
+17/05/25 09:35:58 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@59bc7a76{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066..\..\..\..\..\..\winnt\win.ini}
+17/05/25 09:35:58 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@4db4d561{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080..\..\..\..\..\..\windows\win.ini}
+17/05/25 09:35:58 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@119871ac{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080..\..\..\..\..\..\winnt\win.ini}
+17/05/25 09:35:58 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@531c9be8{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066%.}
+17/05/25 09:35:58 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@51fd22e2{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080%.}
+17/05/25 09:36:01 WARN TransportChannelHandler: Exception in connection from /130.237.31.152:40392
+java.io.IOException: Connection reset by peer
+	at sun.nio.ch.FileDispatcherImpl.read0(Native Method)
+	at sun.nio.ch.SocketDispatcher.read(SocketDispatcher.java:39)
+	at sun.nio.ch.IOUtil.readIntoNativeBuffer(IOUtil.java:223)
+	at sun.nio.ch.IOUtil.read(IOUtil.java:192)
+	at sun.nio.ch.SocketChannelImpl.read(SocketChannelImpl.java:380)
+	at io.netty.buffer.PooledUnsafeDirectByteBuf.setBytes(PooledUnsafeDirectByteBuf.java:221)
+	at io.netty.buffer.AbstractByteBuf.writeBytes(AbstractByteBuf.java:899)
+	at io.netty.channel.socket.nio.NioSocketChannel.doReadBytes(NioSocketChannel.java:275)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:119)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:643)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:566)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:480)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:442)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:745)
+17/05/25 09:36:01 INFO Master: 130.237.31.152:40392 got disassociated, removing it.
+17/05/25 09:36:02 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@38241f06{r=1,c=false,a=IDLE,uri=c:\boot.ini}
+17/05/25 09:36:02 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@26e0fd0d{r=1,c=false,a=IDLE,uri=c:\boot.ini}
+17/05/25 09:36:03 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@5790400c{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066<script>document.cookie=%22testyaib=1191;%22</script>}
+17/05/25 09:36:03 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@f7320b8{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:6066<meta%20http-equiv=Set-Cookie%20content=%22testyaib=1191%22>}
+17/05/25 09:36:03 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@7a7cb9ec{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080<script>document.cookie=%22testzawq=9291;%22</script>}
+17/05/25 09:36:03 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@646e73cc{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se:8080<meta%20http-equiv=Set-Cookie%20content=%22testzawq=9291%22>}
+17/05/25 09:36:05 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@3b44eca6[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x01\xDd\xE0t\x14l\x10\xA6...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>mage/x-xbitmap, i...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:36:05 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@714ea2c2{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:36:05 WARN HttpParser: Illegal character 0x16 in state=START for buffer HeapByteBuffer@9f1715d[p=1,l=248,c=8192,r=247]={\x16<<<\x03\x01\x00\xF3\x01\x00\x00\xEf\x03\x01\x89i)(\xE7O\x8f...\x00\x0c\x00\t\x00\n\x00#\x00\x00\x00\x0f\x00\x01\x01>>>SNAPSHOT)\r\n\r\n\r\n\r\n...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/25 09:36:05 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x16 for HttpChannelOverHttp@55cffaa7{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:36:05 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@39a2b0ec{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd}
+17/05/25 09:36:05 WARN HttpParser: bad HTTP parsed: 400 Bad URI for HttpChannelOverHttp@3fd4fce{r=1,c=false,a=IDLE,uri=//sky1.it.kth.se/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/%2e%2e/etc/passwd}
+17/05/25 09:36:09 WARN HttpParser: bad HTTP parsed: 400 HTTP/0.9 not supported for HttpChannelOverHttp@7012bdd6{r=0,c=false,a=IDLE,uri=null}
+17/05/25 09:36:09 WARN HttpParser: bad HTTP parsed: 400 HTTP/0.9 not supported for HttpChannelOverHttp@24fa2da3{r=0,c=false,a=IDLE,uri=null}
+17/05/25 19:51:06 INFO Master: 185.100.87.191:35640 got disassociated, removing it.
+17/05/25 19:51:11 INFO Master: 185.100.87.191:41786 got disassociated, removing it.
+17/05/25 19:51:16 INFO Master: 185.100.87.191:44553 got disassociated, removing it.
+17/05/25 19:51:21 INFO Master: 185.100.87.191:47090 got disassociated, removing it.
+17/05/25 19:51:21 WARN TransportChannelHandler: Exception in connection from /185.100.87.191:49796
+java.lang.IllegalArgumentException: Frame length should be positive: -9223371863126827765
+	at org.spark_project.guava.base.Preconditions.checkArgument(Preconditions.java:119)
+	at org.apache.spark.network.util.TransportFrameDecoder.decodeNext(TransportFrameDecoder.java:134)
+	at org.apache.spark.network.util.TransportFrameDecoder.channelRead(TransportFrameDecoder.java:81)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:343)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:336)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1294)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:343)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:911)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:131)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:643)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:566)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:480)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:442)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:745)
+17/05/25 19:51:21 INFO Master: 185.100.87.191:49796 got disassociated, removing it.
+17/05/25 19:51:26 INFO Master: 185.100.87.191:49864 got disassociated, removing it.
+17/05/25 19:51:32 INFO Master: 185.100.87.191:52573 got disassociated, removing it.
+17/05/25 19:51:39 INFO Master: 185.100.87.191:55057 got disassociated, removing it.
+17/05/25 19:51:44 INFO Master: 185.100.87.191:58979 got disassociated, removing it.
+17/05/25 19:51:49 INFO Master: 185.100.87.191:33573 got disassociated, removing it.
+17/05/25 19:51:54 INFO Master: 185.100.87.191:36318 got disassociated, removing it.
+17/05/25 19:51:59 INFO Master: 185.100.87.191:38958 got disassociated, removing it.
+17/05/25 19:52:04 INFO Master: 185.100.87.191:41455 got disassociated, removing it.
+17/05/25 19:52:09 INFO Master: 185.100.87.191:44009 got disassociated, removing it.
+17/05/25 19:52:14 INFO Master: 185.100.87.191:46519 got disassociated, removing it.
+17/05/25 19:52:20 INFO Master: 185.100.87.191:49089 got disassociated, removing it.
+17/05/25 19:52:25 INFO Master: 185.100.87.191:51858 got disassociated, removing it.
+17/05/25 19:52:32 INFO Master: 185.100.87.191:54584 got disassociated, removing it.
+17/05/25 19:52:37 INFO Master: 185.100.87.191:58854 got disassociated, removing it.
+17/05/25 19:52:42 INFO Master: 185.100.87.191:33399 got disassociated, removing it.
+17/05/25 19:52:47 INFO Master: 185.100.87.191:36385 got disassociated, removing it.
+17/05/25 19:52:52 INFO Master: 185.100.87.191:39159 got disassociated, removing it.
+17/05/25 19:52:57 INFO Master: 185.100.87.191:41944 got disassociated, removing it.
+17/05/25 19:53:03 INFO Master: 185.100.87.191:44805 got disassociated, removing it.
+17/05/25 19:53:08 INFO Master: 185.100.87.191:47525 got disassociated, removing it.
+17/05/25 19:53:13 INFO Master: 185.100.87.191:50320 got disassociated, removing it.
+17/05/25 19:53:32 INFO Master: 185.100.87.191:59876 got disassociated, removing it.
+17/05/25 19:53:35 INFO Master: 185.100.87.191:59867 got disassociated, removing it.
+17/05/25 19:54:05 INFO Master: 185.100.87.191:37200 got disassociated, removing it.
+17/05/25 19:54:06 WARN TransportChannelHandler: Exception in connection from /185.100.87.191:9
+java.lang.IllegalArgumentException: Frame length should be positive: -9223371864710288186
+	at org.spark_project.guava.base.Preconditions.checkArgument(Preconditions.java:119)
+	at org.apache.spark.network.util.TransportFrameDecoder.decodeNext(TransportFrameDecoder.java:134)
+	at org.apache.spark.network.util.TransportFrameDecoder.channelRead(TransportFrameDecoder.java:81)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:343)
+	at io.netty.channel.AbstractChannelHandlerContext.fireChannelRead(AbstractChannelHandlerContext.java:336)
+	at io.netty.channel.DefaultChannelPipeline$HeadContext.channelRead(DefaultChannelPipeline.java:1294)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:357)
+	at io.netty.channel.AbstractChannelHandlerContext.invokeChannelRead(AbstractChannelHandlerContext.java:343)
+	at io.netty.channel.DefaultChannelPipeline.fireChannelRead(DefaultChannelPipeline.java:911)
+	at io.netty.channel.nio.AbstractNioByteChannel$NioByteUnsafe.read(AbstractNioByteChannel.java:131)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKey(NioEventLoop.java:643)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeysOptimized(NioEventLoop.java:566)
+	at io.netty.channel.nio.NioEventLoop.processSelectedKeys(NioEventLoop.java:480)
+	at io.netty.channel.nio.NioEventLoop.run(NioEventLoop.java:442)
+	at io.netty.util.concurrent.SingleThreadEventExecutor$2.run(SingleThreadEventExecutor.java:131)
+	at io.netty.util.concurrent.DefaultThreadFactory$DefaultRunnableDecorator.run(DefaultThreadFactory.java:144)
+	at java.lang.Thread.run(Thread.java:745)
+17/05/25 19:54:06 INFO Master: 185.100.87.191:9 got disassociated, removing it.
+17/05/26 00:30:20 WARN HttpParser: Illegal character 0x0 in state=HEADER_VALUE for buffer HeapByteBuffer@5493e4f5[p=100,l=104,c=8192,r=4]={POST / HTTP/1.1\r\n...: 0\r\nReferer: \x00<<<\r\n\r\n>>>ol: no-cache, no-...\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00}
+17/05/26 00:30:20 WARN HttpParser: bad HTTP parsed: 400 Illegal character 0x0 for HttpChannelOverHttp@7b596af{r=0,c=false,a=IDLE,uri=null}
+17/05/26 12:39:45 ERROR Master: RECEIVED SIGNAL TERM

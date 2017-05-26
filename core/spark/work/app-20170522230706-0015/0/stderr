@@ -1,0 +1,80 @@
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/05/22 23:07:07 INFO CoarseGrainedExecutorBackend: Started daemon with process name: 10739@sky1
+17/05/22 23:07:07 INFO SignalUtils: Registered signal handler for TERM
+17/05/22 23:07:07 INFO SignalUtils: Registered signal handler for HUP
+17/05/22 23:07:07 INFO SignalUtils: Registered signal handler for INT
+17/05/22 23:07:07 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/22 23:07:07 INFO SecurityManager: Changing view acls to: pietro
+17/05/22 23:07:07 INFO SecurityManager: Changing modify acls to: pietro
+17/05/22 23:07:07 INFO SecurityManager: Changing view acls groups to: 
+17/05/22 23:07:07 INFO SecurityManager: Changing modify acls groups to: 
+17/05/22 23:07:07 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(pietro); groups with view permissions: Set(); users  with modify permissions: Set(pietro); groups with modify permissions: Set()
+17/05/22 23:07:08 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:46246 after 57 ms (0 ms spent in bootstraps)
+17/05/22 23:07:08 INFO SecurityManager: Changing view acls to: pietro
+17/05/22 23:07:08 INFO SecurityManager: Changing modify acls to: pietro
+17/05/22 23:07:08 INFO SecurityManager: Changing view acls groups to: 
+17/05/22 23:07:08 INFO SecurityManager: Changing modify acls groups to: 
+17/05/22 23:07:08 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(pietro); groups with view permissions: Set(); users  with modify permissions: Set(pietro); groups with modify permissions: Set()
+17/05/22 23:07:08 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:46246 after 1 ms (0 ms spent in bootstraps)
+17/05/22 23:07:08 INFO DiskBlockManager: Created local directory at /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-55579865-eee6-4420-adc3-9d478c976803/blockmgr-1a9dcbda-fa1a-4e38-8b18-46dd4ea5adc1
+17/05/22 23:07:08 INFO MemoryStore: MemoryStore started with capacity 366.3 MB
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Connecting to driver: spark://CoarseGrainedScheduler@130.237.212.71:46246
+17/05/22 23:07:08 INFO WorkerWatcher: Connecting to worker spark://Worker@130.237.212.71:34210
+17/05/22 23:07:08 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:34210 after 1 ms (0 ms spent in bootstraps)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Successfully registered with driver
+17/05/22 23:07:08 INFO Executor: Starting executor ID 0 on host 130.237.212.71
+17/05/22 23:07:08 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 41344.
+17/05/22 23:07:08 INFO NettyBlockTransferService: Server created on 130.237.212.71:41344
+17/05/22 23:07:08 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+17/05/22 23:07:08 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(0, 130.237.212.71, 41344, None)
+17/05/22 23:07:08 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(0, 130.237.212.71, 41344, None)
+17/05/22 23:07:08 INFO BlockManager: Initialized BlockManager: BlockManagerId(0, 130.237.212.71, 41344, None)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 0
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 1
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 2
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 3
+17/05/22 23:07:08 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)
+17/05/22 23:07:08 INFO Executor: Running task 2.0 in stage 0.0 (TID 2)
+17/05/22 23:07:08 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+17/05/22 23:07:08 INFO Executor: Running task 3.0 in stage 0.0 (TID 3)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 4
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 5
+17/05/22 23:07:08 INFO Executor: Running task 4.0 in stage 0.0 (TID 4)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 6
+17/05/22 23:07:08 INFO Executor: Running task 5.0 in stage 0.0 (TID 5)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 7
+17/05/22 23:07:08 INFO Executor: Running task 6.0 in stage 0.0 (TID 6)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 8
+17/05/22 23:07:08 INFO Executor: Running task 7.0 in stage 0.0 (TID 7)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 9
+17/05/22 23:07:08 INFO Executor: Running task 8.0 in stage 0.0 (TID 8)
+17/05/22 23:07:08 INFO Executor: Running task 9.0 in stage 0.0 (TID 9)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 10
+17/05/22 23:07:08 INFO Executor: Running task 10.0 in stage 0.0 (TID 10)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 11
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 12
+17/05/22 23:07:08 INFO Executor: Running task 11.0 in stage 0.0 (TID 11)
+17/05/22 23:07:08 INFO Executor: Running task 12.0 in stage 0.0 (TID 12)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 13
+17/05/22 23:07:08 INFO Executor: Running task 13.0 in stage 0.0 (TID 13)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 14
+17/05/22 23:07:08 INFO Executor: Running task 14.0 in stage 0.0 (TID 14)
+17/05/22 23:07:08 INFO CoarseGrainedExecutorBackend: Got assigned task 15
+17/05/22 23:07:08 INFO Executor: Running task 15.0 in stage 0.0 (TID 15)
+17/05/22 23:07:08 INFO Executor: Fetching spark://130.237.212.71:46246/jars/spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar with timestamp 1495487226274
+17/05/22 23:07:08 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:46246 after 1 ms (0 ms spent in bootstraps)
+17/05/22 23:07:08 INFO Utils: Fetching spark://130.237.212.71:46246/jars/spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar to /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-55579865-eee6-4420-adc3-9d478c976803/spark-081a99a7-b071-46da-9c92-9759d354e568/fetchFileTemp6363312486221399702.tmp
+17/05/22 23:07:08 INFO Utils: Copying /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-55579865-eee6-4420-adc3-9d478c976803/spark-081a99a7-b071-46da-9c92-9759d354e568/19438030031495487226274_cache to /home/pietro/spark/work/app-20170522230706-0015/0/./spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar
+17/05/22 23:07:08 INFO Executor: Adding file:/home/pietro/spark/work/app-20170522230706-0015/0/./spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar to class loader
+17/05/22 23:07:08 INFO Executor: Fetching spark://130.237.212.71:46246/jars/thesis01_2.11-1.0.jar with timestamp 1495487226274
+17/05/22 23:07:08 INFO Utils: Fetching spark://130.237.212.71:46246/jars/thesis01_2.11-1.0.jar to /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-55579865-eee6-4420-adc3-9d478c976803/spark-081a99a7-b071-46da-9c92-9759d354e568/fetchFileTemp3031725467457092479.tmp
+17/05/22 23:07:08 INFO Utils: Copying /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-55579865-eee6-4420-adc3-9d478c976803/spark-081a99a7-b071-46da-9c92-9759d354e568/12341803751495487226274_cache to /home/pietro/spark/work/app-20170522230706-0015/0/./thesis01_2.11-1.0.jar
+17/05/22 23:07:08 INFO Executor: Adding file:/home/pietro/spark/work/app-20170522230706-0015/0/./thesis01_2.11-1.0.jar to class loader
+17/05/22 23:07:09 INFO TorrentBroadcast: Started reading broadcast variable 0
+17/05/22 23:07:09 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:42898 after 1 ms (0 ms spent in bootstraps)
+17/05/22 23:07:09 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 2011.0 B, free 366.3 MB)
+17/05/22 23:07:09 INFO TorrentBroadcast: Reading broadcast variable 0 took 121 ms
+17/05/22 23:07:09 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 3.1 KB, free 366.3 MB)
+17/05/22 23:07:09 INFO CoarseGrainedExecutorBackend: Driver commanded a shutdown
+17/05/22 23:07:09 ERROR CoarseGrainedExecutorBackend: RECEIVED SIGNAL TERM
+tdown

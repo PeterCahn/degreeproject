@@ -1,0 +1,6 @@
+/home/pietro/spark/streaming/src/main/java/org/apache/spark/streaming/StreamingContextState.java
+/home/pietro/spark/streaming/src/main/java/org/apache/spark/streaming/util/WriteAheadLog.java
+/home/pietro/spark/streaming/src/main/scala/org/apache/spark/streaming/dstream/package-info.java
+/home/pietro/spark/streaming/src/main/java/org/apache/spark/status/api/v1/streaming/BatchStatus.java
+/home/pietro/spark/streaming/src/main/java/org/apache/spark/streaming/util/WriteAheadLogRecordHandle.java
+/home/pietro/spark/streaming/src/main/scala/org/apache/spark/streaming/api/java/package-info.java

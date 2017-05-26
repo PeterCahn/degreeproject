@@ -1,0 +1,189 @@
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/05/22 21:05:03 INFO CoarseGrainedExecutorBackend: Started daemon with process name: 869@sky1
+17/05/22 21:05:03 INFO SignalUtils: Registered signal handler for TERM
+17/05/22 21:05:03 INFO SignalUtils: Registered signal handler for HUP
+17/05/22 21:05:03 INFO SignalUtils: Registered signal handler for INT
+17/05/22 21:05:04 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/22 21:05:04 INFO SecurityManager: Changing view acls to: pietro
+17/05/22 21:05:04 INFO SecurityManager: Changing modify acls to: pietro
+17/05/22 21:05:04 INFO SecurityManager: Changing view acls groups to: 
+17/05/22 21:05:04 INFO SecurityManager: Changing modify acls groups to: 
+17/05/22 21:05:04 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(pietro); groups with view permissions: Set(); users  with modify permissions: Set(pietro); groups with modify permissions: Set()
+17/05/22 21:05:04 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:44583 after 59 ms (0 ms spent in bootstraps)
+17/05/22 21:05:05 INFO SecurityManager: Changing view acls to: pietro
+17/05/22 21:05:05 INFO SecurityManager: Changing modify acls to: pietro
+17/05/22 21:05:05 INFO SecurityManager: Changing view acls groups to: 
+17/05/22 21:05:05 INFO SecurityManager: Changing modify acls groups to: 
+17/05/22 21:05:05 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(pietro); groups with view permissions: Set(); users  with modify permissions: Set(pietro); groups with modify permissions: Set()
+17/05/22 21:05:05 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:44583 after 2 ms (0 ms spent in bootstraps)
+17/05/22 21:05:05 INFO DiskBlockManager: Created local directory at /tmp/spark-f5237a40-441f-4f24-b3ae-4502333fbcd5/executor-1a3d45cf-9687-4224-a414-ba25109ba521/blockmgr-22d36990-40bc-498d-91e9-4e99ce06653e
+17/05/22 21:05:05 INFO MemoryStore: MemoryStore started with capacity 366.3 MB
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Connecting to driver: spark://CoarseGrainedScheduler@130.237.212.71:44583
+17/05/22 21:05:05 INFO WorkerWatcher: Connecting to worker spark://Worker@130.237.212.71:33887
+17/05/22 21:05:05 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:33887 after 1 ms (0 ms spent in bootstraps)
+17/05/22 21:05:05 INFO WorkerWatcher: Successfully connected to spark://Worker@130.237.212.71:33887
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Successfully registered with driver
+17/05/22 21:05:05 INFO Executor: Starting executor ID 3 on host 130.237.212.71
+17/05/22 21:05:05 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 46278.
+17/05/22 21:05:05 INFO NettyBlockTransferService: Server created on 130.237.212.71:46278
+17/05/22 21:05:05 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+17/05/22 21:05:05 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(3, 130.237.212.71, 46278, None)
+17/05/22 21:05:05 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(3, 130.237.212.71, 46278, None)
+17/05/22 21:05:05 INFO BlockManager: Initialized BlockManager: BlockManagerId(3, 130.237.212.71, 46278, None)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 0
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 1
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 2
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 3
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 4
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 5
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 6
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 7
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 8
+17/05/22 21:05:05 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)
+17/05/22 21:05:05 INFO Executor: Running task 6.0 in stage 0.0 (TID 6)
+17/05/22 21:05:05 INFO Executor: Running task 2.0 in stage 0.0 (TID 2)
+17/05/22 21:05:05 INFO Executor: Running task 8.0 in stage 0.0 (TID 8)
+17/05/22 21:05:05 INFO Executor: Running task 3.0 in stage 0.0 (TID 3)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 9
+17/05/22 21:05:05 INFO Executor: Running task 5.0 in stage 0.0 (TID 5)
+17/05/22 21:05:05 INFO Executor: Running task 7.0 in stage 0.0 (TID 7)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 10
+17/05/22 21:05:05 INFO Executor: Running task 4.0 in stage 0.0 (TID 4)
+17/05/22 21:05:05 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+17/05/22 21:05:05 INFO Executor: Running task 9.0 in stage 0.0 (TID 9)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 11
+17/05/22 21:05:05 INFO Executor: Running task 10.0 in stage 0.0 (TID 10)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 12
+17/05/22 21:05:05 INFO Executor: Running task 11.0 in stage 0.0 (TID 11)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 13
+17/05/22 21:05:05 INFO Executor: Running task 12.0 in stage 0.0 (TID 12)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 14
+17/05/22 21:05:05 INFO Executor: Running task 13.0 in stage 0.0 (TID 13)
+17/05/22 21:05:05 INFO Executor: Running task 14.0 in stage 0.0 (TID 14)
+17/05/22 21:05:05 INFO CoarseGrainedExecutorBackend: Got assigned task 15
+17/05/22 21:05:05 INFO Executor: Running task 15.0 in stage 0.0 (TID 15)
+17/05/22 21:05:05 INFO Executor: Fetching spark://130.237.212.71:44583/jars/thesis01_2.11-1.0.jar with timestamp 1495479903123
+17/05/22 21:05:05 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:44583 after 1 ms (0 ms spent in bootstraps)
+17/05/22 21:05:05 INFO Utils: Fetching spark://130.237.212.71:44583/jars/thesis01_2.11-1.0.jar to /tmp/spark-f5237a40-441f-4f24-b3ae-4502333fbcd5/executor-1a3d45cf-9687-4224-a414-ba25109ba521/spark-cf0c0fc9-e2dd-4caf-ac9d-457a4096826d/fetchFileTemp2373021222966056716.tmp
+17/05/22 21:05:05 INFO Utils: Copying /tmp/spark-f5237a40-441f-4f24-b3ae-4502333fbcd5/executor-1a3d45cf-9687-4224-a414-ba25109ba521/spark-cf0c0fc9-e2dd-4caf-ac9d-457a4096826d/-1918219911495479903123_cache to /home/pietro/spark/work/app-20170522210503-0001/3/./thesis01_2.11-1.0.jar
+17/05/22 21:05:05 INFO Executor: Adding file:/home/pietro/spark/work/app-20170522210503-0001/3/./thesis01_2.11-1.0.jar to class loader
+17/05/22 21:05:05 INFO Executor: Fetching spark://130.237.212.71:44583/jars/spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar with timestamp 1495479903122
+17/05/22 21:05:05 INFO Utils: Fetching spark://130.237.212.71:44583/jars/spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar to /tmp/spark-f5237a40-441f-4f24-b3ae-4502333fbcd5/executor-1a3d45cf-9687-4224-a414-ba25109ba521/spark-cf0c0fc9-e2dd-4caf-ac9d-457a4096826d/fetchFileTemp6919398829211105565.tmp
+17/05/22 21:05:05 INFO Utils: Copying /tmp/spark-f5237a40-441f-4f24-b3ae-4502333fbcd5/executor-1a3d45cf-9687-4224-a414-ba25109ba521/spark-cf0c0fc9-e2dd-4caf-ac9d-457a4096826d/-19165164871495479903122_cache to /home/pietro/spark/work/app-20170522210503-0001/3/./spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar
+17/05/22 21:05:05 INFO Executor: Adding file:/home/pietro/spark/work/app-20170522210503-0001/3/./spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar to class loader
+17/05/22 21:05:05 INFO TorrentBroadcast: Started reading broadcast variable 0
+17/05/22 21:05:06 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:33305 after 1 ms (0 ms spent in bootstraps)
+17/05/22 21:05:06 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 2011.0 B, free 366.3 MB)
+17/05/22 21:05:06 INFO TorrentBroadcast: Reading broadcast variable 0 took 168 ms
+17/05/22 21:05:06 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 3.1 KB, free 366.3 MB)
+17/05/22 21:05:06 INFO Executor: Finished task 13.0 in stage 0.0 (TID 13). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 9.0 in stage 0.0 (TID 9). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 4.0 in stage 0.0 (TID 4). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 7.0 in stage 0.0 (TID 7). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 11.0 in stage 0.0 (TID 11). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 2.0 in stage 0.0 (TID 2). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 14.0 in stage 0.0 (TID 14). 1040 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 5.0 in stage 0.0 (TID 5). 1040 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 10.0 in stage 0.0 (TID 10). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 8.0 in stage 0.0 (TID 8). 1040 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 3.0 in stage 0.0 (TID 3). 1873 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 6.0 in stage 0.0 (TID 6). 1040 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 15.0 in stage 0.0 (TID 15). 1040 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 12.0 in stage 0.0 (TID 12). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO Executor: Finished task 1.0 in stage 0.0 (TID 1). 1083 bytes result sent to driver
+17/05/22 21:05:06 INFO CoarseGrainedExecutorBackend: Got assigned task 52
+17/05/22 21:05:06 INFO CoarseGrainedExecutorBackend: Got assigned task 56
+17/05/22 21:05:06 INFO CoarseGrainedExecutorBackend: Got assigned task 60
+17/05/22 21:05:06 INFO CoarseGrainedExecutorBackend: Got assigned task 64
+17/05/22 21:05:06 INFO CoarseGrainedExecutorBackend: Got assigned task 68
+17/05/22 21:05:06 INFO Executor: Running task 14.0 in stage 1.0 (TID 64)
+17/05/22 21:05:06 INFO Executor: Running task 2.0 in stage 1.0 (TID 52)
+17/05/22 21:05:06 INFO Executor: Running task 6.0 in stage 1.0 (TID 56)
+17/05/22 21:05:06 INFO Executor: Running task 10.0 in stage 1.0 (TID 60)
+17/05/22 21:05:06 INFO Executor: Running task 18.0 in stage 1.0 (TID 68)
+17/05/22 21:05:06 INFO MapOutputTrackerWorker: Updating epoch to 1 and clearing cache
+17/05/22 21:05:06 INFO TorrentBroadcast: Started reading broadcast variable 1
+17/05/22 21:05:06 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 1974.0 B, free 366.3 MB)
+17/05/22 21:05:06 INFO TorrentBroadcast: Reading broadcast variable 1 took 24 ms
+17/05/22 21:05:06 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 3.2 KB, free 366.3 MB)
+17/05/22 21:05:07 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:05:07 INFO MapOutputTrackerWorker: Doing the fetch; tracker endpoint = NettyRpcEndpointRef(spark://MapOutputTracker@130.237.212.71:44583)
+17/05/22 21:05:07 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:05:07 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:05:07 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:05:07 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:05:07 INFO MapOutputTrackerWorker: Got the output locations
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 50 blocks
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 50 blocks
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Getting 3 non-empty blocks out of 50 blocks
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Getting 3 non-empty blocks out of 50 blocks
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Getting 3 non-empty blocks out of 50 blocks
+17/05/22 21:05:07 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:41367 after 1 ms (0 ms spent in bootstraps)
+17/05/22 21:05:07 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:36853 after 3 ms (0 ms spent in bootstraps)
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 13 ms
+17/05/22 21:05:07 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:45373 after 4 ms (0 ms spent in bootstraps)
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 20 ms
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 20 ms
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 19 ms
+17/05/22 21:05:07 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 16 ms
+17/05/22 21:05:07 INFO Executor: Finished task 18.0 in stage 1.0 (TID 68). 1350 bytes result sent to driver
+17/05/22 21:05:07 INFO Executor: Finished task 14.0 in stage 1.0 (TID 64). 1350 bytes result sent to driver
+17/05/22 21:05:07 INFO Executor: Finished task 2.0 in stage 1.0 (TID 52). 2118 bytes result sent to driver
+17/05/22 21:05:07 INFO Executor: Finished task 6.0 in stage 1.0 (TID 56). 1371 bytes result sent to driver
+17/05/22 21:05:07 INFO Executor: Finished task 10.0 in stage 1.0 (TID 60). 1328 bytes result sent to driver
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 72
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 76
+17/05/22 21:05:08 INFO Executor: Running task 5.0 in stage 3.0 (TID 76)
+17/05/22 21:05:08 INFO Executor: Running task 1.0 in stage 3.0 (TID 72)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 80
+17/05/22 21:05:08 INFO Executor: Running task 9.0 in stage 3.0 (TID 80)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 84
+17/05/22 21:05:08 INFO Executor: Running task 13.0 in stage 3.0 (TID 84)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 88
+17/05/22 21:05:08 INFO TorrentBroadcast: Started reading broadcast variable 3
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 92
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 96
+17/05/22 21:05:08 INFO Executor: Running task 17.0 in stage 3.0 (TID 88)
+17/05/22 21:05:08 INFO Executor: Running task 25.0 in stage 3.0 (TID 96)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 100
+17/05/22 21:05:08 INFO Executor: Running task 29.0 in stage 3.0 (TID 100)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 104
+17/05/22 21:05:08 INFO Executor: Running task 33.0 in stage 3.0 (TID 104)
+17/05/22 21:05:08 INFO Executor: Running task 21.0 in stage 3.0 (TID 92)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 108
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 112
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 116
+17/05/22 21:05:08 INFO Executor: Running task 41.0 in stage 3.0 (TID 112)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 120
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 124
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 128
+17/05/22 21:05:08 INFO Executor: Running task 37.0 in stage 3.0 (TID 108)
+17/05/22 21:05:08 INFO Executor: Running task 57.0 in stage 3.0 (TID 128)
+17/05/22 21:05:08 INFO CoarseGrainedExecutorBackend: Got assigned task 131
+17/05/22 21:05:08 INFO Executor: Running task 45.0 in stage 3.0 (TID 116)
+17/05/22 21:05:08 INFO Executor: Running task 60.0 in stage 3.0 (TID 131)
+17/05/22 21:05:08 INFO Executor: Running task 53.0 in stage 3.0 (TID 124)
+17/05/22 21:05:08 INFO Executor: Running task 49.0 in stage 3.0 (TID 120)
+17/05/22 21:05:08 INFO MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 1307.0 B, free 366.3 MB)
+17/05/22 21:05:08 INFO TorrentBroadcast: Reading broadcast variable 3 took 40 ms
+17/05/22 21:05:08 INFO MemoryStore: Block broadcast_3 stored as values in memory (estimated size 2.0 KB, free 366.3 MB)
+17/05/22 21:05:08 INFO Executor: Finished task 57.0 in stage 3.0 (TID 128). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 60.0 in stage 3.0 (TID 131). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 5.0 in stage 3.0 (TID 76). 1554 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 49.0 in stage 3.0 (TID 120). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 21.0 in stage 3.0 (TID 92). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 25.0 in stage 3.0 (TID 96). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 1.0 in stage 3.0 (TID 72). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 9.0 in stage 3.0 (TID 80). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 45.0 in stage 3.0 (TID 116). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 53.0 in stage 3.0 (TID 124). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 13.0 in stage 3.0 (TID 84). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 41.0 in stage 3.0 (TID 112). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 29.0 in stage 3.0 (TID 100). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 17.0 in stage 3.0 (TID 88). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 33.0 in stage 3.0 (TID 104). 764 bytes result sent to driver
+17/05/22 21:05:08 INFO Executor: Finished task 37.0 in stage 3.0 (TID 108). 764 bytes result sent to driver
+17/05/22 21:05:16 INFO CoarseGrainedExecutorBackend: Driver commanded a shutdown
+17/05/22 21:05:16 ERROR CoarseGrainedExecutorBackend: RECEIVED SIGNAL TERM
+tdown

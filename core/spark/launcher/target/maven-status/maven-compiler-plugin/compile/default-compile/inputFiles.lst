@@ -1,0 +1,15 @@
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/SparkAppHandle.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/package-info.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/SparkClassCommandBuilder.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/AbstractCommandBuilder.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/LauncherConnection.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/ChildProcAppHandle.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/CommandBuilderUtils.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/SparkSubmitCommandBuilder.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/SparkSubmitOptionParser.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/NamedThreadFactory.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/LauncherProtocol.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/LauncherServer.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/Main.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/SparkLauncher.java
+/home/pietro/spark/launcher/src/main/java/org/apache/spark/launcher/OutputRedirector.java

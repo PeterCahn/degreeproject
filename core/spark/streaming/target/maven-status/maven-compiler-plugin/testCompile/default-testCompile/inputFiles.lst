@@ -1,0 +1,9 @@
+/home/pietro/spark/streaming/src/test/java/org/apache/spark/streaming/JavaStreamingListenerAPISuite.java
+/home/pietro/spark/streaming/src/test/java/org/apache/spark/streaming/LocalJavaStreamingContext.java
+/home/pietro/spark/streaming/src/test/java/org/apache/spark/streaming/JavaMapWithStateSuite.java
+/home/pietro/spark/streaming/src/test/java/test/org/apache/spark/streaming/JavaAPISuite.java
+/home/pietro/spark/streaming/src/test/java/org/apache/spark/streaming/JavaTimeSuite.java
+/home/pietro/spark/streaming/src/test/java/test/org/apache/spark/streaming/Java8APISuite.java
+/home/pietro/spark/streaming/src/test/java/org/apache/spark/streaming/JavaReceiverAPISuite.java
+/home/pietro/spark/streaming/src/test/java/org/apache/spark/streaming/JavaWriteAheadLogSuite.java
+/home/pietro/spark/streaming/src/test/java/org/apache/spark/streaming/JavaDurationSuite.java

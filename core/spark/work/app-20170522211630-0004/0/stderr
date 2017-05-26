@@ -1,0 +1,270 @@
+Using Spark's default log4j profile: org/apache/spark/log4j-defaults.properties
+17/05/22 21:16:30 INFO CoarseGrainedExecutorBackend: Started daemon with process name: 3513@sky1
+17/05/22 21:16:30 INFO SignalUtils: Registered signal handler for TERM
+17/05/22 21:16:30 INFO SignalUtils: Registered signal handler for HUP
+17/05/22 21:16:30 INFO SignalUtils: Registered signal handler for INT
+17/05/22 21:16:31 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+17/05/22 21:16:31 INFO SecurityManager: Changing view acls to: pietro
+17/05/22 21:16:31 INFO SecurityManager: Changing modify acls to: pietro
+17/05/22 21:16:31 INFO SecurityManager: Changing view acls groups to: 
+17/05/22 21:16:31 INFO SecurityManager: Changing modify acls groups to: 
+17/05/22 21:16:31 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(pietro); groups with view permissions: Set(); users  with modify permissions: Set(pietro); groups with modify permissions: Set()
+17/05/22 21:16:31 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:35985 after 56 ms (0 ms spent in bootstraps)
+17/05/22 21:16:31 INFO SecurityManager: Changing view acls to: pietro
+17/05/22 21:16:31 INFO SecurityManager: Changing modify acls to: pietro
+17/05/22 21:16:31 INFO SecurityManager: Changing view acls groups to: 
+17/05/22 21:16:31 INFO SecurityManager: Changing modify acls groups to: 
+17/05/22 21:16:31 INFO SecurityManager: SecurityManager: authentication disabled; ui acls disabled; users  with view permissions: Set(pietro); groups with view permissions: Set(); users  with modify permissions: Set(pietro); groups with modify permissions: Set()
+17/05/22 21:16:31 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:35985 after 1 ms (0 ms spent in bootstraps)
+17/05/22 21:16:32 INFO DiskBlockManager: Created local directory at /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-9570e1bb-9c46-4a41-a663-8313a3df7cdf/blockmgr-c604fe61-d834-44de-95c2-59f8b4066848
+17/05/22 21:16:32 INFO MemoryStore: MemoryStore started with capacity 366.3 MB
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Connecting to driver: spark://CoarseGrainedScheduler@130.237.212.71:35985
+17/05/22 21:16:32 INFO WorkerWatcher: Connecting to worker spark://Worker@130.237.212.71:34210
+17/05/22 21:16:32 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:34210 after 1 ms (0 ms spent in bootstraps)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Successfully registered with driver
+17/05/22 21:16:32 INFO Executor: Starting executor ID 0 on host 130.237.212.71
+17/05/22 21:16:32 INFO Utils: Successfully started service 'org.apache.spark.network.netty.NettyBlockTransferService' on port 38599.
+17/05/22 21:16:32 INFO NettyBlockTransferService: Server created on 130.237.212.71:38599
+17/05/22 21:16:32 INFO BlockManager: Using org.apache.spark.storage.RandomBlockReplicationPolicy for block replication policy
+17/05/22 21:16:32 INFO BlockManagerMaster: Registering BlockManager BlockManagerId(0, 130.237.212.71, 38599, None)
+17/05/22 21:16:32 INFO BlockManagerMaster: Registered BlockManager BlockManagerId(0, 130.237.212.71, 38599, None)
+17/05/22 21:16:32 INFO BlockManager: Initialized BlockManager: BlockManagerId(0, 130.237.212.71, 38599, None)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 0
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 1
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 2
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 3
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 4
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 5
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 6
+17/05/22 21:16:32 INFO Executor: Running task 2.0 in stage 0.0 (TID 2)
+17/05/22 21:16:32 INFO Executor: Running task 5.0 in stage 0.0 (TID 5)
+17/05/22 21:16:32 INFO Executor: Running task 6.0 in stage 0.0 (TID 6)
+17/05/22 21:16:32 INFO Executor: Running task 4.0 in stage 0.0 (TID 4)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 7
+17/05/22 21:16:32 INFO Executor: Running task 1.0 in stage 0.0 (TID 1)
+17/05/22 21:16:32 INFO Executor: Running task 0.0 in stage 0.0 (TID 0)
+17/05/22 21:16:32 INFO Executor: Running task 3.0 in stage 0.0 (TID 3)
+17/05/22 21:16:32 INFO Executor: Running task 7.0 in stage 0.0 (TID 7)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 8
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 9
+17/05/22 21:16:32 INFO Executor: Running task 8.0 in stage 0.0 (TID 8)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 10
+17/05/22 21:16:32 INFO Executor: Running task 9.0 in stage 0.0 (TID 9)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 11
+17/05/22 21:16:32 INFO Executor: Running task 10.0 in stage 0.0 (TID 10)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 12
+17/05/22 21:16:32 INFO Executor: Running task 11.0 in stage 0.0 (TID 11)
+17/05/22 21:16:32 INFO Executor: Running task 12.0 in stage 0.0 (TID 12)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 13
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 14
+17/05/22 21:16:32 INFO Executor: Running task 13.0 in stage 0.0 (TID 13)
+17/05/22 21:16:32 INFO CoarseGrainedExecutorBackend: Got assigned task 15
+17/05/22 21:16:32 INFO Executor: Running task 14.0 in stage 0.0 (TID 14)
+17/05/22 21:16:32 INFO Executor: Running task 15.0 in stage 0.0 (TID 15)
+17/05/22 21:16:32 INFO Executor: Fetching spark://130.237.212.71:35985/jars/thesis01_2.11-1.0.jar with timestamp 1495480589966
+17/05/22 21:16:32 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:35985 after 2 ms (0 ms spent in bootstraps)
+17/05/22 21:16:32 INFO Utils: Fetching spark://130.237.212.71:35985/jars/thesis01_2.11-1.0.jar to /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-9570e1bb-9c46-4a41-a663-8313a3df7cdf/spark-91e6a6ac-660a-4569-9de9-8189ba6985e6/fetchFileTemp1826289176363291470.tmp
+17/05/22 21:16:32 INFO Utils: Copying /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-9570e1bb-9c46-4a41-a663-8313a3df7cdf/spark-91e6a6ac-660a-4569-9de9-8189ba6985e6/17048732051495480589966_cache to /home/pietro/spark/work/app-20170522211630-0004/0/./thesis01_2.11-1.0.jar
+17/05/22 21:16:32 INFO Executor: Adding file:/home/pietro/spark/work/app-20170522211630-0004/0/./thesis01_2.11-1.0.jar to class loader
+17/05/22 21:16:32 INFO Executor: Fetching spark://130.237.212.71:35985/jars/spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar with timestamp 1495480589965
+17/05/22 21:16:32 INFO Utils: Fetching spark://130.237.212.71:35985/jars/spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar to /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-9570e1bb-9c46-4a41-a663-8313a3df7cdf/spark-91e6a6ac-660a-4569-9de9-8189ba6985e6/fetchFileTemp3990133410583221426.tmp
+17/05/22 21:16:32 INFO Utils: Copying /tmp/spark-77c6c401-d871-4e80-a6e7-d0bf60ee50e3/executor-9570e1bb-9c46-4a41-a663-8313a3df7cdf/spark-91e6a6ac-660a-4569-9de9-8189ba6985e6/11307303331495480589965_cache to /home/pietro/spark/work/app-20170522211630-0004/0/./spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar
+17/05/22 21:16:32 INFO Executor: Adding file:/home/pietro/spark/work/app-20170522211630-0004/0/./spark-streaming-kafka-0-8-assembly_2.11-2.3.0-SNAPSHOT.jar to class loader
+17/05/22 21:16:32 INFO TorrentBroadcast: Started reading broadcast variable 0
+17/05/22 21:16:32 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:40894 after 1 ms (0 ms spent in bootstraps)
+17/05/22 21:16:32 INFO MemoryStore: Block broadcast_0_piece0 stored as bytes in memory (estimated size 2011.0 B, free 366.3 MB)
+17/05/22 21:16:32 INFO TorrentBroadcast: Reading broadcast variable 0 took 121 ms
+17/05/22 21:16:32 INFO MemoryStore: Block broadcast_0 stored as values in memory (estimated size 3.1 KB, free 366.3 MB)
+17/05/22 21:16:33 INFO Executor: Finished task 12.0 in stage 0.0 (TID 12). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 6.0 in stage 0.0 (TID 6). 1083 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 9.0 in stage 0.0 (TID 9). 1083 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 0.0 in stage 0.0 (TID 0). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 5.0 in stage 0.0 (TID 5). 1083 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 2.0 in stage 0.0 (TID 2). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 13.0 in stage 0.0 (TID 13). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 7.0 in stage 0.0 (TID 7). 1083 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 11.0 in stage 0.0 (TID 11). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 15.0 in stage 0.0 (TID 15). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 1.0 in stage 0.0 (TID 1). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 3.0 in stage 0.0 (TID 3). 1083 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 4.0 in stage 0.0 (TID 4). 1083 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 10.0 in stage 0.0 (TID 10). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 14.0 in stage 0.0 (TID 14). 1040 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 8.0 in stage 0.0 (TID 8). 1873 bytes result sent to driver
+17/05/22 21:16:33 INFO CoarseGrainedExecutorBackend: Got assigned task 52
+17/05/22 21:16:33 INFO CoarseGrainedExecutorBackend: Got assigned task 56
+17/05/22 21:16:33 INFO Executor: Running task 6.0 in stage 1.0 (TID 56)
+17/05/22 21:16:33 INFO Executor: Running task 2.0 in stage 1.0 (TID 52)
+17/05/22 21:16:33 INFO CoarseGrainedExecutorBackend: Got assigned task 60
+17/05/22 21:16:33 INFO Executor: Running task 10.0 in stage 1.0 (TID 60)
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Updating epoch to 1 and clearing cache
+17/05/22 21:16:33 INFO CoarseGrainedExecutorBackend: Got assigned task 64
+17/05/22 21:16:33 INFO Executor: Running task 14.0 in stage 1.0 (TID 64)
+17/05/22 21:16:33 INFO CoarseGrainedExecutorBackend: Got assigned task 68
+17/05/22 21:16:33 INFO Executor: Running task 18.0 in stage 1.0 (TID 68)
+17/05/22 21:16:33 INFO TorrentBroadcast: Started reading broadcast variable 1
+17/05/22 21:16:33 INFO MemoryStore: Block broadcast_1_piece0 stored as bytes in memory (estimated size 1974.0 B, free 366.3 MB)
+17/05/22 21:16:33 INFO TorrentBroadcast: Reading broadcast variable 1 took 25 ms
+17/05/22 21:16:33 INFO MemoryStore: Block broadcast_1 stored as values in memory (estimated size 3.2 KB, free 366.3 MB)
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Don't have map outputs for shuffle 0, fetching them
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Doing the fetch; tracker endpoint = NettyRpcEndpointRef(spark://MapOutputTracker@130.237.212.71:35985)
+17/05/22 21:16:33 INFO MapOutputTrackerWorker: Got the output locations
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Getting 3 non-empty blocks out of 50 blocks
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Getting 3 non-empty blocks out of 50 blocks
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 50 blocks
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Getting 3 non-empty blocks out of 50 blocks
+17/05/22 21:16:33 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:36007 after 3 ms (0 ms spent in bootstraps)
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Getting 2 non-empty blocks out of 50 blocks
+17/05/22 21:16:33 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:40128 after 53 ms (0 ms spent in bootstraps)
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Started 1 remote fetches in 63 ms
+17/05/22 21:16:33 INFO TransportClientFactory: Successfully created connection to /130.237.212.71:37376 after 58 ms (0 ms spent in bootstraps)
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 72 ms
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 79 ms
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 81 ms
+17/05/22 21:16:33 INFO ShuffleBlockFetcherIterator: Started 2 remote fetches in 68 ms
+17/05/22 21:16:33 INFO Executor: Finished task 14.0 in stage 1.0 (TID 64). 1350 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 6.0 in stage 1.0 (TID 56). 2118 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 10.0 in stage 1.0 (TID 60). 1328 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 2.0 in stage 1.0 (TID 52). 1328 bytes result sent to driver
+17/05/22 21:16:33 INFO Executor: Finished task 18.0 in stage 1.0 (TID 68). 1307 bytes result sent to driver
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 70
+17/05/22 21:16:34 INFO Executor: Running task 0.0 in stage 2.0 (TID 70)
+17/05/22 21:16:34 INFO TorrentBroadcast: Started reading broadcast variable 2
+17/05/22 21:16:34 INFO MemoryStore: Block broadcast_2_piece0 stored as bytes in memory (estimated size 21.5 KB, free 366.3 MB)
+17/05/22 21:16:34 INFO TorrentBroadcast: Reading broadcast variable 2 took 11 ms
+17/05/22 21:16:34 INFO MemoryStore: Block broadcast_2 stored as values in memory (estimated size 62.1 KB, free 366.2 MB)
+17/05/22 21:16:34 INFO RecurringTimer: Started timer for BlockGenerator at time 1495480594400
+17/05/22 21:16:34 INFO BlockGenerator: Started BlockGenerator
+17/05/22 21:16:34 INFO BlockGenerator: Started block pushing thread
+17/05/22 21:16:34 INFO ReceiverSupervisorImpl: Starting receiver 0
+17/05/22 21:16:34 INFO KafkaReceiver: Starting Kafka Consumer Stream with group: group
+17/05/22 21:16:34 INFO KafkaReceiver: Connecting to Zookeeper: sky1.it.kth.se:2180
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 72
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 76
+17/05/22 21:16:34 INFO Executor: Running task 5.0 in stage 4.0 (TID 76)
+17/05/22 21:16:34 INFO Executor: Running task 1.0 in stage 4.0 (TID 72)
+17/05/22 21:16:34 INFO TorrentBroadcast: Started reading broadcast variable 3
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 80
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 84
+17/05/22 21:16:34 INFO Executor: Running task 13.0 in stage 4.0 (TID 84)
+17/05/22 21:16:34 INFO Executor: Running task 9.0 in stage 4.0 (TID 80)
+17/05/22 21:16:34 INFO VerifiableProperties: Verifying properties
+17/05/22 21:16:34 INFO VerifiableProperties: Property group.id is overridden to group
+17/05/22 21:16:34 INFO VerifiableProperties: Property zookeeper.connect is overridden to sky1.it.kth.se:2180
+17/05/22 21:16:34 INFO VerifiableProperties: Property zookeeper.connection.timeout.ms is overridden to 10000
+17/05/22 21:16:34 INFO MemoryStore: Block broadcast_3_piece0 stored as bytes in memory (estimated size 1307.0 B, free 366.2 MB)
+17/05/22 21:16:34 INFO TorrentBroadcast: Reading broadcast variable 3 took 32 ms
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 88
+17/05/22 21:16:34 INFO Executor: Running task 17.0 in stage 4.0 (TID 88)
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 92
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 96
+17/05/22 21:16:34 INFO Executor: Running task 25.0 in stage 4.0 (TID 96)
+17/05/22 21:16:34 INFO Executor: Running task 21.0 in stage 4.0 (TID 92)
+17/05/22 21:16:34 INFO MemoryStore: Block broadcast_3 stored as values in memory (estimated size 2.0 KB, free 366.2 MB)
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 100
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 104
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 108
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 112
+17/05/22 21:16:34 INFO Executor: Running task 41.0 in stage 4.0 (TID 112)
+17/05/22 21:16:34 INFO Executor: Running task 29.0 in stage 4.0 (TID 100)
+17/05/22 21:16:34 INFO Executor: Running task 33.0 in stage 4.0 (TID 104)
+17/05/22 21:16:34 INFO Executor: Running task 37.0 in stage 4.0 (TID 108)
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 116
+17/05/22 21:16:34 INFO Executor: Running task 45.0 in stage 4.0 (TID 116)
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 120
+17/05/22 21:16:34 INFO Executor: Running task 49.0 in stage 4.0 (TID 120)
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 124
+17/05/22 21:16:34 INFO CoarseGrainedExecutorBackend: Got assigned task 128
+17/05/22 21:16:34 INFO Executor: Running task 53.0 in stage 4.0 (TID 124)
+17/05/22 21:16:34 INFO Executor: Running task 57.0 in stage 4.0 (TID 128)
+17/05/22 21:16:34 INFO Executor: Finished task 5.0 in stage 4.0 (TID 76). 1554 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 45.0 in stage 4.0 (TID 116). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 53.0 in stage 4.0 (TID 124). 807 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 57.0 in stage 4.0 (TID 128). 807 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 37.0 in stage 4.0 (TID 108). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 25.0 in stage 4.0 (TID 96). 807 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 9.0 in stage 4.0 (TID 80). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 49.0 in stage 4.0 (TID 120). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 1.0 in stage 4.0 (TID 72). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 17.0 in stage 4.0 (TID 88). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 21.0 in stage 4.0 (TID 92). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 13.0 in stage 4.0 (TID 84). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 33.0 in stage 4.0 (TID 104). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 41.0 in stage 4.0 (TID 112). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO Executor: Finished task 29.0 in stage 4.0 (TID 100). 764 bytes result sent to driver
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], Connecting to zookeeper instance at sky1.it.kth.se:2180
+17/05/22 21:16:34 INFO ZkEventThread: Starting ZkClient event thread.
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:zookeeper.version=3.4.6-1569965, built on 02/20/2014 09:09 GMT
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:host.name=sky1.it.kth.se
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:java.version=1.8.0_66
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:java.vendor=Oracle Corporation
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:java.home=/usr/lib/jvm/java-8-oracle/jre
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:java.class.path=/home/pietro/spark/conf/:/home/pietro/spark/assembly/target/scala-2.11/jars/kryo-shaded-3.0.3.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/gson-2.2.4.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/java-xmlbuilder-1.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/avro-mapred-1.7.7-hadoop2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jersey-container-servlet-core-2.22.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/pmml-schema-1.2.15.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-network-shuffle_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jersey-guava-2.22.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/pyrolite-4.13.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-io-2.4.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-yarn-api-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-mapreduce-client-shuffle-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/metrics-core-3.1.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/xbean-asm5-shaded-4.4.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/metrics-jvm-3.1.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/opencsv-2.3.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/RoaringBitmap-0.5.11.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/htrace-core-3.0.4.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/javassist-3.18.1-GA.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-compress-1.4.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/scala-reflect-2.11.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/javax.inject-2.4.0-b34.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/curator-client-2.6.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/leveldbjni-all-1.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/apacheds-kerberos-codec-2.0.0-M15.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/validation-api-1.1.0.Final.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/parquet-format-2.3.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-jaxrs-1.9.13.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-launcher_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-core_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-beanutils-1.7.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/pmml-model-1.2.15.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-lang-2.6.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/ivy-2.4.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jersey-container-servlet-2.22.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/scala-library-2.11.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jersey-client-2.22.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-core-asl-1.9.13.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/snappy-java-1.1.2.6.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/parquet-hadoop-1.8.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/guava-14.0.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/machinist_2.11-0.6.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/scalap-2.11.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-mllib_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-hdfs-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/objenesis-2.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hk2-locator-2.4.0-b34.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/curator-recipes-2.6.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-math3-3.4.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/xmlenc-0.52.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-common-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-httpclient-3.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/netty-all-4.0.43.Final.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-configuration-1.6.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/scala-xml_2.11-1.0.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/py4j-0.10.4.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-streaming_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-collections-3.2.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jsr305-1.3.9.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/base64-2.3.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/httpcore-4.4.4.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/osgi-resource-locator-1.0.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jersey-server-2.22.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-compiler-3.0.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-tags_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/xz-1.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/json4s-jackson_2.11-3.2.11.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/macro-compat_2.11-1.1.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jline-2.12.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-yarn-client-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/scala-compiler-2.11.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-crypto-1.0.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-core-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spire-macros_2.11-0.13.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/apacheds-i18n-2.0.0-M15.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-repl_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/shapeless_2.11-2.3.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/javax.ws.rs-api-2.0.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-digester-1.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/slf4j-log4j12-1.7.16.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/janino-3.0.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-module-paranamer-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/javax.servlet-api-3.1.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hk2-api-2.4.0-b34.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/zookeeper-3.4.6.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/api-util-1.0.0-M20.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-mllib-local_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jersey-media-jaxb-2.22.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/mail-1.4.7.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-client-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-net-2.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-codec-1.10.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/log4j-1.2.17.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-module-scala_2.11-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jaxb-api-2.2.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/parquet-common-1.8.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/parquet-encoding-1.8.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/avro-1.7.7.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-cli-1.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/protobuf-java-2.5.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/antlr4-runtime-4.5.3.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-beanutils-core-1.8.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/json4s-ast_2.11-3.2.11.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/bcprov-jdk15on-1.51.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-xc-1.9.13.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-network-common_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jtransforms-2.4.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/xercesImpl-2.9.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/compress-lzf-1.0.3.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/aopalliance-repackaged-2.4.0-b34.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/avro-ipc-1.7.7.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-sketch_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-graphx_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/chill-java-0.8.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/lz4-1.3.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/metrics-json-3.1.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/mx4j-3.0.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-mapreduce-client-common-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-mapreduce-client-app-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jul-to-slf4j-1.7.16.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/minlog-1.3.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/commons-lang3-3.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/slf4j-api-1.7.16.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-catalyst_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/metrics-graphite-3.1.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-mapper-asl-1.9.13.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jersey-common-2.22.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-yarn-common-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spire_2.11-0.13.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/breeze_2.11-0.13.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/paranamer-2.6.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/univocity-parsers-2.2.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/core-1.1.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/oro-2.0.8.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-sql_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/curator-framework-2.6.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hk2-utils-2.4.0-b34.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/parquet-jackson-1.8.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/api-asn1-api-1.0.0-M20.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jetty-util-6.1.26.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-auth-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-annotations-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-mapreduce-client-jobclient-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/json4s-core_2.11-3.2.11.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/javax.annotation-api-1.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-yarn-server-common-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/httpclient-4.5.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jets3t-0.9.3.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/netty-3.9.9.Final.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/arpack_combined_all-0.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jcl-over-slf4j-1.7.16.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-databind-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/breeze-macros_2.11-0.13.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/parquet-column-1.8.2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/stax-api-1.0-2.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/activation-1.1.1.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/hadoop-mapreduce-client-core-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/spark-unsafe_2.11-2.3.0-SNAPSHOT.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/jackson-annotations-2.6.5.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/scala-parser-combinators_2.11-1.0.4.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/chill_2.11-0.8.0.jar:/home/pietro/spark/assembly/target/scala-2.11/jars/stream-2.7.0.jar
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:java.library.path=/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:java.io.tmpdir=/tmp
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:java.compiler=<NA>
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:os.name=Linux
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:os.arch=amd64
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:os.version=4.4.0-78-generic
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:user.name=pietro
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:user.home=/home/pietro
+17/05/22 21:16:34 INFO ZooKeeper: Client environment:user.dir=/home/pietro/spark/work/app-20170522211630-0004/0
+17/05/22 21:16:34 INFO ZooKeeper: Initiating client connection, connectString=sky1.it.kth.se:2180 sessionTimeout=6000 watcher=org.I0Itec.zkclient.ZkClient@752fee43
+17/05/22 21:16:34 INFO ClientCnxn: Opening socket connection to server sky1.it.kth.se/130.237.212.71:2180. Will not attempt to authenticate using SASL (unknown error)
+17/05/22 21:16:34 INFO ClientCnxn: Socket connection established to sky1.it.kth.se/130.237.212.71:2180, initiating session
+17/05/22 21:16:34 INFO ClientCnxn: Session establishment complete on server sky1.it.kth.se/130.237.212.71:2180, sessionid = 0x15c3118551e0004, negotiated timeout = 6000
+17/05/22 21:16:34 INFO ZkClient: zookeeper state changed (SyncConnected)
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], starting auto committer every 60000 ms
+17/05/22 21:16:34 WARN AppInfo$: Can't read Kafka version from MANIFEST.MF. Possible cause: java.lang.NullPointerException
+17/05/22 21:16:34 INFO KafkaReceiver: Connected to sky1.it.kth.se:2180
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], begin registering consumer group_sky1-1495480594388-878e6fa8 in ZK
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], end registering consumer group_sky1-1495480594388-878e6fa8 in ZK
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], starting watcher executor thread for consumer group_sky1-1495480594388-878e6fa8
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], begin rebalancing consumer group_sky1-1495480594388-878e6fa8 try #0
+17/05/22 21:16:34 INFO ConsumerFetcherManager: [ConsumerFetcherManager-1495480594449] Stopping leader finder thread
+17/05/22 21:16:34 INFO ConsumerFetcherManager: [ConsumerFetcherManager-1495480594449] Stopping all fetchers
+17/05/22 21:16:34 INFO ConsumerFetcherManager: [ConsumerFetcherManager-1495480594449] All connections stopped
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], Cleared all relevant queues for this fetcher
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], Cleared the data chunks in all the consumer message iterators
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], Committing all offsets after clearing the fetcher queues
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], Releasing partition ownership
+17/05/22 21:16:34 INFO RangeAssignor: Consumer group_sky1-1495480594388-878e6fa8 rebalancing the following partitions: ArrayBuffer() for topic test with consumers: List(group_sky1-1495480594388-878e6fa8-0)
+17/05/22 21:16:34 WARN RangeAssignor: No broker partitions consumed by consumer thread group_sky1-1495480594388-878e6fa8-0 for topic test
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], Consumer group_sky1-1495480594388-878e6fa8 selected partitions : 
+17/05/22 21:16:34 INFO ConsumerFetcherManager$LeaderFinderThread: [group_sky1-1495480594388-878e6fa8-leader-finder-thread], Starting 
+17/05/22 21:16:34 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], end rebalancing consumer group_sky1-1495480594388-878e6fa8 try #0
+17/05/22 21:16:34 INFO ReceiverSupervisorImpl: Called receiver 0 onStart
+17/05/22 21:16:34 INFO KafkaReceiver: Starting MessageHandler.
+17/05/22 21:16:34 INFO ReceiverSupervisorImpl: Waiting for receiver to be stopped
+17/05/22 21:16:40 INFO ReceiverSupervisorImpl: Received stop signal
+17/05/22 21:16:40 INFO ReceiverSupervisorImpl: Stopping receiver with message: Stopped by driver: 
+17/05/22 21:16:40 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], ZKConsumerConnector shutting down
+17/05/22 21:16:40 INFO ConsumerFetcherManager: [ConsumerFetcherManager-1495480594449] Stopping leader finder thread
+17/05/22 21:16:40 INFO ConsumerFetcherManager$LeaderFinderThread: [group_sky1-1495480594388-878e6fa8-leader-finder-thread], Shutting down
+17/05/22 21:16:40 INFO ConsumerFetcherManager$LeaderFinderThread: [group_sky1-1495480594388-878e6fa8-leader-finder-thread], Stopped 
+17/05/22 21:16:40 INFO ConsumerFetcherManager$LeaderFinderThread: [group_sky1-1495480594388-878e6fa8-leader-finder-thread], Shutdown completed
+17/05/22 21:16:40 INFO ConsumerFetcherManager: [ConsumerFetcherManager-1495480594449] Stopping all fetchers
+17/05/22 21:16:40 INFO ConsumerFetcherManager: [ConsumerFetcherManager-1495480594449] All connections stopped
+17/05/22 21:16:40 INFO ZkEventThread: Terminate ZkClient event thread.
+17/05/22 21:16:40 INFO ZooKeeper: Session: 0x15c3118551e0004 closed
+17/05/22 21:16:40 INFO ClientCnxn: EventThread shut down
+17/05/22 21:16:40 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], ZKConsumerConnector shutdown completed in 21 ms
+17/05/22 21:16:40 INFO ReceiverSupervisorImpl: Called receiver onStop
+17/05/22 21:16:40 INFO ReceiverSupervisorImpl: Deregistering receiver 0
+17/05/22 21:16:40 INFO ReceiverSupervisorImpl: Stopped receiver 0
+17/05/22 21:16:40 INFO BlockGenerator: Stopping BlockGenerator
+17/05/22 21:16:40 INFO ZookeeperConsumerConnector: [group_sky1-1495480594388-878e6fa8], stopping watcher executor thread for consumer group_sky1-1495480594388-878e6fa8
+17/05/22 21:16:40 INFO RecurringTimer: Stopped timer for BlockGenerator after time 1495480600800
+17/05/22 21:16:40 INFO BlockGenerator: Waiting for block pushing thread to terminate
+17/05/22 21:16:40 INFO BlockGenerator: Pushing out the last 0 blocks
+17/05/22 21:16:40 INFO BlockGenerator: Stopped block pushing thread
+17/05/22 21:16:40 INFO BlockGenerator: Stopped BlockGenerator
+17/05/22 21:16:40 INFO ReceiverSupervisorImpl: Stopped receiver without error
+17/05/22 21:16:40 INFO Executor: Finished task 0.0 in stage 2.0 (TID 70). 1584 bytes result sent to driver
+17/05/22 21:16:40 INFO CoarseGrainedExecutorBackend: Driver commanded a shutdown
+17/05/22 21:16:40 ERROR CoarseGrainedExecutorBackend: RECEIVED SIGNAL TERM
+tdown
