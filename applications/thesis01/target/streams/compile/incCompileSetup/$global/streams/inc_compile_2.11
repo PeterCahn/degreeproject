@@ -1,0 +1,356 @@
+format version: 5
+output mode:
+1 items
+0 -> single
+output directories:
+1 items
+output dir -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes
+compile options:
+0 items
+javac options:
+0 items
+compiler version:
+1 items
+0 -> 2.11.6
+compile order:
+1 items
+0 -> Mixed
+name hashing:
+1 items
+0 -> true
+products:
+15 items
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$1.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$2.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$3.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$4.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$5.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCountProducer$$anonfun$main$1.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCountProducer$.class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCountProducer.class
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Greeting$class.class
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Greeting.class
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Hello$.class
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Hello$delayedInit$body.class
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> /home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Hello.class
+binary dependencies:
+9 items
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/.ivy2/cache/log4j/log4j/bundles/log4j-1.2.17.jar
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/.ivy2/cache/org.apache.kafka/kafka-clients/jars/kafka-clients-0.10.0.1.jar
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/.ivy2/cache/org.apache.spark/spark-core_2.11/jars/spark-core_2.11-2.1.1.jar
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/.ivy2/cache/org.apache.spark/spark-streaming-kafka-0-10_2.11/jars/spark-streaming-kafka-0-10_2.11-2.1.0.jar
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/.ivy2/cache/org.apache.spark/spark-streaming_2.11/jars/spark-streaming_2.11-2.1.1.jar
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /home/pietro/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.6.jar
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> /home/pietro/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.6.jar
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> /usr/lib/jvm/java-8-oracle/jre/lib/rt.jar
+direct source dependencies:
+0 items
+direct external dependencies:
+0 items
+public inherited source dependencies:
+0 items
+public inherited external dependencies:
+0 items
+member reference internal dependencies:
+0 items
+member reference external dependencies:
+0 items
+inheritance internal dependencies:
+0 items
+inheritance external dependencies:
+0 items
+class names:
+15 items
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCount
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCount$
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCount$$anonfun$1
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCount$$anonfun$2
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCount$$anonfun$3
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCount$$anonfun$4
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCount$$anonfun$5
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCountProducer
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCountProducer$
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com.pietro.thesis.KafkaWordCountProducer$$anonfun$main$1
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> example.Greeting
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> example.Greeting$class
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> example.Hello
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> example.Hello$
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> example.Hello$delayedInit$body
+used names:
+213 items
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> !=
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> $conforms
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> &&
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> +
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> -
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ->
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> /
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> <
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> <:<
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> <init>
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> <repeated>
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ==
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> A
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Any
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> AnyRef
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Array
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ArrayOps
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ArrowAssoc
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> B
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> BasicConfigurator
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Boolean
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> BufferedSource
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> CanBuildFrom
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Class
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ClassTag
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Codec
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ConsumerRecord
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ConsumerStrategies
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ConsumerStrategy
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> DStream
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Date
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> DateFormat
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Duration
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Exception
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Function1
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Function2
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Future
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> HashMap
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> IndexedSeq
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> InputDStream
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Int
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Integer
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Iterator
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> K
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> KafkaProducer
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> KafkaUtils
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> KafkaWordCount
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> KafkaWordCountProducer
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> LocationStrategies
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> LocationStrategy
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Long
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Map
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> MatchError
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Minutes
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Nothing
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Object
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Option
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Ordering
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> PairDStreamFunctions
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ParseException
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Predef
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> PreferConsistent
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> PrintStream
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ProducerConfig
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ProducerRecord
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> RecordMetadata
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Seconds
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> SimpleDateFormat
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Source
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> SparkConf
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> StreamingContext
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> String
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> StringDeserializer
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> StringOps
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Subscribe
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> System
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> T
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> T1
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> T2
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> T3
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> T4
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> That
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> TimeZone
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> TraversableOnce
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Tuple2
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Tuple4
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> U
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> Unit
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> V
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> WrappedArray
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> _$4
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> _$7
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> _1
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> _2
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> _3
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> _4
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> apache
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> apply
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> args
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> augmentString
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> awaitTermination
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> brokers
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> canBuildFrom
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> checkpoint
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> clients
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> collection
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> com
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> common
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> configure
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> control
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> createDirectStream
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> date
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> dfm
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> dstream
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> err
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> exit
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> fallbackSystemCodec
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> filename
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> flatMap
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> foreach
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> fromFile
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> get
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> getLines
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> getTime
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> getTimeZone
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> group
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> hour
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> immutable
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> io
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> isEmpty
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> java
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> kafka
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> kafka010
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> kafkaParams
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> lang
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> length
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> lengthCompare
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> line
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> lines
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> log4j
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> long2Long
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> map
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> materializeClassTag
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> math
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> message
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> messagesPerSec
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> min
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> numThreads
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> org
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> package
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> parse
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> pietro
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> print
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> println
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> producer
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> props
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> put
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> qual$1
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> reduceByKeyAndWindow
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> refArrayOps
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> scala
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> send
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> serialization
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> setAppName
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> setTimeZone
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> slice
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> spark
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> sparkConf
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> split
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ssc
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> start
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> streaming
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> text
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> thesis
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> timestamp
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> toInt
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> toMap
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> toPairDStreamFunctions
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> toString
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> topic
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> topics
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> ts
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> unapplySeq
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> unary_!
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> unchecked
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> util
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> value
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> wordCounts
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> words
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> wordsPerMessage
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> wrapRefArray
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> x
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> x$10
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> x$11
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> x$12
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> x$13
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> x$14
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> x$9
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> zkQuorum
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> <init>
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> Any
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> AnyRef
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> App
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> Greeting
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> Hello
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> Object
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> Predef
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> String
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> Unit
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> example
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> greeting
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> println
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> scala
+product stamps:
+15 items
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$1.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$2.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$3.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$4.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$$anonfun$5.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount$.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCount.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCountProducer$$anonfun$main$1.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCountProducer$.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/com/pietro/thesis/KafkaWordCountProducer.class -> lastModified(1496070621000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Greeting$class.class -> lastModified(1496052150000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Greeting.class -> lastModified(1496052150000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Hello$.class -> lastModified(1496052150000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Hello$delayedInit$body.class -> lastModified(1496052150000)
+/home/pietro/thesis01/thesis01/target/scala-2.11/classes/example/Hello.class -> lastModified(1496052150000)
+source stamps:
+2 items
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> hash(1e084cdf3d5060a894997bc0e0b56f0ae6090754)
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> hash(1bd0a0f42395d0ddc58317d989d9bc92660e66c6)
+binary stamps:
+7 items
+/home/pietro/.ivy2/cache/log4j/log4j/bundles/log4j-1.2.17.jar -> lastModified(1338025419000)
+/home/pietro/.ivy2/cache/org.apache.kafka/kafka-clients/jars/kafka-clients-0.10.0.1.jar -> lastModified(1470314482000)
+/home/pietro/.ivy2/cache/org.apache.spark/spark-core_2.11/jars/spark-core_2.11-2.1.1.jar -> lastModified(1493167440000)
+/home/pietro/.ivy2/cache/org.apache.spark/spark-streaming-kafka-0-10_2.11/jars/spark-streaming-kafka-0-10_2.11-2.1.0.jar -> lastModified(1481872276000)
+/home/pietro/.ivy2/cache/org.apache.spark/spark-streaming_2.11/jars/spark-streaming_2.11-2.1.1.jar -> lastModified(1493167478000)
+/home/pietro/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.6.jar -> lastModified(1424912460000)
+/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar -> lastModified(1450674615000)
+class names:
+7 items
+/home/pietro/.ivy2/cache/log4j/log4j/bundles/log4j-1.2.17.jar -> org.apache.log4j.BasicConfigurator
+/home/pietro/.ivy2/cache/org.apache.kafka/kafka-clients/jars/kafka-clients-0.10.0.1.jar -> org.apache.kafka.clients.producer.ProducerConfig
+/home/pietro/.ivy2/cache/org.apache.spark/spark-core_2.11/jars/spark-core_2.11-2.1.1.jar -> org.apache.spark.SparkConf$
+/home/pietro/.ivy2/cache/org.apache.spark/spark-streaming-kafka-0-10_2.11/jars/spark-streaming-kafka-0-10_2.11-2.1.0.jar -> org.apache.spark.streaming.kafka010.KafkaUtils$
+/home/pietro/.ivy2/cache/org.apache.spark/spark-streaming_2.11/jars/spark-streaming_2.11-2.1.1.jar -> org.apache.spark.streaming.Minutes$
+/home/pietro/.ivy2/cache/org.scala-lang/scala-library/jars/scala-library-2.11.6.jar -> scala.io.Source$
+/usr/lib/jvm/java-8-oracle/jre/lib/rt.jar -> java.lang.Object
+internal apis:
+2 items
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwTRutFgAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAWc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwn2V70XQABm5vdGlmeXNxAH4ADL2iGj90AAR3YWl0c3EAfgAMhW7eP3QADSRhc0luc3RhbmNlT2ZzcQB+AAw/rt+fdAAWS2Fma2FXb3JkQ291bnRQcm9kdWNlcnNxAH4ADF71IV50AAZlcXVhbHNzcQB+AAzN/JNrdAAOS2Fma2FXb3JkQ291bnRzcQB+AAwWM1MWdAAMYXNJbnN0YW5jZU9mc3EAfgAMN1wJuHQADHN5bmNocm9uaXplZHNxAH4ADOQ4TAh0AA0kaXNJbnN0YW5jZU9mc3EAfgAMiGdO93QABG1haW5zcQB+AAy/GGL7dAAJbm90aWZ5QWxsc3EAfgAM/9irhnQADGlzSW5zdGFuY2VPZnNxAH4ADLAex9R0AAI9PXNxAH4ADAcyliF0AAVjbG9uZXNxAH4ADEFTa8t0AAh0b1N0cmluZ3NxAH4ADKqZQ4J0AAIhPXNxAH4ADDllA+J0AAhnZXRDbGFzc3NxAH4ADBmZJSx0AAJuZXNxAH4ADNwNi9l0AAJlcXNxAH4ADGVZ4KR0AAIjI3NxAH4ADIWc08F0AAhmaW5hbGl6ZXNxAH4ADCGi5450AAhoYXNoQ29kZXNyABN4c2J0aS5hcGkuU291cmNlQVBJuV6n+SkjOKQCAAJbAAtkZWZpbml0aW9uc3QAF1tMeHNidGkvYXBpL0RlZmluaXRpb247WwAIcGFja2FnZXN0ABRbTHhzYnRpL2FwaS9QYWNrYWdlO3hwdXIAF1tMeHNidGkuYXBpLkRlZmluaXRpb247iMlc57TjXg4CAAB4cAAAAAJzcgATeHNidGkuYXBpLkNsYXNzTGlrZYM0HKHfsJdsAgAETAAOZGVmaW5pdGlvblR5cGV0ABpMeHNidGkvYXBpL0RlZmluaXRpb25UeXBlO1sAEHNhdmVkQW5ub3RhdGlvbnN0ABNbTGphdmEvbGFuZy9TdHJpbmc7TAAIc2VsZlR5cGV0ABBMeHNidGkvYXBpL0xhenk7TAAJc3RydWN0dXJlcQB+AEN4cgAheHNidGkuYXBpLlBhcmFtZXRlcml6ZWREZWZpbml0aW9u+RFusdVQPOICAAFbAA50eXBlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1R5cGVQYXJhbWV0ZXI7eHIAFHhzYnRpLmFwaS5EZWZpbml0aW9uhyob6HFC40YCAARMAAZhY2Nlc3N0ABJMeHNidGkvYXBpL0FjY2VzcztbAAthbm5vdGF0aW9uc3QAF1tMeHNidGkvYXBpL0Fubm90YXRpb247TAAJbW9kaWZpZXJzdAAVTHhzYnRpL2FwaS9Nb2RpZmllcnM7TAAEbmFtZXEAfgANeHBzcgAQeHNidGkuYXBpLlB1YmxpY7pYPa5sLWBCAgAAeHIAEHhzYnRpLmFwaS5BY2Nlc3PdYpr4HWMxSAIAAHhwdXIAF1tMeHNidGkuYXBpLkFubm90YXRpb24765frGRD2jUgCAAB4cAAAAABzcgATeHNidGkuYXBpLk1vZGlmaWVyc5fnYdwTJnuzAgABQgAFZmxhZ3N4cAB0ACBjb20ucGlldHJvLnRoZXNpcy5LYWZrYVdvcmRDb3VudHVyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABk1vZHVsZXVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAABzcgAheHNidGkuYXBpLkFic3RyYWN0TGF6eSRTdHJpY3RMYXp5DWYcaykWKrgCAAFMAAV2YWx1ZXQAEkxqYXZhL2xhbmcvT2JqZWN0O3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AW3NyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgBDTAAJaW5oZXJpdGVkcQB+AENMAAdwYXJlbnRzcQB+AEN4cQB+AGBzcQB+AFt1cQB+AD4AAAABc3IADXhzYnRpLmFwaS5EZWZSvp/ifLQ2aQIAAkwACnJldHVyblR5cGV0ABBMeHNidGkvYXBpL1R5cGU7WwAPdmFsdWVQYXJhbWV0ZXJzdAAaW0x4c2J0aS9hcGkvUGFyYW1ldGVyTGlzdDt4cQB+AERxAH4ATXVxAH4ATgAAAABzcQB+AFAAcQB+ACF1cQB+AFMAAAAAc3IAFHhzYnRpLmFwaS5Qcm9qZWN0aW9u89KNVOlFpC0CAAJMAAJpZHEAfgANTAAGcHJlZml4dAAWTHhzYnRpL2FwaS9TaW1wbGVUeXBlO3hxAH4AX3QABFVuaXRzcgATeHNidGkuYXBpLlNpbmdsZXRvbvynX/jPVuRGAgABTAAEcGF0aHQAEEx4c2J0aS9hcGkvUGF0aDt4cQB+AF9zcgAOeHNidGkuYXBpLlBhdGibPVwIzqUnhAIAAVsACmNvbXBvbmVudHN0ABpbTHhzYnRpL2FwaS9QYXRoQ29tcG9uZW50O3hwdXIAGltMeHNidGkuYXBpLlBhdGhDb21wb25lbnQ7Q9oJdC1nFnQCAAB4cAAAAAJzcgAMeHNidGkuYXBpLklkmDJsizdTxEACAAFMAAJpZHEAfgANeHIAF3hzYnRpLmFwaS5QYXRoQ29tcG9uZW50X5oiWy6Gn7wCAAB4cHQABXNjYWxhc3IADnhzYnR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
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> 
+rO0ABXNyABB4c2J0aS5hcGkuU291cmNlSjH5SdlLSkQCAAdJAAdhcGlIYXNoWgAIaGFzTWFjcm9aABBoYXNQYWNrYWdlT2JqZWN0TAAYX2ludGVybmFsT25seV9uYW1lSGFzaGVzdAAkTHhzYnRpL2FwaS9faW50ZXJuYWxPbmx5X05hbWVIYXNoZXM7TAADYXBpdAAVTHhzYnRpL2FwaS9Tb3VyY2VBUEk7TAALY29tcGlsYXRpb250ABdMeHNidGkvYXBpL0NvbXBpbGF0aW9uO1sABGhhc2h0AAJbQnhwjCzGVQAAc3IAInhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoZXNU2r6Z+tTsTAIAAlsAD2ltcGxpY2l0TWVtYmVyc3QAI1tMeHNidGkvYXBpL19pbnRlcm5hbE9ubHlfTmFtZUhhc2g7WwAOcmVndWxhck1lbWJlcnNxAH4AB3hwdXIAI1tMeHNidGkuYXBpLl9pbnRlcm5hbE9ubHlfTmFtZUhhc2g7SVqAtt2Wi/QCAAB4cAAAAAB1cQB+AAkAAAAbc3IAIHhzYnRpLmFwaS5faW50ZXJuYWxPbmx5X05hbWVIYXNoWw71InY4V88CAAJJAARoYXNoTAAEbmFtZXQAEkxqYXZhL2xhbmcvU3RyaW5nO3hwzjmjzXQABm5vdGlmeXNxAH4ADE+C1790AAR3YWl0c3EAfgAMh5NG63QADSRhc0luc3RhbmNlT2ZzcQB+AAzhuQyfdAAGZXF1YWxzc3EAfgAM48FmenQACEdyZWV0aW5nc3EAfgAMoIraQXQADGFzSW5zdGFuY2VPZnNxAH4ADCuT8850AA5leGVjdXRpb25TdGFydHNxAH4ADGuZ+vF0AAxzeW5jaHJvbml6ZWRzcQB+AAzF7VuudAANJGlzSW5zdGFuY2VPZnNxAH4ADPbzUtZ0AARtYWluc3EAfgAMozUZDHQACW5vdGlmeUFsbHNxAH4ADNH/h9V0AAxpc0luc3RhbmNlT2ZzcQB+AAwDYz9OdAACPT1zcQB+AAxSKIpQdAAFY2xvbmVzcQB+AAztXHYFdAAFSGVsbG9zcQB+AAw8P331dAAGJGluaXQkc3EAfgAMvZb4yHQACGdyZWV0aW5nc3EAfgAMZZbnFXQACHRvU3RyaW5nc3EAfgAMuYQM/3QABGFyZ3NzcQB+AAyyxCQCdAACIT1zcQB+AAzSgWZrdAAIZ2V0Q2xhc3NzcQB+AAx92kbTdAACbmVzcQB+AAy41tIPdAACZXFzcQB+AAwoWhmSdAALZGVsYXllZEluaXRzcQB+AAxfYvCedAACIyNzcQB+AAxhKaybdAAIZmluYWxpemVzcQB+AAwCq/Y0dAAIaGFzaENvZGVzcgATeHNidGkuYXBpLlNvdXJjZUFQSblep/kpIzikAgACWwALZGVmaW5pdGlvbnN0ABdbTHhzYnRpL2FwaS9EZWZpbml0aW9uO1sACHBhY2thZ2VzdAAUW0x4c2J0aS9hcGkvUGFja2FnZTt4cHVyABdbTHhzYnRpLmFwaS5EZWZpbml0aW9uO4jJXOe0414OAgAAeHAAAAACc3IAE3hzYnRpLmFwaS5DbGFzc0xpa2WDNByh37CXbAIABEwADmRlZmluaXRpb25UeXBldAAaTHhzYnRpL2FwaS9EZWZpbml0aW9uVHlwZTtbABBzYXZlZEFubm90YXRpb25zdAATW0xqYXZhL2xhbmcvU3RyaW5nO0wACHNlbGZUeXBldAAQTHhzYnRpL2FwaS9MYXp5O0wACXN0cnVjdHVyZXEAfgBNeHIAIXhzYnRpLmFwaS5QYXJhbWV0ZXJpemVkRGVmaW5pdGlvbvkRbrHVUDziAgABWwAOdHlwZVBhcmFtZXRlcnN0ABpbTHhzYnRpL2FwaS9UeXBlUGFyYW1ldGVyO3hyABR4c2J0aS5hcGkuRGVmaW5pdGlvbocqG+hxQuNGAgAETAAGYWNjZXNzdAASTHhzYnRpL2FwaS9BY2Nlc3M7WwALYW5ub3RhdGlvbnN0ABdbTHhzYnRpL2FwaS9Bbm5vdGF0aW9uO0wACW1vZGlmaWVyc3QAFUx4c2J0aS9hcGkvTW9kaWZpZXJzO0wABG5hbWVxAH4ADXhwc3IAEHhzYnRpLmFwaS5QdWJsaWO6WD2ubC1gQgIAAHhyABB4c2J0aS5hcGkuQWNjZXNz3WKa+B1jMUgCAAB4cHVyABdbTHhzYnRpLmFwaS5Bbm5vdGF0aW9uO+uX6xkQ9o1IAgAAeHAAAAAAc3IAE3hzYnRpLmFwaS5Nb2RpZmllcnOX52HcEyZ7swIAAUIABWZsYWdzeHAAdAANZXhhbXBsZS5IZWxsb3VyABpbTHhzYnRpLmFwaS5UeXBlUGFyYW1ldGVyO9ltJg8onfK2AgAAeHAAAAAAfnIAGHhzYnRpLmFwaS5EZWZpbml0aW9uVHlwZQAAAAAAAAAAEgAAeHIADmphdmEubGFuZy5FbnVtAAAAAAAAAAASAAB4cHQABk1vZHVsZXVyABNbTGphdmEubGFuZy5TdHJpbmc7rdJW5+kde0cCAAB4cAAAAAJ0ABpzY2FsYS5kZXByZWNhdGVkT3ZlcnJpZGluZ3QAEHNjYWxhLmRlcHJlY2F0ZWRzcgAheHNidGkuYXBpLkFic3RyYWN0TGF6eSRTdHJpY3RMYXp5DWYcaykWKrgCAAFMAAV2YWx1ZXQAEkxqYXZhL2xhbmcvT2JqZWN0O3hwc3IAE3hzYnRpLmFwaS5FbXB0eVR5cGW8/Z5GSTuJJAIAAHhyABR4c2J0aS5hcGkuU2ltcGxlVHlwZXJ4YoghI79AAgAAeHIADnhzYnRpLmFwaS5UeXBlP2rZIRZJqsoCAAB4cHNxAH4AZ3NyABN4c2J0aS5hcGkuU3RydWN0dXJlqar5gJNv2AACAANMAAhkZWNsYXJlZHEAfgBNTAAJaW5oZXJpdGVkcQB+AE1MAAdwYXJlbnRzcQB+AE14cQB+AGxzcQB+AGd1cQB+AEgAAAAAc3EAfgBndXEAfgBIAAAAAXNyAA14c2J0aS5hcGkuRGVmUr6f4ny0NmkCAAJMAApyZXR1cm5UeXBldAAQTHhzYnRpL2FwaS9UeXBlO1sAD3ZhbHVlUGFyYW1ldGVyc3QAGltMeHNidGkvYXBpL1BhcmFtZXRlckxpc3Q7eHEAfgBOcQB+AFd1cQB+AFgAAAABc3IAFHhzYnRpLmFwaS5Bbm5vdGF0aW9u3g6BovZcCrICAAJbAAlhcmd1bWVudHN0AB9bTHhzYnRpL2FwaS9Bbm5vdGF0aW9uQXJndW1lbnQ7TAAEYmFzZXEAfgB2eHB1cgAfW0x4c2J0aS5hcGkuQW5ub3RhdGlvbkFyZ3VtZW50O1Gdpo84JQ94AgAAeHAAAAABc3IAHHhzYnRpLmFwaS5Bbm5vdGF0aW9uQXJndW1lbnTWRbHYAxsXfAIAAkwABG5hbWVxAH4ADUwABXZhbHVlcQB+AA14cHQAAHQAKigibWFpbiBzaG91bGQgbm90IGJlIG92ZXJyaWRkZW4iLCIyLjExLjAiKXNyABR4c2J0aS5hcGkuUHJvamVjdGlvbvPSjVTpRaQtAgACTAACaWRxAH4ADUwABnByZWZpeHQAFkx4c2J0aS9hcGkvU2ltcGxlVHlwZTt4cQB+AGt0ABRkZXByZWNhdGVkT3ZlcnJpZGluZ3NyABN4c2J0aS5hcGkuU2luZ2xldG9u/Kdf+M9W5EYCAAFMAARwYXRodAAQTHhzYnRpL2FwaS9QYXRoO3hxAH4Aa3NyAA54c2J0aS5hcGkuUGF0aJs9XAjOpSeEAgABWwAKY29tcG9uZW50c3QAGltMeHNidGkvYXBpL1BhdGhDb21wb25lbnQ7eHB1cgAaW0x4c2J0aS5hcGkuUGF0aENvbXBvbmVudDtD2gl0LWcWdAIAAHhwAAAAAnNyAAx4c2J0aS5hcGkuSWSYMmyLN1PEQAIAAUwAAmlkcQB+AA14cgAXeHNidGkuYXBpLlBhdGhDb21wb25lbnRfmiJbLoafvAIAAHhwdAAFc2NhbGFzcgAOeHNidGkuYXBpLlRoaXPbCe2mzFpAXAIAAHhxAH4AkHNxAH4AWgBxAH4AIXVxAH4AXQAAAABzcQB+AIN0AARVbml0cQB+AIl1cgAaW0x4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdDv10zod8rNw7gIAAHhwAAAAAXNyABd4c2J0aS5hcGkuUGFyYW1ldGVyTGlzdNbFvBxkSXTjAgACWgAKaXNJbXBsaWNpdFsACnBhcmFtZXRlcnN0ABxbTHhzYnRpL2FwaS9NZXRob2RQYXJhbWV0ZXI7eHAAdXIAHFtMeHNidGkuYXBpLk1ldGhvZFBhcmFtZXRlcjvPuMVdpd21bQIAAHhwAAAAAXNyABl4c2J0aS5hcGkuTWV0aG9kUGFyYW1ldGVyH0WuF9NJsOoCAARaAApoYXNEZWZhdWx0TAAIbW9kaWZpZXJ0AB1MeHNidGkvYXBpL1BhcmFtZXRlck1vZGlmaWVyO0wABG5hbWVxAH4ADUwAA3RwZXEAfgB2eHAAfnIAG3hzYnRpLmFwaS5QYXJhbWV0ZXJNb2RpZmllcgAAAAAAAAAAEgAAeHEAfgBgdAAFUGxhaW5xAH4AM3NyABd4c2J0aS5hcGkuUGFyYW1ldGVyaXplZBZs7mkDybt/AgACTAAIYmFzZVR5cGVxAH4AhFsADXR5cGVBcmd1bWVudHN0ABFbTHhzYnRpL2FwaS9UeXBlO3hxAH4Aa3NxAH4Ag3QABUFycmF5cQB+AIl1cgARW0x4c2J0aS5hcGkuVHlwZTt0/6Vae/npQQIAAHhwAAAAAXNxAH4Ag3QABlN0cmluZ3NxAH4Ah3NxAH4AinVxAH4AjQAAAANzcQB+AI90AARqYXZhc3EAfgCPdAAEbGFuZ3EAfgCUc3EAfgBndXEAfgCrAAAABXNxAH4Ag3QAA0FwcHEAfgCJc3EAfgCDdAALRGVsYXllZEluaXRxAH4AiXNxAH4Ag3QACEdyZWV0aW5nc3EAfgCHc3EAfgCKdXEAfgCNAAAAAnNxAH4Aj3QAB2V4YW1wbGVxAH4AlHNxAH4Ag3QABk9iamVjdHEAfgCvc3EAfgCDdAADQW55cQB+AIlzcQB+AEpxAH4AV3VxAH4AWAAAAABzcQB+AFoBdAAQZXhhbXBsZS5HcmVldGluZ3VxAH4AXQAAAAB+cQB+AF90AAVUcmFpdHVxAH4AYwAAAABzcQB+AGdxAH4AbXNxAH4AZ3NxAH4Ab3NxAH4AZ3VxAH4ASAAAAABzcQB+AGd1cQB+AEgAAAAAc3EAfgBndXEAfgCrAAAAAnNxAH4Ag3EAfgDEc3EAfgCHc3EAfgCKdXEAfgCNAAAAA3NxAH4Aj3EAfgCzc3EAfgCPcQB+ALVxAH4AlHNxAH4Ag3EAfgDGc3EAfgCHc3EAfgCKdXEAfgCNAAAAAnNxAH4Aj3EAfgCScQB+AJR1cgAUW0x4c2J0aS5hcGkuUGFja2FnZTtbExk3cKcnoQIAAHhwAAAAAXNyABF4c2J0aS5hcGkuUGFja2FnZX5Zj/auzjlYAgABTAAEbmFtZXEAfgANeHB0AAdleGFtcGxlc3IAFXhzYnRpLmFwaS5Db21waWxhdGlvbu364MNq6KBCAgACSgAJc3RhcnRUaW1lWwAHb3V0cHV0c3QAGltMeHNidGkvYXBpL091dHB1dFNldHRpbmc7eHAAAAFcU6gcpXVyABpbTHhzYnRpLmFwaS5PdXRwdXRTZXR0aW5nO39qwvOnh6VCAgAAeHAAAAABc3IAF3hzYnRpLmFwaS5PdXRwdXRTZXR0aW5netmaR3T7HXsCAAJMAA9vdXRwdXREaXJlY3RvcnlxAH4ADUwAD3NvdXJjZURpcmVjdG9yeXEAfgANeHB0ADgvaG9tZS9waWV0cm8vdGhlc2lzMDEvdGhlc2lzMDEvdGFyZ2V0L3NjYWxhLTIuMTEvY2xhc3Nlc3QAAS91cgACW0Ks8xf4BghU4AIAAHhwAAAAFBvQoPQjldDdxYMX2YnZvJJmDmbG
+external apis:
+0 items
+source infos:
+2 items
+/home/pietro/thesis01/thesis01/src/main/scala/com/pietro/thesis/KafkaDataExample.scala -> 
+AAAAAAAAAAA=
+/home/pietro/thesis01/thesis01/src/main/scala/example/Hello.scala -> 
+AAAAAAAAAAA=
+compilations:
+5 items
+0 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABXFOoHKV1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAOC9ob21lL3BpZXRyby90aGVzaXMwMS90aGVzaXMwMS90YXJnZXQvc2NhbGEtMi4xMS9jbGFzc2VzdAABLw==
+1 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABXFO6h6l1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAOC9ob21lL3BpZXRyby90aGVzaXMwMS90aGVzaXMwMS90YXJnZXQvc2NhbGEtMi4xMS9jbGFzc2VzdAABLw==
+2 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABXFSVort1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAOC9ob21lL3BpZXRyby90aGVzaXMwMS90aGVzaXMwMS90YXJnZXQvc2NhbGEtMi4xMS9jbGFzc2VzdAABLw==
+3 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABXFSvSQN1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAOC9ob21lL3BpZXRyby90aGVzaXMwMS90aGVzaXMwMS90YXJnZXQvc2NhbGEtMi4xMS9jbGFzc2VzdAABLw==
+4 -> rO0ABXNyABV4c2J0aS5hcGkuQ29tcGlsYXRpb27t+uDDauigQgIAAkoACXN0YXJ0VGltZVsAB291dHB1dHN0ABpbTHhzYnRpL2FwaS9PdXRwdXRTZXR0aW5nO3hwAAABXFTB9sN1cgAaW0x4c2J0aS5hcGkuT3V0cHV0U2V0dGluZzt/asLzp4elQgIAAHhwAAAAAXNyABd4c2J0aS5hcGkuT3V0cHV0U2V0dGluZ3rZmkd0+x17AgACTAAPb3V0cHV0RGlyZWN0b3J5dAASTGphdmEvbGFuZy9TdHJpbmc7TAAPc291cmNlRGlyZWN0b3J5cQB+AAZ4cHQAOC9ob21lL3BpZXRyby90aGVzaXMwMS90aGVzaXMwMS90YXJnZXQvc2NhbGEtMi4xMS9jbGFzc2VzdAABLw==
