@@ -4,13 +4,14 @@ package com.pietro.thesis
 import java.util.HashMap
 import scala.io.Source
 import scala.collection.immutable.StringOps
-import scala.util.control.Exception
+import scala.util.control.Exception._
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 import java.util.Calendar
 import scala.util.Random
+import scala.util.Try
 import scala.math.max
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
@@ -46,21 +47,23 @@ object KafkaWordCount {
       "bootstrap.servers" -> brokers,
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
-      "group.id" -> "testGroup1",
+      "group.id" -> "testGroupSky1",
       "auto.offset.reset" -> "earliest",
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )    
 
     val lines = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](topic.split(","), kafkaParams))
 
-    val lineWithTemps = lines.map(_.value.split(" +")).map(line => line(9).toLong )
+    val lineWithTemps = lines.map(_.value.split(" +"))
+	.filter(line => line.length > 8)
+	.map(line => line(9).toLong )
 
     val windowLength = Minutes(1)
     val slideInterval = Seconds(2)
 
     lineWithTemps.window( windowLength, slideInterval )
        .foreachRDD( rdd => {
-          if(!rdd.isEmpty){
+          if( !rdd.isEmpty){
 
 	    /* Compute sum and count */
 	    val count: Double = rdd.count().toDouble
@@ -77,7 +80,7 @@ object KafkaWordCount {
 	    val format = new SimpleDateFormat("yyyyMMddkkmm")
 	    val date = format.format(Calendar.getInstance().getTime())                
 		  
- 	    val data = date+", "+sum+", "+count+", "+windowLength+" ,1"
+ 	    val data = date+", "+sum+", "+count+", "+sum/count+", "+windowLength+", 1"
 	    val message = new ProducerRecord[String, String](outputKafkaTopic, null, data)	  
 	    
 	    println(data)   	    
@@ -110,7 +113,7 @@ object Reconcile {
       "bootstrap.servers" -> brokers,
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
-      "group.id" -> "testGroup1",
+      "group.id" -> "mergingSummaryGroup",
       "auto.offset.reset" -> "earliest",
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )
@@ -118,23 +121,21 @@ object Reconcile {
     val records = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](inputKafkaTopic.split(","), kafkaParams))
 
     val aggregationByTime = records.map( record => {
-      val recordValue = record.value.trim
-      val arr = recordValue.substring(1, recordValue.length()-1).split(",")
-      ( arr(0).toLong, arr.drop(1).mkString(", ") )
+      val recordArr = record.value.trim.split(",")
+      ( recordArr(0).toLong, recordArr.drop(1).mkString(", ") )
     })
     .reduceByKey( (v1, v2) => {
-	val sum = v1(0).toDouble + v2(0).toDouble
-	val count = v1(1).toLong + v2(1).toLong
+	val vArr1 = v1.trim.split(", +")
+	val vArr2 = v2.trim.split(", +")
+	val sum = vArr1(0).toDouble + vArr2(0).toDouble
+	val count = vArr1(1).toDouble + vArr2(1).toDouble
 	println(sum+", "+count+", "+sum/count)
-	(sum/count).toString
+        sum+", "+count+", "+sum/count+", "+vArr1(3)
     })
 
     val onlyLastTimeAggregated = aggregationByTime.reduce( (x, y) => { 
         val maximumTs = max(x._1, y._1)
-	if( maximumTs == x._1)
-	  x
-	else
-	  y	
+	if( maximumTs == x._1) x else y
     })
 
     onlyLastTimeAggregated.print()    
@@ -168,8 +169,10 @@ object KafkaWordCountProducer {
      * https://www1.ncdc.noaa.gov/pub/data/documentlibrary/tddoc/td3285.pdf */
     val filename = "../data/64060K0J4201701.dat"
   
-    for(line <- Source.fromFile(filename).getLines()) {
+//    for(line <- Source.fromFile(filename).getLines().filter( line => !safeStringToLong(line.split(" +")(9)).isEmpty  )){
+    for(line <- Source.fromFile(filename).getLines().filter( line => !Try( line.split(" +")(9).toLong ).toOption.isEmpty  )){
       val words = line.split(" +")
+      //if( Some(words(9).toLong).getOrElse("NO") == "NO" ) break
       val date = words(1).slice(3,11)
       val hour = words(1).slice(11,13)
       val min  = words(1).slice(13,15)
@@ -185,9 +188,15 @@ object KafkaWordCountProducer {
       val message = new ProducerRecord[String, String](topic, null, timestamp, timestamp.toString, line)
       
       println( "ts: "+ts+" | "+ line.replaceAll("\\s+", " ") )
-      Thread.sleep(scala.util.Random.nextInt(10000))
+      Thread.sleep(scala.util.Random.nextInt(2000))
       producer.send(message)
 
     }
   }
+
+      def safeStringToLong(str: String): Option[Long] = {
+        catching(classOf[NumberFormatException]) opt str.toLong
+}
+
+
 }
