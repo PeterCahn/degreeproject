@@ -9,7 +9,9 @@ import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.TimeZone
+import java.util.Calendar
 import scala.util.Random
+import scala.math.max
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
@@ -33,6 +35,8 @@ object KafkaWordCount {
       System.exit(1)
     }
 
+    val outputKafkaTopic = "windowedSummaries"
+
     val Array(brokers, topic) = args
     val sparkConf = new SparkConf().setAppName("Thesis01")
     val ssc = new StreamingContext(sparkConf, Seconds(2))
@@ -42,45 +46,104 @@ object KafkaWordCount {
       "bootstrap.servers" -> brokers,
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
-      "group.id" -> "testGroup",
+      "group.id" -> "testGroup1",
       "auto.offset.reset" -> "earliest",
       "enable.auto.commit" -> (false: java.lang.Boolean)
     )    
 
     val lines = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](topic.split(","), kafkaParams))
 
-/** WORKING **
-    val words = lines.flatMap(_.value.split(" +"))
-    
-
-    val wordCounts = words.map(x => (x, 1L))
-      .reduceByKeyAndWindow(_ + _, _ - _, Minutes(10), Seconds(2), 2)
-
-    val sortedCounts = wordCounts.map { case(word, count) => (count, word) }
-      .transform(rdd =>  rdd.sortByKey(false) )
-
-    sortedCounts.foreachRDD(rdd =>
-      println("\nTop 10 words:\n" + rdd.take(10).mkString("\n")) )
-***	***/
-
     val lineWithTemps = lines.map(_.value.split(" +")).map(line => line(9).toLong )
 
     val windowLength = Minutes(1)
     val slideInterval = Seconds(2)
 
-    val sum = lineWithTemps.window( windowLength, slideInterval )
+    lineWithTemps.window( windowLength, slideInterval )
        .foreachRDD( rdd => {
           if(!rdd.isEmpty){
-	    val count = rdd.count().toDouble
-            val sum = rdd.reduce( _ + _ ).toLong
-            println("("+sum+", "+count+", "+sum/count+")")
-         }
+
+	    /* Compute sum and count */
+	    val count: Double = rdd.count().toDouble
+            val sum: Long = rdd.reduce( _ + _ ).toLong
+		
+            /* Prepare to send message to Kafka topic  */
+ 	    val props = new HashMap[String, Object]()
+	    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, brokers)
+	    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
+	    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
+	    val producer = new KafkaProducer[String, String](props)
+	    
+   	    /* Prepare data format to put into the message */
+	    val format = new SimpleDateFormat("yyyyMMddkkmm")
+	    val date = format.format(Calendar.getInstance().getTime())                
+		  
+ 	    val data = date+", "+sum+", "+count+", "+windowLength+" ,1"
+	    val message = new ProducerRecord[String, String](outputKafkaTopic, null, data)	  
+	    
+	    println(data)   	    
+	
+	    producer.send(message)
+	    producer.close()
+          }
        })
 
     ssc.start()
     ssc.awaitTermination()
   }
 }
+
+object Reconcile {
+  def main(args: Array[String]) {
+    if (args.length < 1) {
+      System.err.println("Usage: KafkaWordCount <brokers>")
+      System.exit(1)
+    }
+    
+    val inputKafkaTopic = "windowedSummaries"
+
+    val Array(brokers) = args
+    val sparkConf = new SparkConf().setAppName("Reconciliation")
+    val ssc = new StreamingContext(sparkConf, Seconds(2))
+    ssc.checkpoint("reconciliation")
+
+    val kafkaParams = Map[String, Object](
+      "bootstrap.servers" -> brokers,
+      "key.deserializer" -> classOf[StringDeserializer],
+      "value.deserializer" -> classOf[StringDeserializer],
+      "group.id" -> "testGroup1",
+      "auto.offset.reset" -> "earliest",
+      "enable.auto.commit" -> (false: java.lang.Boolean)
+    )
+
+    val records = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](inputKafkaTopic.split(","), kafkaParams))
+
+    val aggregationByTime = records.map( record => {
+      val recordValue = record.value.trim
+      val arr = recordValue.substring(1, recordValue.length()-1).split(",")
+      ( arr(0).toLong, arr.drop(1).mkString(", ") )
+    })
+    .reduceByKey( (v1, v2) => {
+	val sum = v1(0).toDouble + v2(0).toDouble
+	val count = v1(1).toLong + v2(1).toLong
+	println(sum+", "+count+", "+sum/count)
+	(sum/count).toString
+    })
+
+    val onlyLastTimeAggregated = aggregationByTime.reduce( (x, y) => { 
+        val maximumTs = max(x._1, y._1)
+	if( maximumTs == x._1)
+	  x
+	else
+	  y	
+    })
+
+    onlyLastTimeAggregated.print()    
+
+    ssc.start()
+    ssc.awaitTermination()
+  }
+}
+
 
 object KafkaWordCountProducer {
 
@@ -96,10 +159,8 @@ object KafkaWordCountProducer {
     // Zookeeper connection properties
     val props = new HashMap[String, Object]()
     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, brokers)
-    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
-      "org.apache.kafka.common.serialization.StringSerializer")
-    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
-      "org.apache.kafka.common.serialization.StringSerializer")
+    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
+    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
 
     val producer = new KafkaProducer[String, String](props)
 
