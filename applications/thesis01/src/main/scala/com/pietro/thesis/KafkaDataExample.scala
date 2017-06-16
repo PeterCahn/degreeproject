@@ -23,6 +23,7 @@ import org.apache.spark.streaming.kafka010._
 import org.apache.kafka.common.serialization.StringDeserializer
 import org.apache.spark.streaming.kafka010.LocationStrategies.PreferConsistent
 import org.apache.spark.streaming.kafka010.ConsumerStrategies.Subscribe
+import org.apache.kafka.common.TopicPartition
 import org.apache.kafka.clients.producer._
 import org.apache.spark.rdd.RDD
 
@@ -41,18 +42,20 @@ object KafkaWordCount {
     val Array(brokers, topic) = args
     val sparkConf = new SparkConf().setAppName("Thesis01")
     val ssc = new StreamingContext(sparkConf, Seconds(2))
-    ssc.checkpoint("checkpoint")
+    ssc.checkpoint("dataAggregation")
 
+    val topics = topic.split(",").toList
     val kafkaParams = Map[String, Object](
       "bootstrap.servers" -> brokers,
       "key.deserializer" -> classOf[StringDeserializer],
       "value.deserializer" -> classOf[StringDeserializer],
       "group.id" -> "testGroupSky1",
       "auto.offset.reset" -> "earliest",
-      "enable.auto.commit" -> (false: java.lang.Boolean)
+      "enable.auto.commit" -> (true: java.lang.Boolean)
     )    
+    //val offsets = Map(new TopicPartition(topic, 0) -> 2L)
 
-    val lines = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](topic.split(","), kafkaParams))
+    val lines = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](topics, kafkaParams))
 
     val lineWithTemps = lines.map(_.value.split(" +"))
 	.filter(line => line.length > 8)
