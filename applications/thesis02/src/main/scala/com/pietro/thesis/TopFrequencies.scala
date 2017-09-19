@@ -12,7 +12,6 @@ import java.util.TimeZone
 import java.util.Calendar
 import scala.util.Random
 import scala.util.Try
-import scala.math.max
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
@@ -33,7 +32,7 @@ import java.io.FileInputStream
 import org.apache.log4j._
 import scala.concurrent.duration._
 
-object ComputeClusterLocal {
+object ClusterLocalAVGAggregate {
   def main(args: Array[String]) {    
 
 /*    if (args.length < 3) {
@@ -44,82 +43,106 @@ object ComputeClusterLocal {
 
     val prop = new Properties()
     prop.load(new FileInputStream("app.properties"))
-   
-    val sparkConf = new SparkConf().setAppName(prop.getProperty("cluster.appname"))
-    val ssc = new StreamingContext(sparkConf, Seconds(5))
-    ssc.checkpoint("dataAggregation")
-
-    val topic = prop.getProperty("cluster.input.topic").split(",").toList
-    val brokers = prop.getProperty("cluster.input.brokers")
-    val kafkaParams = Map[String, Object](
-      "bootstrap.servers" -> brokers,
-      "key.deserializer" -> classOf[StringDeserializer],
-      "value.deserializer" -> classOf[StringDeserializer],
-      "group.id" -> "testGroupSky1",
-      "auto.offset.reset" -> "earliest",
-      "enable.auto.commit" -> (false: java.lang.Boolean)
-    )    
-    
-    /* Create stream from Kafka topics */
-    val lines = KafkaUtils.createDirectStream(ssc, PreferConsistent, Subscribe[String, String](topic, kafkaParams))
-
-    /* Extract only useful information from known line schema */
-    val lineWithTemps = lines.map(_.value.split(" +"))
-	.filter(line => line.length > 8) // prevent lines with less than 8 word: wrong or not supported format (in this version)
-	.map(line => line(9).toLong )    // map each line to a temperature
-
     val clusterId = prop.getProperty("cluster.id")
-    val windowLength = Minutes(prop.getProperty("cluster.windowlength.minutes").toInt)
-    val slideInterval = Minutes(prop.getProperty("cluster.windowslide.minutes").toInt)
+    
+    /* Input Kafka configuration (which topic read as input and from which server) */
+    val inputTopic = prop.getProperty("cluster.input.topic")
+    val inputBrokers = prop.getProperty("cluster.input.brokers")
 
-    val outputKafkaTopic = prop.getProperty("cluster.output.topic")
+    /* Output Kafka configuration (which topic to write on and from which server) */
+    val outputTopic = prop.getProperty("cluster.output.topic")
     val outputBrokers = prop.getProperty("cluster.output.brokers")
 
-    lineWithTemps.window( windowLength, slideInterval )
-       .foreachRDD( rdd => {
-          if( !rdd.isEmpty ){
+    /* Sliding window parameters */
+    val windowLength = Minutes(prop.getProperty("cluster.windowlength.minutes").toInt)
+    val slideInterval = Minutes(prop.getProperty("cluster.windowslide.minutes").toInt)
+    
+    import org.apache.spark.sql._
+    import org.apache.spark.sql.SparkSession
+    import org.apache.spark.sql.Dataset
+    import org.apache.spark.sql.Row
+    import org.apache.spark.sql.streaming.StreamingQuery
+    import org.apache.spark.sql.types._
+    import org.apache.spark.sql.functions._
+//    import org.apache.spark.sql.functions.typedLit // Spark 2.2+
+    import org.apache.spark.sql.functions.lit
 
-	    /* Compute sum and count on each RDD */
-	    val count: Double = rdd.count().toDouble
-            val sum: Long = rdd.reduce( _ + _ ).toLong
-		
-            /* Prepare to send message to Kafka topic  */
- 	    val props = new HashMap[String, Object]()
-	    props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, outputBrokers)
-	    props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
-	    props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
-	    val producer = new KafkaProducer[String, String](props)
-	    
-   	    /* Prepare data format to put into the message */
-	    val format = new SimpleDateFormat("yyyyMMddkkmm")
-	    val date = format.format(Calendar.getInstance().getTime())
-		  
- 	    val data = date+", "+sum+", "+count+", "+sum/count+", "+windowLength+", "+clusterId // record to publish
-	    val message = new ProducerRecord[String, String](outputKafkaTopic, clusterId.toString, data)
-	    
-	    println(data) // debug purposes only
+    val spark = SparkSession
+        .builder()
+        .appName("SSComputeClusterLocal")
+        .getOrCreate()
 
-	    producer.send(message) // publish message into outputKafkaTopic
-	    producer.close()
-          }
-       })
+    import spark.implicits._
 
-    ssc.start()
-    ssc.awaitTermination()
+    val schema = new StructType()
+        .add("when", StringType)
+        .add("number", IntegerType)
+        .add("producer_id", IntegerType)
+
+    val records = spark
+        .readStream
+        .format("kafka")
+        .option("kafka.bootstrap.servers", inputBrokers)
+        .option("subscribe", inputTopic)
+        .option("startingOffsets", "earliest")
+        .load()
+	.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") // cast key and value as string to be read in the following
+
+   /* Extract 'value' according to provided schema and adding column with timestamp */
+   val parsedRecords = records
+	.select(from_json($"value", schema) as "parsed")
+        .select( unix_timestamp($"parsed.when", "yyyy-MM-dd'T'HH:mm:ss").cast("timestamp").alias("timestamp"), $"parsed.*")
+    
+    /* Windowed computation: count all elements and sum them up */
+    val windowedRecords = parsedRecords
+	.groupBy(window($"timestamp", "10 minutes", "1 minute") as "window")
+        .agg(count("*") as "count", sum("number") as "sum", avg("number") as "average") 
+	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
+	.orderBy($"window".desc)
+	.withColumn("clusterId", lit(clusterId))        
+//	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
+
+    /* Show schema after computation */
+    windowedRecords.printSchema()
+    
+    /* Print on console */
+    val toConsole = windowedRecords
+	.writeStream
+   	.format("console")
+	.option("truncate","false")
+	.outputMode("complete")
+    	.start()
+
+    import org.apache.spark.sql.streaming.OutputMode
+    import org.apache.spark.sql.streaming.Trigger
+
+    /* Produce on Kafka topic */
+    val toKafka = windowedRecords
+	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
+        .writeStream
+	.outputMode("complete")
+//	.trigger(Trigger.ProcessingTime("1 second"))
+        .format("kafka")
+        .option("kafka.bootstrap.servers", outputBrokers)
+        .option("topic", outputTopic)
+        .option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
+        .start()
+
+    toConsole.awaitTermination
+    toKafka.awaitTermination
+
   }
 }
 
-object PrepareQuery{
+object DecentralizedAVGAggregate{
   def main(args: Array[String]) {
-    if (args.length < 1) {
-      System.err.println("Usage: KafkaWordCount <brokers>")
-      System.exit(1)
-    }
 
-    val inputKafkaTopic = "windowedSummaries"
-    val Array(brokers) = args
+    val prop = new Properties()
+    prop.load(new FileInputStream("app.properties"))
+    val inputKafkaTopic = prop.getProperty("dec.input.topic")
+    val inputKafkaBroker = prop.getProperty("dec.input.brokers")
 
-    val windowLength = Minutes(20)
+    val windowLength = Minutes(60)
     val sliding = Seconds(10)
 
     import org.apache.spark.sql._
@@ -132,73 +155,56 @@ object PrepareQuery{
 
     val spark = SparkSession
         .builder()
-        .appName("PreparingQuery")
+        .appName("DecentralizedAVGAggregate")
         .getOrCreate()
 
     import spark.implicits._
 
     val schema = new StructType()
-        .add("time", LongType)
-        .add("sum", DoubleType)
-        .add("count", DoubleType)
-        .add("average", DoubleType)
-        .add("windowLength", StringType)
-        .add("clusterId", IntegerType)
-//import org.json4s._
-//import org.json4s.native.Serialization._
-//import org.json4s.native.Serialization
-//implicit val formats = Serialization.formats(NoTypeHints)
-//import org.json4s.native.Json
-//import org.json4s.DefaultFormats
+	.add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
+	.add("count", LongType)
+	.add("sum", LongType)
+	.add("average", DoubleType)
+	.add("clusterId",StringType)
 
     val records = spark
         .readStream
         .format("kafka")
-        .option("kafka.bootstrap.servers", brokers)
+        .option("kafka.bootstrap.servers", inputKafkaBroker)
         .option("subscribe", inputKafkaTopic)
         .option("startingOffsets", "earliest")
         .load()
-	.selectExpr("cast (value as string)")
-	.as[String]
-	.map( record => {
-/*		val recordArr = record.trim.split(", +")
-		val m = Map(
-			"time" -> recordArr(0).toLong,
-			"sum" -> recordArr(1).toDouble,
-			"count" -> recordArr(2).toDouble,
-			"average" -> recordArr(3).toDouble,
-			"windowLength" -> recordArr(4),
-			"clusterId" -> recordArr(5).toInt
-		)
-		Json(DefaultFormats).write(m)
-*/
+        .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") // cast key and value as string to be read in the following
 
+    /* Extract 'value' according to provided schema and adding column with timestamp */
+    val parsedRecords = records
+	.select(from_json($"value", schema) as "parsed")
+        .select($"parsed.*")
 
-	        val recordArr = record.trim.split(", +")
-		s"""{time:${recordArr(0).toLong},sum:${recordArr(1).toDouble},count:${recordArr(2).toDouble},average:${recordArr(3).toDouble},windowLength:${recordArr(4)},clusterId:${recordArr(5).toInt}}""".stripMargin
-	    })
+    /* Windowed computation: count all elements and sum them up */
+    val windowedRecords = parsedRecords
+	.withColumn("windowEnd", $"window.end")
+	.withColumn("windoowStart", $"window.start")
+        .groupBy(window($"windowEnd", "60 minutes", "1 minute") as "window")
+//	.filter() // Filter records whose "window.end" falls outside current window computation
+	.agg(sum("sum") as "aggregateSum", count("count") as "aggregateCount", avg("sum") as "aggregateAvg")
+        .filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
+        .orderBy($"window".desc)
+	
+//        .selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value") // Prepare to write back to Kafka
 
-    records.printSchema()
+    windowedRecords.printSchema()
 
-    val parsed1 =  records
-	.select(from_json('value, schema) as 'parsed)
-    parsed1.printSchema()
-    
-    val parsed2 = parsed1
-	.select("parsed.*")
-    parsed2.printSchema()
+    /* Print on console */
+    val toConsole = windowedRecords
+        .writeStream
+        .format("console")
+        .option("truncate","false")
+        .outputMode("complete")
+        .start()
 
-//    parsed.printSchema()
-
-    val output = parsed1
-    .writeStream
-    .format("console")
-    .outputMode("append")
-    .start
-
-    output.awaitTermination
+    toConsole.awaitTermination
 /*
-  
 //    .createOrReplaceTempView("WSTable")
 
 //    val sql = "SELECT * FROM WSTable"
@@ -215,7 +221,7 @@ object PrepareQuery{
 }
 
 
-object MultipleDataProducer {
+object MultiDataProducerAVGAggregate {
 
   def main(args: Array[String]) {
     if (args.length < 2) {
@@ -270,9 +276,9 @@ object MultipleDataProducer {
    /* Send wrapper containing Kafka Producer to produce in parallel from different executors */
    val ks = sc.broadcast(KafkaSink(conf))
 
-   /*  */
-   val dateFormat = new SimpleDateFormat("yyyyMMddkkmm")
-   dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+1"))
+   /* Date format: yyyy-MM-dd'T'hh:mm:ss */
+   val dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
+   dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+2"))
    val now = Calendar.getInstance().getTime()
    val time = dateFormat.format(now)
 
@@ -287,14 +293,14 @@ object MultipleDataProducer {
 
 	for(value <- 1 to dataSize.toInt){
 
-		if ( timestampInMinutes >= currentTimeInMinutes ) Thread.sleep(60000)
+		if ( timestampInMinutes >= currentTimeInMinutes ) Thread.sleep(10000)
 
 		val timestampInMs = Calendar.getInstance().getTimeInMillis()
-//	        val formattedCurrentTime = dateFormat.format(timestampInMs)
-		val formattedCurrentTime = Calendar.getInstance().getTime()
+	        val formattedCurrentTime = dateFormat.format(timestampInMs)
+//		val formattedCurrentTime = Calendar.getInstance().getTime()
 		
 
-		val toSend = s"""{"time_ms":${timestampInMs},"when":${formattedCurrentTime},"number":${value},"producer_id":${rdd}}""".stripMargin
+		val toSend = s"""{"when":"${formattedCurrentTime}","number":${value},"producer_id":${rdd}}""".stripMargin
 	        ks.value.send(topic, timestampInMs, Random.nextInt(2000).toString, toSend)
 		timestampInMinutes = timestampInMinutes + 1
 
