@@ -65,13 +65,19 @@ object ClusterLocalMGSummary {
         .builder()
         .appName("SSComputeClusterLocal")
         .getOrCreate()
+    
+//    spark.conf
+//	.set("spark.sql.streaming.metricsEnabled", "true")
+//	.set("spark.metrics.conf.*.sink.graphite.class", "org.apache.spark.metrics.sink.GraphiteSink")
+//	.set("spark.metrics.conf.*.sink.graphite.host", "sky1.it.kth.se")
+//        .set("spark.metrics.conf.*.sink.graphite.port", "2003")
 
     import spark.implicits._
 
     val schema = new StructType()
-        .add("when", StringType)
-        .add("number", StringType)
-        .add("producer_id", IntegerType)
+        .add("created_at", StringType)
+        .add("value", StringType)
+        .add("producer_id", StringType)
 
     val records = spark
         .readStream
@@ -85,7 +91,7 @@ object ClusterLocalMGSummary {
    /* Extract 'value' according to provided schema and adding column with timestamp */
    val parsedRecords = records
 	.select(from_json($"value", schema) as "parsed")
-        .select( unix_timestamp($"parsed.when", "yyyy-MM-dd'T'HH:mm:ss").cast("timestamp").alias("timestamp"), $"parsed.*")
+        .select( unix_timestamp($"parsed.created_at", "yyyy-MM-dd'T'HH:mm:ss").cast("timestamp").alias("timestamp"), $"parsed.*")
 
     spark.udf.register("myAverage", CreateMGSummary)
 
@@ -95,7 +101,7 @@ object ClusterLocalMGSummary {
     /* Windowed computation: count all elements and sum them up */
     val windowedRecords = parsedRecords
 	.groupBy(window($"timestamp", "10 minutes", "1 minute") as "window")
-	.agg(summary('number).as("MG summary"))
+	.agg(summary('value).as("MG summary"))
 	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
 	.orderBy($"window".desc)
 	.withColumn("clusterId", lit(clusterId)) 
@@ -103,29 +109,54 @@ object ClusterLocalMGSummary {
     /* Show schema after computation */
     windowedRecords.printSchema()
     
+    import org.apache.spark.sql.streaming.{OutputMode, Trigger, ProcessingTime}
+
     /* Print on console */
     val toConsole = windowedRecords
 	.writeStream
    	.format("console")
 	.option("truncate","false")
 	.outputMode("complete")
+	.trigger(ProcessingTime(10.seconds))
     	.start()
-
-    import org.apache.spark.sql.streaming.OutputMode
-    import org.apache.spark.sql.streaming.Trigger
 
     /* Produce on Kafka topic */
     val toKafka = windowedRecords
 	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
         .writeStream
 	.outputMode("complete")
-//	.trigger(Trigger.ProcessingTime("1 second"))
+	.trigger(ProcessingTime(20.seconds))
         .format("kafka")
         .option("kafka.bootstrap.servers", outputBrokers)
         .option("topic", outputTopic)
         .option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
         .start()
+/*
+    /* Add listener to extract statistics */
+    import org.apache.spark.sql.streaming.StreamingQueryListener
+    import org.apache.spark.sql.streaming.StreamingQueryListener.{QueryProgressEvent, QueryStartedEvent, QueryTerminatedEvent}
 
+    val queryListener: StreamingQueryListener = new StreamingQueryListener() {
+
+	/* When posted: Right after StreamExecution has started running streaming batches */
+        override def onQueryStarted(queryStarted: QueryStartedEvent): Unit = {
+            println("Query started: " + queryStarted.id)
+        }
+
+	/* When posted: Right before StreamExecution finishes running streaming batches (due to a stop or an exception) */
+        override def onQueryTerminated(queryTerminated: QueryTerminatedEvent): Unit = {
+            println("Query terminated: " + queryTerminated.id)
+        }
+
+        /* When posted: ProgressReporter reports query progress (which is when StreamExecution runs batches and a trigger has finished) */
+        override def onQueryProgress(queryProgress: QueryProgressEvent): Unit = {
+            println("Query made progress: " + queryProgress.progress.numInputRows )
+        }
+    }
+    spark.streams.addListener(queryListener)
+
+//    spark.streams.removeListener(queryListener)
+*/
     toConsole.awaitTermination
     toKafka.awaitTermination
   }
@@ -142,7 +173,7 @@ object ClusterLocalMGSummary {
 
   object CreateMGSummary extends UserDefinedAggregateFunction {
 
-     val n = 30
+     val n = 100
 
      // Data types of input arguments of this aggregate function
      def inputSchema: StructType = new StructType().add("element", StringType)
@@ -305,12 +336,11 @@ object DecentralizedMGMerge {
 
     /* Windowed computation: count all elements and sum them up */
     val windowedRecords = parsedRecords
-	.withColumn("inputWindow", $"window")
-	.withColumn("windowEnd", $"window.end")
-	.withColumn("current_timestamp", current_timestamp())
+	.withColumnRenamed("window", "inputWindow") // window field of each record is taken as input from udaf
+	.withColumn("windowEnd", $"inputWindow.end")
 	.groupBy( window($"windowEnd", "60 minutes", "1 minute") as "bigWindow" )
 	.agg( decentralizedSummary($"windowEnd", $"summary", $"clusterId", $"window", $"inputWindow") as "mergedSummary")
-	.select($"mergedSummary.*", $"bigWindow")
+	.select($"mergedSummary.*")
 	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
 	.orderBy($"window".desc)
 	
@@ -361,9 +391,10 @@ object DecentralizedMGMerge {
 
      // The data type of the returned value
      def dataType = new StructType()
+//        .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
         .add("globalSummary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
         .add("clusters", ArrayType(StringType))
-	.add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
+        .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
 
      // Whether this function always returns the same output on the identical input
      def deterministic: Boolean = true
@@ -493,7 +524,6 @@ object DecentralizedMGMerge {
         val bufferWindow = (bufferWindowRow.getAs[Timestamp](0), bufferWindowRow.getAs[Timestamp](1))
 
 	(globalSummary, clusters, bufferWindow)
-
      }
    }
 }
