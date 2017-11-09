@@ -12,6 +12,8 @@ import java.util.TimeZone
 import java.util.Calendar
 import scala.util.Random
 import scala.util.Try
+import scala.util._
+import scala.collection.mutable.WrappedArray
 
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
@@ -28,9 +30,12 @@ import org.apache.kafka.clients.producer._
 import org.apache.spark.rdd.RDD
 import java.util.Properties
 import java.io.FileInputStream
+import twitter4j._
+import org.json._
 
 import org.apache.log4j._
 import scala.concurrent.duration._
+
 
 object ClusterLocalMGSummary {
   def main(args: Array[String]) {    
@@ -93,7 +98,7 @@ object ClusterLocalMGSummary {
 	.select(from_json($"value", schema) as "parsed")
         .select( unix_timestamp($"parsed.created_at", "yyyy-MM-dd'T'HH:mm:ss").cast("timestamp").alias("timestamp"), $"parsed.*")
 
-    spark.udf.register("myAverage", CreateMGSummary)
+    spark.udf.register("create_mg_summary", CreateMGSummary)
 
     import org.apache.spark.sql.expressions.UserDefinedAggregateFunction
     lazy val summary: UserDefinedAggregateFunction = CreateMGSummary
@@ -103,23 +108,44 @@ object ClusterLocalMGSummary {
 	.groupBy(window($"timestamp", "10 minutes", "1 minute") as "window")
 	.agg(summary('value).as("MG summary"))
 	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
-	.orderBy($"window".desc)
 	.withColumn("clusterId", lit(clusterId)) 
 
+    val sumArraySchema = ArrayType(new StructType().add("value", StringType).add("frequency", LongType).add("exactFrequency", LongType))
+    val mgSchema = new StructType()
+        .add("size", LongType)
+        .add("clusterDistinctValues", LongType)
+        .add("error", LongType)
+	.add("correctValues", DoubleType)
+//	.add("summary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType).add("exactFrequency", LongType)))
+	.add("summary", sumArraySchema)
+
+    val ordering = udf { list: WrappedArray[Row] =>
+        list.map( r => (r.getString(0), r.getLong(1), r.getLong(2)) ).sortWith(_._2 > _._2)//.take(10)
+    }
+
+    val expandedRecords = windowedRecords	
+        .select($"window", from_json($"MG summary", mgSchema) as "parsed" )
+        .select($"window", $"parsed.*" )
+	.orderBy($"window".desc)
+        .withColumn("MGSummary", ordering($"summary").cast(sumArraySchema))
+	.drop($"summary")
+
     /* Show schema after computation */
-    windowedRecords.printSchema()
+    expandedRecords.printSchema()
     
     import org.apache.spark.sql.streaming.{OutputMode, Trigger, ProcessingTime}
 
     /* Print on console */
-    val toConsole = windowedRecords
+    val toConsole = expandedRecords
 	.writeStream
    	.format("console")
+	.queryName("summaries")
 	.option("truncate","false")
 	.outputMode("complete")
-	.trigger(ProcessingTime(10.seconds))
+	.trigger(ProcessingTime(60.seconds))
     	.start()
 
+/*
     /* Produce on Kafka topic */
     val toKafka = windowedRecords
 	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
@@ -131,6 +157,7 @@ object ClusterLocalMGSummary {
         .option("topic", outputTopic)
         .option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
         .start()
+*/
 /*
     /* Add listener to extract statistics */
     import org.apache.spark.sql.streaming.StreamingQueryListener
@@ -158,7 +185,7 @@ object ClusterLocalMGSummary {
 //    spark.streams.removeListener(queryListener)
 */
     toConsole.awaitTermination
-    toKafka.awaitTermination
+//    toKafka.awaitTermination
   }
 
 
@@ -173,13 +200,16 @@ object ClusterLocalMGSummary {
 
   object CreateMGSummary extends UserDefinedAggregateFunction {
 
-     val n = 100
+     val k = 80
+     var totalNumberOfItems: Long = 0
 
      // Data types of input arguments of this aggregate function
      def inputSchema: StructType = new StructType().add("element", StringType)
 
      // Data types of values in the aggregation buffer
-     def bufferSchema: StructType = new StructType().add("buffer1", MapType(StringType, LongType))
+     def bufferSchema: StructType = new StructType()
+	.add("approxFrequencies", MapType(StringType, LongType))
+	.add("realFrequencies", MapType(StringType, LongType))	
    
      // The data type of the returned value
      def dataType: DataType = StringType
@@ -192,88 +222,139 @@ object ClusterLocalMGSummary {
      // the opportunity to update its values. Note that arrays and maps inside the buffer are still
      // immutable.
      def initialize(buffer: MutableAggregationBuffer): Unit = {
-       buffer(0) = Map()
+	buffer(0) = Map()
+	buffer(1) = Map()
      }
    
      // Updates the given aggregation buffer `buffer` with new input data from `input`
      def update(buffer: MutableAggregationBuffer, input: Row): Unit = {
        if (!input.isNullAt(0)) {
-   	   var map = buffer.getAs[Map[String, Long]](0)
+   	   var summary = buffer.getAs[Map[String, Long]](0)
+	   var exactMap = buffer.getAs[Map[String, Long]](1)
 	   val keyToAdd = input.getString(0)
+	   
+	   totalNumberOfItems = totalNumberOfItems + 1
    	   
-	   if(map.contains(keyToAdd)){
+	   if(summary.contains(keyToAdd)){
               /* The elements is already contained: increment the count */
-	      val value = map.get(keyToAdd).get + 1
-	      map = map + (keyToAdd -> value)
-	   } else if(map.size < n)
+	      val value = summary.get(keyToAdd).get + 1
+	      summary = summary + (keyToAdd -> value)
+	   } else if(summary.size < k)
               /* There is space to add the element in the summary */
-	      map = map + (keyToAdd -> 1)
+	      summary = summary + (keyToAdd -> 1)
 	   else {
 	      /* There is no space to add the element: decrement all counters and delete null ones */
-	      var m = map
-	      for( (k: String, v: Long) <- map)
-		m = m + (k -> (v-1).toLong)
+	      var m = Map[String, Long]()
+	      for( (k: String, v: Long) <- summary)
+		m = m + (k -> (v-1).toLong)	      
     	      
-	      map = m.filter( (element) => element._2 > 0 )
+	      summary = m.filter( (element) => element._2 > 0 )
 	   }
 
-	   buffer(0) = map
+           if(exactMap.contains(keyToAdd)){
+              /* The elements is already contained: increment the count */
+              val exactValue = exactMap.get(keyToAdd).get + 1
+              exactMap = exactMap + (keyToAdd -> exactValue)
+           } else
+              exactMap = exactMap + (keyToAdd -> 1)
+
+	   buffer(0) = summary
+	   buffer(1) = exactMap
        }
      }
-      
+     
+     def sum(xs: List[Long]): Long = {
+       xs match {
+         case x :: tail => x + sum(tail) // if there is an element, add it to the sum of the tail
+         case Nil => 0 // if there are no elements, then the sum is 0
+       }
+     }
+ 
      // Merges two aggregation buffers and stores the updated buffer values back to `buffer1`
      def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = {
 
+	/* Merge two MG summaries */
 	var list = List[(String, Long)]()
 	if (!buffer2.isNullAt(0) && !buffer1.isNullAt(0)){
    	   list = buffer1.getAs[Map[String, Long]](0).toList ::: buffer2.getAs[Map[String, Long]](0).toList
 	}	
 
 	if(list.length > 0){
-	   def sum(xs: List[Long]): Long = {
-  	     xs match {
-	       case x :: tail => x + sum(tail) // if there is an element, add it to the sum of the tail
-	       case Nil => 0 // if there are no elements, then the sum is 0
-	     }
-	   }
-
 	   var sortedList = list.groupBy(_._1)
 	      .map { case (k,v) => (k, sum(v.map(_._2))) }
 	      .toList
 	      .sortWith(_._2 > _._2)
-/*
- 	   val reducedList = sortedList.take(n+1)
-	   var minValue = 0L
-	   if(reducedList.length >= (n+1))
-	      minValue = reducedList.minBy(_._2)._2
 
-	   var map = reducedList.toMap
- 	   for( (k: String, v: Long) <- map)
-	       map = map + (k -> (v-minValue).toLong)
-         
-	   buffer1(0) = map.filter( (element) => element._2 > 0 ).toMap
-*/
-	   buffer1(0) = sortedList.take(n).toMap
+	   buffer1(0) = sortedList.take(k).toMap
+	}
 
-	} 
+        /* Merge two exact summaries */    
+        var exactList = List[(String, Long)]()
+        if (!buffer2.isNullAt(1) && !buffer1.isNullAt(1)){
+           exactList = buffer1.getAs[Map[String, Long]](1).toList ::: buffer2.getAs[Map[String, Long]](1).toList
+        }
+
+        if(exactList.length > 0){
+           var exactSortedList = exactList.groupBy(_._1)
+              .map { case (k,v) => (k, sum(v.map(_._2))) }
+              .toList
+              .sortWith(_._2 > _._2)
+
+           buffer1(1) = exactSortedList.toMap
+        }
+ 
      }
 
      // Calculates the final result
      def evaluate(buffer: Row): String = {
-	var i = 0
-	var summary = ""
-	val map = buffer.getAs[Map[String, Long]](0).toSeq.sortWith(_._2 > _._2)
-	for( (k,v) <- map) {
-	   if( i == 0 ) {
-	      summary = summary + s"""{"value":"${k}","frequency":${v}}"""
-	      i = 1
-	   } else
-              summary = summary + s""",{"value":"${k}","frequency":${v}}"""	   
-
-	}
-	   
-	s"""{"size":${map.size},"summary":[${summary}]}"""
 	
+//	import org.json._
+//	import org.codehaus.jettison.json._
+
+	val map = buffer.getAs[Map[String, Long]](0).toSeq.sortWith(_._2 > _._2).toMap
+        val exactFrequencies = buffer.getAs[Map[String, Long]](1).toSeq.sortWith(_._2 > _._2).toMap
+	
+        val mgJson = new org.json.JSONObject()
+//	var summary = ""
+	var summary = new org.json.JSONArray()
+
+        val sumOfCounters = map.foldLeft(0L){ case (a: Long, (k: String, v: Long)) => a + v }
+        val error = (totalNumberOfItems - sumOfCounters)/(k+1)
+
+	var trues = 0
+	var index = 0
+
+	for( (k,v) <- map) {
+	   val element = new org.json.JSONObject()
+
+	   val exactFrequency: Long = exactFrequencies.get(k).getOrElse(0L)
+	   element.put("value", k)
+	   element.put("frequency", v)
+	   element.put("exactFrequency", exactFrequency)
+	
+	   /* Count values in summary that satisfy disequality */	   
+	   if( (exactFrequency >= v) && (exactFrequency <= v + error) )
+		trues = trues + 1	   
+
+	   summary.put(element)
+/*
+	   if( index == 0 ) {
+	      summary = summary + element.toString(0)
+	      index = 1
+	   } else
+  
+            summary = summary + s""",""" + element.toString(0)
+*/
+	}
+	
+	val accuracy: Double = trues.toDouble/k.toDouble
+	mgJson
+	   .put("size", map.size)
+	   .put("clusterDistinctValues", exactFrequencies.size)
+	   .put("error", error)
+	   .put("correctValues", accuracy)
+	   .put("summary", summary)
+	   .toString		
      }
    }
 }

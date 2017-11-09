@@ -5,6 +5,7 @@ import org.apache.kafka.clients.producer.{KafkaProducer, ProducerRecord}
 import twitter4j.TwitterStreamFactory
 import kafka.producer.KeyedMessage
 import twitter4j._
+import twitter4j.json._
 
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -13,10 +14,13 @@ import java.util.Date
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 
+import java.util.Properties
+import java.io.FileInputStream
+
 class TwitterStreamListener(twitterStream: TwitterStream) extends StatusListener  {
   this: StringKafkaProducer =>
 
-  val LOG = Logger.getLogger(classOf[TwitterStreamListener])
+//  val LOG = Logger.getLogger(classOf[TwitterStreamListener])
 
   def onStallWarning(stallWarning: StallWarning): Unit = {}
 
@@ -25,8 +29,8 @@ class TwitterStreamListener(twitterStream: TwitterStream) extends StatusListener
   def onScrubGeo(l: Long, l1: Long): Unit = {}
 
   def onStatus(status: Status): Unit = {
-    if(status.getLang == "en"){
-	val obj = new twitter4j.JSONObject(TwitterObjectFactory.getRawJSON(status))
+//    if(status.getLang == "en"){
+	val obj = new org.json.JSONObject(DataObjectFactory.getRawJSON(status))
 	val text = obj.get("text").toString	
 	val date = obj.get("created_at").toString
 	val producerId = 1
@@ -47,13 +51,13 @@ class TwitterStreamListener(twitterStream: TwitterStream) extends StatusListener
 	   val msg = new ProducerRecord[String, String](TwitterProducerConfig.KAFKA_TOPIC, line)
 	   producer.send(msg)
 	}
-    }
+//    }
   }
 
   def onTrackLimitationNotice(i: Int): Unit = {}
 
   def onException(e: Exception): Unit = {
-    LOG.info("Shutting down Twitter sample stream...")
+//    LOG.info("Shutting down Twitter sample stream...")
     twitterStream.shutdown()
   }
 }
@@ -66,9 +70,22 @@ trait StringKafkaProducer {
 class TwitterProducer {
   this: StringKafkaProducer =>
 
-  def start() = {
+  def start(zones: Array[String]) = {
     val twitterStream = new TwitterStreamFactory(TwitterProducerConfig.twitterStreamingConf).getInstance()
-    val queryFilter = new FilterQuery().language("en").track("#")
+
+    /* Get from zones file bounding box for parameter zone */
+    val prop = new Properties()
+    prop.load(new FileInputStream("zones.txt"))
+    val a1 = prop.getProperty(zones(0)).split(" ")
+    val a2 = prop.getProperty(zones(1)).split(" ")
+    val a3 = prop.getProperty(zones(2)).split(" ")
+    val a4 = prop.getProperty(zones(3)).split(" ")
+    val boundingBoxProp = a1 ++ a2 ++ a3 ++ a4
+    
+    val boundingBox = boundingBoxProp.map(_.toDouble).grouped(2).toArray
+
+    /* Filter query to track only tweets wich hashtags and from location within bounding box */
+    val queryFilter = new FilterQuery().track(Array("#")).locations(boundingBox)
 
     val listener = new TwitterStreamListener(twitterStream) with StringKafkaProducer
     twitterStream.addListener(listener)
