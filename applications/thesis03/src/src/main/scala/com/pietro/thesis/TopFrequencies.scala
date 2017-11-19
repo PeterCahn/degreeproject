@@ -62,7 +62,7 @@ object ClusterLocalMGSummary {
     val outputBrokers = prop.getProperty("cluster.output.brokers")
 
     /* Sliding window parameters */
-    val windowLength = Minutes(prop.getProperty("cluster.windowlength.minutes").toInt)
+    val windowLength = prop.getProperty("cluster.windowlength.minutes")
     val slideInterval = Minutes(prop.getProperty("cluster.windowslide.minutes").toInt)
 
     /* Enable testing frequency accuracy */
@@ -105,8 +105,8 @@ object ClusterLocalMGSummary {
         .load()
 	.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") // cast key and value as string to be read in the following
 
-   /* Extract 'value' according to provided schema and adding column with timestamp */
-   val parsedRecords = records
+    /* Extract 'value' according to provided schema and adding column with timestamp */
+    val parsedRecords = records
 	.select(from_json($"value", schema) as "parsed")
         .select( unix_timestamp($"parsed.created_at", "yyyy-MM-dd'T'HH:mm:ss").cast("timestamp").alias("timestamp"), $"parsed.*")
 
@@ -118,10 +118,10 @@ object ClusterLocalMGSummary {
 
     /* Windowed computation: count all elements and sum them up */
     val windowedRecords = parsedRecords
-	.groupBy(window($"timestamp", "10 minutes", "1 minute") as "window")
+	.withWatermark("timestamp", windowLength + " minute")
+	.groupBy(window($"timestamp", windowLength + " minute") as "window")
 	.agg(summary('value).as("MG summary"))
 	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
-	.withColumn("clusterId", lit(clusterId))
 
     import org.apache.spark.sql.types.DataTypes
     import scala.collection.mutable.ListBuffer
@@ -138,22 +138,20 @@ object ClusterLocalMGSummary {
     val mgs = new ArrayList[StructField]()
     mgs.add(DataTypes.createStructField("size", DataTypes.LongType, true))
     if(test) mgs.add(DataTypes.createStructField("clusterDistinctValues", DataTypes.LongType, true))
-    if(test) mgs.add(DataTypes.createStructField("error", DataTypes.LongType, true))
+    if(test) mgs.add(DataTypes.createStructField("error", DataTypes.DoubleType, true))
     if(test) mgs.add(DataTypes.createStructField("correctValues", DataTypes.DoubleType, true))
     mgs.add(DataTypes.createStructField("summary", summaryStruct, true))
 
     val mgSchema = DataTypes.createStructType(mgs)
 
-    val orderingTest = udf { list: WrappedArray[Row] => list.map(r => (r.getString(0), r.getLong(1), r.getLong(2))).sortWith(_._2 > _._2)}
+    val orderingTest = udf { list: WrappedArray[Row] => list.map(r => {(r.getString(0), r.getLong(1), r.getLong(2))}).sortWith(_._2 > _._2) }
     val orderingNotTest = udf { list: WrappedArray[Row] => list.map(r => (r.getString(0), r.getLong(1))).sortWith(_._2 > _._2)}
     val ordering = if(test) orderingTest else orderingNotTest
 
     val expandedRecords = windowedRecords	
         .select($"window", from_json($"MG summary", mgSchema) as "parsed" )
-        .select($"window", $"parsed.*" )
-	.orderBy($"window".desc)
-        .withColumn("MGSummary", ordering($"summary").cast(mgSchema("summary").dataType))
-	.drop($"summary")
+        .select($"window", $"parsed.*")
+        .withColumn("clusterId", lit(clusterId))
 
     /* Show schema after computation */
     expandedRecords.printSchema()
@@ -162,9 +160,11 @@ object ClusterLocalMGSummary {
 
     /* Print on console */
     val toConsole = expandedRecords
+	.orderBy($"window".desc)
+        .withColumn("MGSummary", orderingTest($"summary").cast(mgSchema("summary").dataType))
+        .drop($"summary")
 	.writeStream
    	.format("console")
-	.queryName("summaries")
 	.option("truncate","false")
 	.outputMode("complete")
 	.trigger(ProcessingTime(60.seconds))
@@ -174,13 +174,13 @@ object ClusterLocalMGSummary {
     val toKafka = expandedRecords
 	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
         .writeStream
-	.outputMode("complete")
-	.trigger(ProcessingTime(20.seconds))
+	.outputMode("append")
+	.trigger(ProcessingTime(60.seconds))
         .format("kafka")
         .option("kafka.bootstrap.servers", outputBrokers)
         .option("topic", outputTopic)
         .option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
-       .start()
+        .start()
 
 /*
     /* Add listener to extract statistics */
@@ -188,7 +188,7 @@ object ClusterLocalMGSummary {
     import org.apache.spark.sql.streaming.StreamingQueryListener.{QueryProgressEvent, QueryStartedEvent, QueryTerminatedEvent}
 
     val queryListener: StreamingQueryListener = new StreamingQueryListener() {
-
+	
 	/* When posted: Right after StreamExecution has started running streaming batches */
         override def onQueryStarted(queryStarted: QueryStartedEvent): Unit = {
             println("Query started: " + queryStarted.id)
@@ -342,7 +342,7 @@ object ClusterLocalMGSummary {
 
         val sumOfCounters = map.foldLeft(0L){ case (a: Long, (k: String, v: Long)) => a + v }
 	val exactSumOfCounters = exactFrequencies.foldLeft(0L){ case (a: Long, (k: String, v: Long)) => a + v }
-        val error = (exactSumOfCounters - sumOfCounters)/(map.size+1)
+        val error = (exactSumOfCounters - sumOfCounters).toDouble/(map.size+1).toDouble
 
 	var trues = 0
 
@@ -386,8 +386,10 @@ object DecentralizedMGMerge {
     val inputKafkaTopic = prop.getProperty("dec.input.topic")
     val inputKafkaBroker = prop.getProperty("dec.input.brokers")
 
-    val windowLength = Minutes(60)
-    val sliding = Seconds(10)
+    val test = prop.getProperty("test").toBoolean
+
+    val windowLength = prop.getProperty("dec.windowlength.minutes")
+    val sliding = prop.getProperty("dec.sliding.minutes")
 
     import org.apache.spark.sql._
     import org.apache.spark.sql.SparkSession
@@ -404,14 +406,33 @@ object DecentralizedMGMerge {
 
     import spark.implicits._
 
-    val summarySchema = new StructType()
-        .add("size", LongType)
-        .add("summary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
+    import org.apache.spark.sql.types.DataTypes
+    import scala.collection.mutable.ListBuffer
+    import java.util.ArrayList
 
-    val schema = new StructType()
-	.add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
-	.add("MG summary", StringType)
-	.add("clusterId", StringType)
+    /* Create schema for summary field in MGSummary */
+    val summaryFields = new ArrayList[StructField]()
+    summaryFields.add(DataTypes.createStructField("value", DataTypes.StringType, true))
+    summaryFields.add(DataTypes.createStructField("frequency", DataTypes.LongType, true))
+    if(test) summaryFields.add(DataTypes.createStructField("exactFrequency", DataTypes.LongType, true))
+    val summaryStruct = DataTypes.createArrayType(DataTypes.createStructType(summaryFields))
+
+    /* Create schema for MGSummary*/
+    val mgs = new ArrayList[StructField]()
+    mgs.add(DataTypes.createStructField("window", new StructType().add("start", TimestampType).add("end", TimestampType), true))
+    mgs.add(DataTypes.createStructField("size", DataTypes.LongType, true))
+    if(test) mgs.add(DataTypes.createStructField("clusterDistinctValues", DataTypes.LongType, true))
+    if(test) mgs.add(DataTypes.createStructField("error", DataTypes.DoubleType, true))
+    if(test) mgs.add(DataTypes.createStructField("correctValues", DataTypes.DoubleType, true))
+    if(test) mgs.add(DataTypes.createStructField("processedElements", DataTypes.LongType, true))
+    mgs.add(DataTypes.createStructField("summary", summaryStruct, true))
+    mgs.add(DataTypes.createStructField("clusterId", DataTypes.StringType, true))
+
+    val schema = DataTypes.createStructType(mgs)
+
+    val orderingTest = udf { list: WrappedArray[Row] => list.map(r => (r.getString(0), r.getLong(1), r.getLong(2))).sortWith(_._2 > _._2)}
+    val orderingNotTest = udf { list: WrappedArray[Row] => list.map(r => (r.getString(0), r.getLong(1))).sortWith(_._2 > _._2)}
+    val ordering = if(test) orderingTest else orderingNotTest
 
     val records = spark
         .readStream
@@ -426,27 +447,28 @@ object DecentralizedMGMerge {
     val parsedRecords = records
 	.select(from_json($"value", schema) as "parsed")
         .select($"parsed.*")
-        .select(from_json($"MG summary", summarySchema) as "parsed", $"window", $"clusterId")
-        .select($"window", $"parsed.*", $"clusterId")
 
-    spark.udf.register("decentralizedSummary", CreateDecentralizedMGSummary)
+    spark.udf.register("decentralizedSummary", CreateDecentralizedMGSummaryTest)
 
     import org.apache.spark.sql.expressions.UserDefinedAggregateFunction
-    lazy val decentralizedSummary: UserDefinedAggregateFunction = CreateDecentralizedMGSummary
+
+    lazy val decentralizedSummaryTest: UserDefinedAggregateFunction = CreateDecentralizedMGSummaryTest
+    lazy val decentralizedSummaryNotTest: UserDefinedAggregateFunction = CreateDecentralizedMGSummaryNotTest
+    lazy val decentralizedSummary = if(test) decentralizedSummaryTest else decentralizedSummaryNotTest
 
     /* Windowed computation: count all elements and sum them up */
     val windowedRecords = parsedRecords
-	.withColumnRenamed("window", "inputWindow") // window field of each record is taken as input from udaf
-	.withColumn("windowEnd", $"inputWindow.end")
-	.groupBy( window($"windowEnd", "60 minutes", "1 minute") as "bigWindow" )
-	.agg( decentralizedSummary($"windowEnd", $"summary", $"clusterId", $"window", $"inputWindow") as "mergedSummary")
+	.withColumnRenamed("window", "summaryWindow") // window field of each record is taken as input from udaf
+	.withColumn("windowStart", $"summaryWindow.start")
+	.groupBy(window($"windowStart", windowLength + " minute", sliding + " minute"))
+	.agg(decentralizedSummary($"error", $"summary", $"clusterId", $"window", $"summaryWindow") as "mergedSummary")
 	.select($"mergedSummary.*")
 	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
 	.orderBy($"window".desc)
 	
 //        .selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value") // Prepare to write back to Kafka
 
-     windowedRecords.printSchema()
+    windowedRecords.printSchema()
 
     /* Print on console */                                  
     val toConsole = windowedRecords
@@ -471,30 +493,33 @@ object DecentralizedMGMerge {
    import scala.collection.mutable.WrappedArray
    import java.sql.Timestamp
 
-   object CreateDecentralizedMGSummary extends UserDefinedAggregateFunction {
+   object CreateDecentralizedMGSummaryTest extends UserDefinedAggregateFunction {
 
-     val n = 30
+     var k = 0
 
      // Data types of input arguments of this aggregate function
      def inputSchema: StructType = new StructType()
-	.add("currentTime", TimestampType)
-        .add("summary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
+	.add("error", DoubleType)
+        .add("summary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType).add("exactFrequency", LongType)))
 	.add("clusterId", StringType)
         .add("currentBigWindow", new StructType().add("start", TimestampType).add("end", TimestampType))
 	.add("inputWindow", new StructType().add("start", TimestampType).add("end", TimestampType))
 
      // Data types of values in the aggregation buffer
      def bufferSchema: StructType = new StructType()
-	.add("partialSummary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
+	.add("partialSummary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType).add("exactFrequency", LongType)))
 	.add("clusters", ArrayType(StringType))
         .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
+	.add("error", DoubleType)
 
      // The data type of the returned value
      def dataType = new StructType()
-//        .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
-        .add("globalSummary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
-        .add("clusters", ArrayType(StringType))
         .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
+	.add("size", LongType)
+	.add("error", DoubleType)
+	.add("accuracy", DoubleType)
+        .add("globalSummary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType).add("exactFrequency", LongType)))
+        .add("clusters", ArrayType(StringType))
 
      // Whether this function always returns the same output on the identical input
      def deterministic: Boolean = true
@@ -504,9 +529,14 @@ object DecentralizedMGMerge {
      // the opportunity to update its values. Note that arrays and maps inside the buffer are still
      // immutable.
      def initialize(buffer: MutableAggregationBuffer): Unit = {
+        val prop = new Properties()
+        prop.load(new FileInputStream("app.properties"))
+        k = prop.getProperty("dec.k").toInt
+
 	buffer(0) = Array()
 	buffer(1) = Array()
 	buffer(2) = (new Timestamp(0), new Timestamp(0))
+	buffer(3) = 0.0
      }
 
      def update(buffer: MutableAggregationBuffer, input: Row): Unit = {	
@@ -516,63 +546,74 @@ object DecentralizedMGMerge {
 	   val bufferWindowRow = buffer.getAs[Row](2)
            var bufferWindow = (bufferWindowRow.getAs[Timestamp](0), bufferWindowRow.getAs[Timestamp](1))
 	   
-	   /* Check if bufferWindow has not been set, otherwise set to the window taken from input */
+	   /* If bufferWindow has not been set, set to the window taken from input: it's the reference window for computation */
 	   if( bufferWindow._1.equals(new Timestamp(0)) && bufferWindow._2.equals(new Timestamp(0)) ){
 	      val windowRow = input.getAs[Row](3)
 	      bufferWindow = (windowRow.getAs[Timestamp](0), windowRow.getAs[Timestamp](1))
 	      buffer(2) = (bufferWindow._1, bufferWindow._2)
-
 	   }
 	}
 	   
-	   /* Window in the buffer must be set: update summary for each input windowed summary */ 
-	   if(!input.isNullAt(4)){
-	      val currentWindowRow = input.getAs[Row](4)
-              val currentWindow = (currentWindowRow.getAs[Timestamp](0), currentWindowRow.getAs[Timestamp](1))
+	/* Window in the buffer must be set: update summary for each input windowed summary */
+	if(!input.isNullAt(4) && !input.isNullAt(1)){
+	   val currentWindowRow = input.getAs[Row](4)
+           val currentWindow = (currentWindowRow.getAs[Timestamp](0), currentWindowRow.getAs[Timestamp](1))
+           
+	   val bufferWindowRow = buffer.getAs[Row](2)
+           var bufferWindow = (bufferWindowRow.getAs[Timestamp](0), bufferWindowRow.getAs[Timestamp](1))
 
-//	      if(currentWindow._1.after(bufferWindow._1) && currentWindow._2.before(bufferWindow._2) ){
+	   val t1 = currentWindow._1.compareTo(bufferWindow._1)
+           val t2 = currentWindow._2.compareTo(bufferWindow._2)
 
-		 /* Update summary merging them */
-	         val globalSummary = buffer.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}
-        	 val inputSummary = input.getAs[Seq[Row]](1).map{case Row(k: String, v: Long) => (k, v)}
-		 
-		 /* Append second summary to the first one */
-	         val unionSummary = globalSummary ++ inputSummary
+	   /* If summary's window is included inside the reference window, update summary */
+	   if( t1 >= 0 && t2 <= 0 ){
 
-		 /* Sum counters of same key */
-	         var updatedSummary = unionSummary.toList.groupBy(_._1)
-	           .map { case (k, v) => (k, sum(v.map(_._2))) }
+	      /* Update global summary by merging it with input */
+  	      val globalSummary = buffer.getAs[Seq[Row]](0).map{ case Row(k: String, v: Long, exactV: Long) => (k, v, exactV) }
+              val inputSummary = input.getAs[Seq[Row]](1).map{ case Row(k: String, v: Long, exactV: Long) => (k, v, exactV) }
+
+	      val unionSummary = globalSummary ++ inputSummary
+
+	      /* Sum counters of same key */
+	      var updatedSummary = unionSummary.toList.groupBy(_._1)
+		   .map{ case (k, list) => (k, list.map(_._2).sum, list.map(_._3).sum) }
 	           .toList
 	           .sortWith(_._2 > _._2)
 
-		 /* Get final summary by applying MG merging algorithm */
-	         val reducedList = updatedSummary.take(n+1) // take first n+1 elements: (n+1)-th is the minimum one
-        	 var minValue = 0L
-	         if(reducedList.length >= (n+1))
-        	    minValue = reducedList.minBy(_._2)._2 // take minimum of counters: value of counter of last element is (n+1)-th
+	      /* Get final summary by applying MG merging algorithm */
+	      val reducedList = updatedSummary.take(k+1) // take first k+1 elements: (k+1)-th is the minimum one
+	      var minValue = 0L
+	      if(updatedSummary.size > k)       // if updatedSummary has at least k+1 elments, you can decrement elements of reducedList, otherwise decrement 0
+		minValue = reducedList.minBy(_._2)._2  // take minimum of counters: it is (k+1)-th element
 
-	         var map = reducedList.toMap
-        	 for( (k: String, v: Long) <- map)
-	            map = map + (k -> (v-minValue).toLong) // Subtract (n+1)-th element from all counters
+              val summary = reducedList.map{ case (k, v, exactV) => (k, v-minValue, exactV)}
+                .filter( (element) => element._2 > 0 ) // keep positive counters only (not exact counters)
+                .toArray
 
-	         buffer(0) = map.filter( (element) => element._2 > 0 ).toArray // Keep positive counters only
+              buffer(0) = summary
 
-//	         buffer(0) = finalSummary
+ 	      /* Compute error: combineError + pruneError */
+              val inputSumOfCounters = inputSummary.map(_._2).sum     // sum of counters in input summary
+              val bufferSumOfCounters = globalSummary.map(_._2).sum   // sum of counters in current buffer
+              val mergedSumOfCounters = summary.map(_._2).sum		// sum of counters in merged summary
 
-        	 /* Update clusters involved */
-	         if(!input.isNullAt(2))
-	           buffer(1) = (buffer.getAs[Seq[String]](1).toArray ++ Array(input.getString(2)))	        
+	      val combineError: Double = (buffer.getDouble(3) + input.getDouble(0))	// sum of summary errors
 
-//	      }
-	   }	
+              var pruneError = 0.0
+//              if(updatedSummary.size >= k) // if size after merging is greater than k: prune => error introduced
+//	        pruneError = (bufferSumOfCounters + inputSumOfCounters - mergedSumOfCounters).toDouble/(summary.size + 1).toDouble
+//		pruneError = minValue
+
+              val error: Double = combineError + pruneError
+
+	      buffer(3) = error
+
+              /* Update clusters involved */
+	      if(!input.isNullAt(2))
+	         buffer(1) = (buffer.getAs[Seq[String]](1).toArray ++ Array(input.getString(2)))
+	    }
+	 }
        
-     }
-
-     def sum(xs: List[Long]): Long = {
-	xs match {
-           case x :: tail => x + sum(tail) // if there is an element, add it to the sum of the tail
-           case Nil => 0 // if there are no elements, then the sum is 0
-        }
      }
 
      def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = {
@@ -581,16 +622,65 @@ object DecentralizedMGMerge {
 	buffer1(1) = clusters
 
 	/* Merge two summaries */
-        val sum1 = buffer1.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}
-        val sum2 = buffer2.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}
-        val newSum = sum1 ++ sum2
+        val sum1 = buffer1.getAs[Seq[Row]](0).map{case Row(k: String, v: Long, exactV: Long) => (k, v, exactV)}
+        val sum2 = buffer2.getAs[Seq[Row]](0).map{case Row(k: String, v: Long, exactV: Long) => (k, v, exactV)}
+
+	var buffer1SumOfCounters = 0L
+	var buffer2SumOfCounters = 0L
+	var combineError = 0.0
+
+	var newSum = Seq[(String, Long, Long)]()
+	if(sum1.size != 0 && sum2.size != 0)
+	   if(sum1.toSet == sum2.toSet){
+		newSum = sum1
+        	combineError = buffer1.getDouble(3)
+		buffer1SumOfCounters = sum1.map(_._2).sum
+	    }
+	   else{
+		newSum = sum1 ++ sum2
+		combineError = (buffer1.getDouble(3) + buffer2.getDouble(3))
+                buffer1SumOfCounters = sum1.map(_._2).sum
+                buffer2SumOfCounters = sum2.map(_._2).sum
+	   }
+	else if(sum1.size != 0 && sum2.size == 0){
+	   newSum = sum1
+	   combineError = buffer1.getDouble(3)
+	   buffer1SumOfCounters = sum1.map(_._2).sum
+	}
+	else if(sum1.size == 0 && sum2.size != 0){
+	   newSum = sum2
+           combineError = buffer2.getDouble(3)
+           buffer2SumOfCounters = sum2.map(_._2).sum
+	}
 
         var finalSummary = newSum.toList.groupBy(_._1)
-           .map { case (k, v) => (k, sum(v.map(_._2))) }
+           .map { case (k, list)  => (k, list.map(_._2).sum, list.map(_._3).sum) }
            .toList
            .sortWith(_._2 > _._2)
 
-        buffer1(0) = finalSummary.take(n)
+        /* Get final summary by applying MG merging algorithm */
+        val reducedList = finalSummary.take(k+1) // take first k+1 elements: (k+1)-th is the minimum one
+        var minValue = 0L
+        if(finalSummary.length > k)           // if finalSummary has more than k elments, you can decrement, otherwise decrement 0
+           minValue = reducedList.minBy(_._2)._2  // take minimum of counters: it is (k+1)-th element
+
+        val summary = reducedList.map{ case (k, v, exactV) => (k, v-minValue, exactV)}
+                .filter( (element) => element._2 > 0 ) // keep positive counters only (not exact counters)
+                .toArray
+
+        buffer1(0) = summary
+
+        /* Compute error: combineError + pruneError */
+        val mergedSumOfCounters = summary.map(_._2).sum         // sum of counters in merged summary
+
+        var pruneError = 0.0
+        if(finalSummary.size > k) // if more than k elements: error introduced by pruning operation
+//           pruneError = (buffer1SumOfCounters + buffer2SumOfCounters - mergedSumOfCounters).toDouble/(summary.size + 1).toDouble
+	     pruneError = minValue
+
+        val error: Double = combineError + pruneError
+
+        buffer1(3) = error
 
 	/* Check window boundaries */
 	if( !buffer1.isNullAt(2) && !buffer2.isNullAt(2) ){
@@ -609,21 +699,39 @@ object DecentralizedMGMerge {
 	     buffer1(2) = (bufferWindow2._1, bufferWindow2._2)
  	  }
 	}
-	
+
      }
      
 
      // Calculates the final result
-     def evaluate(buffer:Row): (Array[Tuple2[String,Long]], Array[String], (Timestamp, Timestamp)) = {
+     def evaluate(buffer:Row): ((Timestamp, Timestamp), Long, Double, Double, Array[Tuple3[String,Long,Long]], Array[String]) = {
 
-	val globalSummary = buffer.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}.toArray
-
-	val clusters = buffer.getAs[Seq[String]](1).toArray
-
+        /* 1) Get reference window */
         val bufferWindowRow = buffer.getAs[Row](2)
         val bufferWindow = (bufferWindowRow.getAs[Timestamp](0), bufferWindowRow.getAs[Timestamp](1))
 
-	(globalSummary, clusters, bufferWindow)
+        /* 5) Get computed summary */
+        val globalSummary = buffer.getAs[Seq[Row]](0)
+                .map{case Row(k: String, v: Long, exactV: Long) => (k, v, exactV)}
+                .sortWith(_._2 > _._2)
+                .toArray
+
+        /* 2) Get summary size */
+        val size = globalSummary.size
+
+        /* 3) Get error */
+        val error = buffer.getDouble(3)
+
+        /* 4) Compute accuracy: fraction of elements in current size which satisfies error bounds */
+	val trues = globalSummary.count{ case (k, counter, exactCounter) => (exactCounter >= counter) && (exactCounter <= counter + error)}
+
+        var accuracy = 0.0
+        if(globalSummary.size != 0) accuracy = trues.toDouble/globalSummary.size.toDouble
+
+	/* 6) Get clusters involved in summary */
+        val clusters = buffer.getAs[Seq[String]](1).toArray
+
+	(bufferWindow, size, error, accuracy, globalSummary, clusters)
      }
    }
 }
@@ -819,3 +927,173 @@ object CreateMGSummaryNotTest extends UserDefinedAggregateFunction {
 	   .toString		
      }   
 }
+
+   import org.apache.spark.sql.{Row, SparkSession}
+   import org.apache.spark.sql.expressions.MutableAggregationBuffer
+   import org.apache.spark.sql.expressions.UserDefinedAggregateFunction
+   import org.apache.spark.sql.types._
+   import org.apache.spark.annotation.InterfaceStability
+   import org.apache.spark.sql.{Column, Row}
+   import org.apache.spark.sql.catalyst.expressions.aggregate.{AggregateExpression, Complete}
+   import org.apache.spark.sql.execution.aggregate.ScalaUDAF
+   import scala.collection.mutable.WrappedArray
+   import java.sql.Timestamp
+
+
+object CreateDecentralizedMGSummaryNotTest extends UserDefinedAggregateFunction {
+
+     val n = 30
+
+     // Data types of input arguments of this aggregate function
+     def inputSchema: StructType = new StructType()
+	.add("currentTime", TimestampType)
+        .add("summary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
+	.add("clusterId", StringType)
+        .add("currentBigWindow", new StructType().add("start", TimestampType).add("end", TimestampType))
+	.add("inputWindow", new StructType().add("start", TimestampType).add("end", TimestampType))
+
+     // Data types of values in the aggregation buffer
+     def bufferSchema: StructType = new StructType()
+	.add("partialSummary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
+	.add("clusters", ArrayType(StringType))
+        .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
+
+     // The data type of the returned value
+     def dataType = new StructType()
+//        .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
+        .add("globalSummary", ArrayType(new StructType().add("value", StringType).add("frequency", LongType)))
+        .add("clusters", ArrayType(StringType))
+        .add("window", new StructType().add("start", TimestampType).add("end", TimestampType))
+
+     // Whether this function always returns the same output on the identical input
+     def deterministic: Boolean = true
+
+     // Initializes the given aggregation buffer. The buffer itself is a `Row` that in addition to
+     // standard methods like retrieving a value at an index (e.g., get(), getBoolean()), provides
+     // the opportunity to update its values. Note that arrays and maps inside the buffer are still
+     // immutable.
+     def initialize(buffer: MutableAggregationBuffer): Unit = {
+	buffer(0) = Array()
+	buffer(1) = Array()
+	buffer(2) = (new Timestamp(0), new Timestamp(0))
+     }
+
+     def update(buffer: MutableAggregationBuffer, input: Row): Unit = {	
+	/* Check window times: set start time and end time only once at the beginning */
+	if( !buffer.isNullAt(2) ) {
+	   /* Take window currently stored into buffer */
+	   val bufferWindowRow = buffer.getAs[Row](2)
+           var bufferWindow = (bufferWindowRow.getAs[Timestamp](0), bufferWindowRow.getAs[Timestamp](1))
+	   
+	   /* Check if bufferWindow has not been set, otherwise set to the window taken from input */
+	   if( bufferWindow._1.equals(new Timestamp(0)) && bufferWindow._2.equals(new Timestamp(0)) ){
+	      val windowRow = input.getAs[Row](3)
+	      bufferWindow = (windowRow.getAs[Timestamp](0), windowRow.getAs[Timestamp](1))
+	      buffer(2) = (bufferWindow._1, bufferWindow._2)
+
+	   }
+	}
+	   
+	   /* Window in the buffer must be set: update summary for each input windowed summary */ 
+	   if(!input.isNullAt(4)){
+	      val currentWindowRow = input.getAs[Row](4)
+              val currentWindow = (currentWindowRow.getAs[Timestamp](0), currentWindowRow.getAs[Timestamp](1))
+
+//	      if(currentWindow._1.after(bufferWindow._1) && currentWindow._2.before(bufferWindow._2) ){
+
+		 /* Update summary merging them */
+	         val globalSummary = buffer.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}
+        	 val inputSummary = input.getAs[Seq[Row]](1).map{case Row(k: String, v: Long) => (k, v)}
+		 
+		 /* Append second summary to the first one */
+	         val unionSummary = globalSummary ++ inputSummary
+
+		 /* Sum counters of same key */
+	         var updatedSummary = unionSummary.toList.groupBy(_._1)
+	           .map { case (k, v) => (k, sum(v.map(_._2))) }
+	           .toList
+	           .sortWith(_._2 > _._2)
+
+		 /* Get final summary by applying MG merging algorithm */
+	         val reducedList = updatedSummary.take(n+1) // take first n+1 elements: (n+1)-th is the minimum one
+        	 var minValue = 0L
+	         if(reducedList.length >= (n+1))
+        	    minValue = reducedList.minBy(_._2)._2 // take minimum of counters: value of counter of last element is (n+1)-th
+
+	         var map = reducedList.toMap
+        	 for( (k: String, v: Long) <- map)
+	            map = map + (k -> (v-minValue).toLong) // Subtract (n+1)-th element from all counters
+
+	         buffer(0) = map.filter( (element) => element._2 > 0 ).toArray // Keep positive counters only
+
+//	         buffer(0) = finalSummary
+
+        	 /* Update clusters involved */
+	         if(!input.isNullAt(2))
+	           buffer(1) = (buffer.getAs[Seq[String]](1).toArray ++ Array(input.getString(2)))	        
+
+//	      }
+	   }	
+       
+     }
+
+     def sum(xs: List[Long]): Long = {
+	xs match {
+           case x :: tail => x + sum(tail) // if there is an element, add it to the sum of the tail
+           case Nil => 0 // if there are no elements, then the sum is 0
+        }
+     }
+
+     def merge(buffer1: MutableAggregationBuffer, buffer2: Row): Unit = {
+	/* Update clusters involved */
+	val clusters = (buffer1.getAs[Seq[String]](1) ++ buffer2.getAs[Seq[String]](1)).distinct
+	buffer1(1) = clusters
+
+	/* Merge two summaries */
+        val sum1 = buffer1.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}
+        val sum2 = buffer2.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}
+        val newSum = sum1 ++ sum2
+
+        var finalSummary = newSum.toList.groupBy(_._1)
+           .map { case (k, v) => (k, sum(v.map(_._2))) }
+           .toList
+           .sortWith(_._2 > _._2)
+
+        buffer1(0) = finalSummary.take(n)
+
+	/* Check window boundaries */
+	if( !buffer1.isNullAt(2) && !buffer2.isNullAt(2) ){
+          val bufferWindowRow1 = buffer1.getAs[Row](2)
+          var bufferWindow1 = (bufferWindowRow1.getAs[Timestamp](0), bufferWindowRow1.getAs[Timestamp](1))
+          val bufferWindowRow2 = buffer2.getAs[Row](2)
+          var bufferWindow2 = (bufferWindowRow2.getAs[Timestamp](0), bufferWindowRow2.getAs[Timestamp](1))
+
+	  if( (!bufferWindow1._1.equals(new Timestamp(0))) && (!bufferWindow1._2.equals(new Timestamp(0))) && (!bufferWindow2._1.equals(new Timestamp(0))) && (!bufferWindow2._2.equals(new Timestamp(0)))  ){
+	      buffer1(2) = (bufferWindow1._1, bufferWindow1._2)
+	  }
+	  else if( (!bufferWindow1._1.equals(new Timestamp(0))) && (!bufferWindow1._2.equals(new Timestamp(0))) && (bufferWindow2._1.equals(new Timestamp(0))) && (bufferWindow2._2.equals(new Timestamp(0))) ){
+	     buffer1(2) = (bufferWindow1._1, bufferWindow1._2)
+	  }
+	  else {
+	     buffer1(2) = (bufferWindow2._1, bufferWindow2._2)
+ 	  }
+	}
+	
+     }
+     
+
+     // Calculates the final result
+     def evaluate(buffer:Row): (Array[Tuple2[String,Long]], Array[String], (Timestamp, Timestamp)) = {
+
+	val globalSummary = buffer.getAs[Seq[Row]](0).map{case Row(k: String, v: Long) => (k, v)}.toArray
+
+	val clusters = buffer.getAs[Seq[String]](1).toArray
+
+        val bufferWindowRow = buffer.getAs[Row](2)
+        val bufferWindow = (bufferWindowRow.getAs[Timestamp](0), bufferWindowRow.getAs[Timestamp](1))
+
+	(globalSummary, clusters, bufferWindow)
+     }
+   
+}
+
