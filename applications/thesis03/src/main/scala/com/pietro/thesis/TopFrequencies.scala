@@ -18,6 +18,7 @@ import scala.collection.mutable.WrappedArray
 import org.apache.kafka.clients.producer.{KafkaProducer, ProducerConfig, ProducerRecord}
 
 import org.apache.spark.SparkConf
+import org.apache.spark.SparkEnv
 import org.apache.spark.SparkContext
 import org.apache.spark.streaming._
 import org.apache.spark.streaming.dstream._
@@ -40,11 +41,9 @@ import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.expressions.MutableAggregationBuffer
 import org.apache.spark.sql.expressions.UserDefinedAggregateFunction
 import org.apache.spark.sql.types._
-//import org.apache.spark.annotation.InterfaceStability
 import org.apache.spark.sql.{Column, Row}
-//import org.apache.spark.sql.catalyst.expressions.aggregate.{AggregateExpression, Complete}
-//import org.apache.spark.sql.execution.aggregate.ScalaUDAF
 
+import java.sql.Timestamp
 
 object ClusterLocalMGSummary {
   def main(args: Array[String]) {    
@@ -82,11 +81,7 @@ object ClusterLocalMGSummary {
         .appName("SSComputeClusterLocal")
         .getOrCreate()
     
-//    spark.conf
-//	.set("spark.sql.streaming.metricsEnabled", "true")
-//	.set("spark.metrics.conf.*.sink.graphite.class", "org.apache.spark.metrics.sink.GraphiteSink")
-//	.set("spark.metrics.conf.*.sink.graphite.host", "sky1.it.kth.se")
-//        .set("spark.metrics.conf.*.sink.graphite.port", "2003")
+    spark.conf.set("spark.sql.streaming.metricsEnabled", "true")
 
     import spark.implicits._
 
@@ -101,10 +96,22 @@ object ClusterLocalMGSummary {
         .option("kafka.bootstrap.servers", inputBrokers)
         .option("subscribe", inputTopic)
         .option("startingOffsets", "earliest")
-        .option("failOnDataLoss", false)
+//        .option("failOnDataLoss", false)
+	.option("maxOffsetsPerTrigger", 10000)
         .load()
 	.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") // cast key and value as string to be read in the following
 
+/*
+//    val rateTest = udf { (time:Timestamp, value:Long) => {s"""{"created_at":"${time}","value":"#${value}", "producer_id":"1"}"""} }
+
+    val records = spark
+	.readStream
+	.format("rate")
+//	.option("rowsPerSecond", "1000")
+	.load
+//        .withColumn("value", rateTest($"timestamp", $"value").cast(schema))
+*/
+	
     /* Extract 'value' according to provided schema and adding column with timestamp */
     val parsedRecords = records
 	.select(from_json($"value", schema) as "parsed")
@@ -170,6 +177,7 @@ object ClusterLocalMGSummary {
 	.trigger(ProcessingTime(60.seconds))
     	.start()
 
+/*
     /* Produce to Kafka topic */
     val toKafka = expandedRecords
 	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
@@ -181,14 +189,19 @@ object ClusterLocalMGSummary {
         .option("topic", outputTopic)
         .option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
         .start()
+*/
 
-/*
     /* Add listener to extract statistics */
     import org.apache.spark.sql.streaming.StreamingQueryListener
     import org.apache.spark.sql.streaming.StreamingQueryListener.{QueryProgressEvent, QueryStartedEvent, QueryTerminatedEvent}
 
     val queryListener: StreamingQueryListener = new StreamingQueryListener() {
-	
+
+	import java.net.Socket
+	import java.io._
+	import java.net._
+	import scala.io._
+
 	/* When posted: Right after StreamExecution has started running streaming batches */
         override def onQueryStarted(queryStarted: QueryStartedEvent): Unit = {
             println("Query started: " + queryStarted.id)
@@ -201,15 +214,45 @@ object ClusterLocalMGSummary {
 
         /* When posted: ProgressReporter reports query progress (which is when StreamExecution runs batches and a trigger has finished) */
         override def onQueryProgress(queryProgress: QueryProgressEvent): Unit = {
-            println("Query made progress: " + queryProgress.progress.numInputRows )
+
+           val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
+           val out = new PrintStream(socket.getOutputStream)
+
+	   val dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss")
+	   dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+0"))
+	   val parsedDate = dateFormat.parse(queryProgress.progress.timestamp)
+	   val time = (new java.sql.Timestamp(parsedDate.getTime()).getTime)/1000
+
+	   val appId = SparkSession.builder().getOrCreate().sparkContext.applicationId
+
+	    val numInputRows = s"""sky2.${appId}.queryProgress.numInputRows ${queryProgress.progress.numInputRows} ${time}"""
+	    out.println(numInputRows)
+	    out.flush
+
+            val inputRowsPerSecond = s"""sky2.${appId}.queryProgress.inputRowsPerSecond ${queryProgress.progress.inputRowsPerSecond} ${time}"""
+            out.println(inputRowsPerSecond)
+            out.flush
+
+            val processedRowsPerSecond = s"""sky2.${appId}.queryProgress.processedRowsPerSecond ${queryProgress.progress.processedRowsPerSecond} ${time}"""
+            out.println(processedRowsPerSecond)
+            out.flush
+
+
+            println("Query progress id: " + queryProgress.progress.id)
+	    println(queryProgress.progress.numInputRows)
+	    println(queryProgress.progress.inputRowsPerSecond)
+	    println(queryProgress.progress.processedRowsPerSecond)
+	   
+	    socket.close
         }
     }
     spark.streams.addListener(queryListener)
 
 //    spark.streams.removeListener(queryListener)
-*/
+
+
     toConsole.awaitTermination
-    toKafka.awaitTermination
+//    toKafka.awaitTermination
   }
 
 
@@ -456,6 +499,19 @@ object DecentralizedMGMerge {
     lazy val decentralizedSummaryNotTest: UserDefinedAggregateFunction = CreateDecentralizedMGSummaryNotTest
     lazy val decentralizedSummary = if(test) decentralizedSummaryTest else decentralizedSummaryNotTest
 
+    val stddev = udf { list: WrappedArray[Row] => {
+          val diffs = list.map( r => (r.getString(0), r.getLong(2) - r.getLong(1)) )
+	  var avg = 0.0
+          if(diffs.size != 0) avg = diffs.map(_._2).sum / diffs.size
+  
+          val num = diffs.map( d => {
+             (d._2 - avg)*(d._2-avg)
+          }).sum
+  
+          Math.sqrt(num/(list.size - 1))
+        }
+     }
+
     /* Windowed computation: count all elements and sum them up */
     val windowedRecords = parsedRecords
 	.withColumnRenamed("window", "summaryWindow") // window field of each record is taken as input from udaf
@@ -465,6 +521,7 @@ object DecentralizedMGMerge {
 	.select($"mergedSummary.*")
 	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
 	.orderBy($"window".desc)
+	.withColumn("stddev", stddev($"globalSummary"))
 	
 //        .selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value") // Prepare to write back to Kafka
 
@@ -1096,4 +1153,5 @@ object CreateDecentralizedMGSummaryNotTest extends UserDefinedAggregateFunction 
      }
    
 }
+
 
