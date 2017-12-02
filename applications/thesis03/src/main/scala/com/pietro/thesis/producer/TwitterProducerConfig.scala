@@ -19,7 +19,7 @@ object TwitterProducerConfig {
     "request.required.acks"
   ) foreach(s => producerProps.put(s, props.get(s)))
 */  
-  producerProps.put("bootstrap.servers", "sky1.it.kth.se:9092")
+  producerProps.put("bootstrap.servers", props.getProperty("producer.brokers"))
   producerProps.put("serializer.class", "kafka.serializer.StringEncoder")
   producerProps.put("key.serializer", "org.apache.kafka.common.serialization.StringSerializer")
   producerProps.put("value.serializer", "org.apache.kafka.common.serialization.StringSerializer")
