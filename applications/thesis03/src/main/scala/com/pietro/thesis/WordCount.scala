@@ -27,6 +27,8 @@ import org.apache.kafka.clients.producer._
 import org.apache.spark.rdd.RDD
 import java.util.Properties
 import java.io.FileInputStream
+import java.io.FileOutputStream
+import org.json._
 
 import org.apache.log4j._
 import scala.concurrent.duration._
@@ -34,42 +36,16 @@ import scala.concurrent.duration._
 object WCProducer {
 
   def main(args: Array[String]) {
-    if (args.length < 2) {
-      System.err.println("Usage: KafkaWordCountProducer <number of producers> <data_size>")
-      System.exit(1)
-    }
 
-   class KafkaSink(createProducer: () => KafkaProducer[String, String]) extends Serializable {
-     lazy val producer = createProducer()
-     def send(topic: String, ts: Long, producerId: String, toSend: String): Unit = producer.send(new ProducerRecord[String, String](topic, null, ts, producerId, toSend))
-   }
-
-   object KafkaSink {
-     def apply(config: HashMap[String, Object]): KafkaSink = {
-       val f = () => {
-         val producer = new KafkaProducer[String, String](config)
-
-         sys.addShutdownHook {
-           producer.close()
-         }
-         producer
-       }
-       new KafkaSink(f)
-     }
-   }
-
-   
-   val Array(nproducers, dataSize) = args
    BasicConfigurator.configure()
-
-   /* Create SparkContext */
-   val sc = new SparkContext(new SparkConf().setAppName("KafkaMultiProducer"))
 
    /* Extract configuration from property file */
    val prop = new Properties()
-   prop.load(new FileInputStream("app.properties"))
+   val in = new FileInputStream("app.properties")
+   prop.load(in)
    val brokers = prop.getProperty("producer.brokers")
    val topic = prop.getProperty("producer.topic")
+   in.close
 
    /* Set kafka configuration properties */
    val conf = new HashMap[String, Object]()
@@ -77,33 +53,50 @@ object WCProducer {
    conf.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
    conf.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer")
 
-   // Get the word stream from the source 
-   val textFile = sc.textFile("src/main/scala/com/pietro/thesis/file")
-   val counts = textFile.flatMap(line => line.replaceAll("^[.,\\s]+", "").split("[.,\\s]+") ) //line.split("[^\\p{L}0-9']+|\\s+"))
-                .map(word => (word, 1))
+   val producer = new KafkaProducer[String, String](conf)
 
-   /* Send wrapper containing Kafka Producer to produce in parallel from different executors */
-   val ks = sc.broadcast(KafkaSink(conf))
+   val LOG = Logger.getLogger("Producer")
+   val producerId = "1"
 
-   /* Date format: yyyy-MM-dd'T'hh:mm:ss */
    val dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
-   dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+2"))
+   dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+1"))
 
-   val currentTimeInMs = Calendar.getInstance().getTimeInMillis()
-   val currentTimeInMinutes = currentTimeInMs/1000/60
+   // Get the word stream from the source 
+   import scala.io.Source
 
-   var timestampInMinutes = currentTimeInMinutes - 120
+   val producerProp = new Properties()
+   val in2 = new FileInputStream("producer.properties")
+   producerProp.load(in2)
+   var offset = producerProp.getProperty("producer.offset").toInt
+   var count = 0L
+   val filename = "data/reviews_Books.json"
 
-   counts.foreach( t => {
-           val timestampInMs = Calendar.getInstance().getTimeInMillis()
-           val formattedCurrentTime = dateFormat.format(timestampInMs)
-//         val formattedCurrentTime = Calendar.getInstance().getTime()
+   for (line <- Source.fromFile(filename).getLines.drop(offset)) {
+           val json = new org.json.JSONObject(line)
+           val words = json.getString("reviewText").split("[.,\\W+]")
+	
+	   offset = offset + 1
 
-           val toSend = s"""{"when":"${formattedCurrentTime}","number":"${t._1}","producer_id":1}""".stripMargin
-           ks.value.send(topic, timestampInMs, Random.nextInt(2000).toString, toSend)
-           timestampInMinutes = timestampInMinutes + 1
+	   words.filter(_.length != 0).foreach( word => {
+		val timestampInMs = Calendar.getInstance().getTimeInMillis()
+           	val created_at = dateFormat.format(timestampInMs)
 
-        }) 
+		val line  = s"""{"created_at":"${created_at}","value":"#${word}", "producer_id":"${producerId}"}"""
+	   	val msg = new ProducerRecord[String, String](topic, line)
+
+		count = count + 1
+                producer.send(msg)
+
+		Thread.sleep(1)
+
+	   })
+
+	   /* Store offset to avoid to  */
+           val out = new FileOutputStream("producer.properties")
+           producerProp.setProperty("producer.offset", offset.toString)
+           producerProp.store(out, null)
+           out.close()
+        }
 
   }
 }

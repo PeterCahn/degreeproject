@@ -18,17 +18,10 @@ import java.util.TimeZone
 import java.util.Properties
 import java.io.FileInputStream
 
-import java.net.Socket
-import java.io._
-import java.net._
-import scala.io._
-
-
 class TwitterStreamListener(twitterStream: TwitterStream) extends StatusListener  {
   this: StringKafkaProducer =>
 
   val LOG = Logger.getLogger("TwitterStreamListener")
-  var bytes = 0L
 
   def onStallWarning(stallWarning: StallWarning): Unit = {
     LOG.info("Stall warning...")
@@ -54,30 +47,14 @@ class TwitterStreamListener(twitterStream: TwitterStream) extends StatusListener
 	val created_at = dateFormat.format(utilDate.getTime())	
 
 	/* Find hashtags in text */
-	val words = text.split("\\W+")
-//	val pattern = Pattern.compile("\\w+")
+	val pattern = Pattern.compile("#\\w+")
 
-//	val matcher = pattern.matcher(text)
-//	while (matcher.find()){
-	for (word <- words){
-//	   val line  = s"""{"created_at":"${created_at}","value":"#${matcher.group()}", "producer_id":"${producerId}"}"""
-	   val line  = s"""{"created_at":"${created_at}","value":"#${word}", "producer_id":"${producerId}"}"""
+	val matcher = pattern.matcher(text)
+	while (matcher.find()){
+	   val line  = s"""{"created_at":"${created_at}","value":"${matcher.group()}", "producer_id":"${producerId}"}"""
 	   val msg = new ProducerRecord[String, String](TwitterProducerConfig.KAFKA_TOPIC, line)
 	   producer.send(msg)
 	}
-
-        val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
-	val out = new PrintStream(socket.getOutputStream)
-
-	val textSize = text.getBytes.length
-
-	val textSizeMetric = s"""sky2.customMetrics.dataSize.inputTextSize ${textSize} ${utilDate.getTime/1000}"""
-	out.println(textSizeMetric)
-        out.flush
-
-	socket.close
-
-//	LOG.info("Bytes received until now: " + bytes)
   }
 
   def onTrackLimitationNotice(i: Int): Unit = {
@@ -113,9 +90,7 @@ class TwitterProducer {
     val boundingBoxes = boundingBoxProp.map(_.toDouble).grouped(2).toArray
 
     /* Filter query to track only tweets wich hashtags and from location within bounding box */
-    val queryFilter = new FilterQuery()
-	.track(Array("#"))
-	.locations(boundingBoxes)
+    val queryFilter = new FilterQuery().track(Array("#")).locations(boundingBoxes)
 
     val listener = new TwitterStreamListener(twitterStream) with StringKafkaProducer
     twitterStream.addListener(listener)

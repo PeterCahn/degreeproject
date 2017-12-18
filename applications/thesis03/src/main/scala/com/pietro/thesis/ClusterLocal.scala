@@ -1,8 +1,6 @@
 package com.pietro.thesis
 
 // scalastyle:off println
-import ch.cern.sparkmeasure._
-
 import java.util.HashMap
 import scala.io.Source
 import java.text.DateFormat
@@ -49,7 +47,13 @@ object ClusterLocalMGSummary {
     val prop = new Properties()
     prop.load(new FileInputStream("app.properties"))
     val clusterId = prop.getProperty("cluster.id")
-    
+    val clusterName = prop.getProperty("cluster.name")
+    val summarySize = prop.getProperty("cluster.k").toInt
+
+    val prefixMetrics = clusterName + ".customMetrics"
+   
+    val maxOffsetsPerTrigger = prop.getProperty("cluster.maxOffsetsPerTrigger")
+ 
     /* Input Kafka configuration (which topic read as input and from which server) */
     val inputTopic = prop.getProperty("cluster.input.topic")
     val inputBrokers = prop.getProperty("cluster.input.brokers")
@@ -91,9 +95,9 @@ object ClusterLocalMGSummary {
         .format("kafka")
         .option("kafka.bootstrap.servers", inputBrokers)
         .option("subscribe", inputTopic)
-        .option("startingOffsets", "earliest")
+        .option("startingOffsets", "latest")
         .option("failOnDataLoss", false)
-	.option("maxOffsetsPerTrigger", 10000)
+//	.option("maxOffsetsPerTrigger", maxOffsetsPerTrigger.toInt)
         .load()
 	.selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") // cast key and value as string to be read in the following
 
@@ -154,7 +158,6 @@ object ClusterLocalMGSummary {
     val toKafka = expandedRecords
 	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
 	.writeStream
-//        .foreach(writer)
 	.outputMode("append")
 	.trigger(ProcessingTime(60.seconds))
     	.format("kafka")
@@ -171,15 +174,18 @@ object ClusterLocalMGSummary {
     import java.net._
     import scala.io._
 
-    val appId = spark.sparkContext.applicationId    
+    var totalDataSize = spark.sparkContext.longAccumulator("totalDataSize")
     val writer = new ForeachWriter[Row] {
 
-      val dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-      dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+0"))
       var socket: Socket = _
+      var lastTime = 0L
+      var maxSummarySize = 0
+      var partition = 0L
 
       override def open(partitionId: Long, version: Long) = {
 	socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
+	maxSummarySize = summarySize
+	partition = partitionId
         true
       }
 
@@ -189,14 +195,20 @@ object ClusterLocalMGSummary {
 
 	/* Get data from Row */
         val time = (value.getAs[Row](0).getTimestamp(1).getTime)/1000
+	lastTime = time
 	val size = value.getLong(1)
 	val error = value.getDouble(3)
 	val correctValues = value.getDouble(4)
 
+	val summaryBytes = value.toString.getBytes.length
+
+	totalDataSize.add(summaryBytes)
+
 	/* Build message to send to Graphite */
-	val sizeMetric = s"""sky2.${appId}.summary.size ${size} ${time}"""
-	val errorMetric = s"""sky2.${appId}.summary.error ${error} ${time}"""
-	val correctValuesMetric = s"""sky2.${appId}.summary.correctValues ${correctValues} ${time}"""
+	val sizeMetric = s"""${prefixMetrics}.summary.size ${size} ${time}"""
+	val errorMetric = s"""${prefixMetrics}.summary.error ${error} ${time}"""
+	val correctValuesMetric = s"""${prefixMetrics}.summary.correctValues ${correctValues} ${time}"""
+        val dataSizeMetric = s"""${prefixMetrics}.dataSize.${partition}.summaryBytes ${summaryBytes} ${time}"""
 
 	/* Send data to Graphite */
 	out.println(sizeMetric)
@@ -205,31 +217,35 @@ object ClusterLocalMGSummary {
         out.flush
         out.println(correctValuesMetric)
         out.flush
-	
+	out.println(dataSizeMetric)
+	out.flush
+
       }
+
       override def close(errorOrNull: Throwable) = {
+        val out = new PrintStream(socket.getOutputStream)
+
+	val totalDataSizeValue = totalDataSize.value
+
+//	val totalDataSizeMetric = s"""${prefixMetrics}.dataSize.${partition}.allSummariesBytes ${totalDataSizeValue} ${lastTime}"""
+//	val totalDataSizeAtTriggerMetric = s"""${prefixMetrics}.dataSize.${partition}.allRecordsBytesAtTriggerTime ${totalDataSizeValue} ${Calendar.getInstance().getTimeInMillis/1000}"""
+
+
+        val summarySizeMetric = s"""${prefixMetrics}.summary.maxSummarySize ${maxSummarySize} ${lastTime}"""
+
+//	out.println(totalDataSizeAtTriggerMetric)
+//	out.flush
+	out.println(summarySizeMetric)
+	out.flush
+	
 	socket.close
       }
     }
-/*
-    /* Produce to Kafka topic */
-    val toKafka = expandedRecords
-        .selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
-        .writeStream
-        .foreach(writer)
-        .outputMode("append")
-        .trigger(ProcessingTime(60.seconds))
-        .format("kafka")
-        .option("kafka.bootstrap.servers", outputBrokers)
-        .option("topic", outputTopic)
-        .option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
-        .start()
-*/
 
     val metrics = expandedRecords
         .writeStream
         .foreach(writer)
-        .outputMode("append")
+        .outputMode("complete")
         .trigger(ProcessingTime(60.seconds))
         .start()
 
@@ -238,11 +254,6 @@ object ClusterLocalMGSummary {
     import org.apache.spark.sql.streaming.StreamingQueryListener.{QueryProgressEvent, QueryStartedEvent, QueryTerminatedEvent}
 
     val queryListener: StreamingQueryListener = new StreamingQueryListener() {
-
-	import java.net.Socket
-	import java.io._
-	import java.net._
-	import scala.io._
 
 	/* When posted: Right after StreamExecution has started running streaming batches */
         override def onQueryStarted(queryStarted: QueryStartedEvent): Unit = {
@@ -265,19 +276,18 @@ object ClusterLocalMGSummary {
 		val parsedDate = dateFormat.parse(queryProgress.progress.timestamp)
 		val time = (new java.sql.Timestamp(parsedDate.getTime()).getTime)/1000
 
-		val numInputRows = s"""sky2.${appId}.queryProgress.numInputRows ${queryProgress.progress.numInputRows} ${time}"""
+		val numInputRows = s"""${clusterName}.queryProgress.numInputRows ${queryProgress.progress.numInputRows} ${time}"""
 		out.println(numInputRows)
 		out.flush
 
-		val inputRowsPerSecond = s"""sky2.${appId}.queryProgress.inputRowsPerSecond ${queryProgress.progress.inputRowsPerSecond} ${time}"""
+		val inputRowsPerSecond = s"""${clusterName}.queryProgress.inputRowsPerSecond ${queryProgress.progress.inputRowsPerSecond} ${time}"""
 		out.println(inputRowsPerSecond)
 		out.flush
 
-		val processedRowsPerSecond = s"""sky2.${appId}.queryProgress.processedRowsPerSecond ${queryProgress.progress.processedRowsPerSecond} ${time}"""
+		val processedRowsPerSecond = s"""${clusterName}.queryProgress.processedRowsPerSecond ${queryProgress.progress.processedRowsPerSecond} ${time}"""
 		out.println(processedRowsPerSecond)
 		out.flush
 
-//		println("Query progress id: " + queryProgress.progress.id)
 		println(queryProgress.progress.numInputRows)
 		println(queryProgress.progress.inputRowsPerSecond)
 		println(queryProgress.progress.processedRowsPerSecond)
@@ -286,8 +296,6 @@ object ClusterLocalMGSummary {
 	   }
         }
     }
-//    spark.streams.addListener(queryListener)
-//    spark.streams.removeListener(queryListener)
 
     import org.apache.spark.scheduler._
     import org.apache.log4j.LogManager
@@ -309,36 +317,79 @@ object ClusterLocalMGSummary {
 	   /* Buil message to send to Graphite */
 	   val metric = v.name.get.replaceAll("\\s+|[(),]+", "_")
 	   val value = v.value.getOrElse(0)
-	   val m = s"""sky2.${appId}.stages.${metric} ${value} ${time}"""
+	   val m = s"""${clusterName}.stages.${metric} ${value} ${time}"""
 
 	   /* Send data to Graphite */
 	   out.println(m)
 	   out.flush
 
-           logger.warn(s"Stage completed, m: ${m}")
+//           logger.warn(s"Stage completed, m: ${m}")
 
 	}
 
 	socket.close
       }
+
+      var startTimes = Map[Int, Long]()
+      var totalDuration = 0L
+
+      override def onJobStart(jobStart: SparkListenerJobStart): Unit = {	
+	startTimes = startTimes + (jobStart.jobId -> jobStart.time)
+      }
+
+      override def onJobEnd(jobEnd: SparkListenerJobEnd): Unit = {
+           val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
+           val out = new PrintStream(socket.getOutputStream)
+
+	   val duration = jobEnd.time - startTimes.get(jobEnd.jobId).get
+	   totalDuration  = totalDuration + duration
+
+           val mDuration = s"""${clusterName}.jobs.duration ${duration} ${jobEnd.time/1000}"""
+	   val mTotalDuration = s"""${clusterName}.jobs.totalDuration ${totalDuration} ${jobEnd.time/1000}"""
+
+	   out.println(mDuration)
+	   out.flush
+	   out.println(mTotalDuration)
+	   out.flush
+
+//           logger.warn(s"JobEnd: ${mDuration}")
+
+           socket.close
+      }
+/*
+      override def onExecutorMetricsUpdate(executorMetricsUpdate: SparkListenerExecutorMetricsUpdate): Unit = {
+        val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
+        val out = new PrintStream(socket.getOutputStream)
+
+        /* Get accumulables values */
+        val accumulablesSeq = executorMetricsUpdate.accumUpdates
+        for((k,v) <- accumulablesSeq){
+           /* Buil message to send to Graphite */
+           val metric = v.name.get.replaceAll("\\s+|[(),]+", "_")
+           val value = v.value.getOrElse(0)
+           val m = s"""${clusterName}.stages.${metric} ${value} ${time}"""
+
+           /* Send data to Graphite */
+           out.println(m)
+           out.flush
+
+        }
+
+
+           val mDuration = s"""${clusterName}.jobs.totalduration ${totalDuration} ${jobEnd.time/1000}"""
+
+           out.println(mDuration)
+           out.flush
+
+//           logger.warn(s"JobEnd: ${mDuration}")
+
+           socket.close
+      }
+*/
     }
+    
     val accumulablesListener = new CustomListener
     spark.sparkContext.addSparkListener(accumulablesListener)
-
-/*
-    /* Produce to Kafka topic */
-    val toKafka = expandedRecords
-        .selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
-        .writeStream
-//        .foreach(writer)
-        .outputMode("append")
-        .trigger(ProcessingTime(60.seconds))
-        .format("kafka")
-        .option("kafka.bootstrap.servers", outputBrokers)
-        .option("topic", outputTopic)
-        .option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
-        .start()
-*/
     spark.streams.addListener(queryListener)
 
 /*
@@ -533,8 +584,6 @@ object CreateMGSummaryNotTest extends UserDefinedAggregateFunction {
    
      // Whether this function always returns the same output on the identical input
      def deterministic: Boolean = true
-
-     // Initializes the given aggregation buffer. The buffer itself is a `Row` that in addition to
      // standard methods like retrieving a value at an index (e.g., get(), getBoolean()), provides
      // the opportunity to update its values. Note that arrays and maps inside the buffer are still
      // immutable.
