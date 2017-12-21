@@ -50,7 +50,7 @@ object ClusterLocalMGSummary {
     val clusterName = prop.getProperty("cluster.name")
     val summarySize = prop.getProperty("cluster.k").toInt
 
-    val prefixMetrics = clusterName + ".customMetrics"
+    val prefixMetrics = prop.getProperty("cluster.prefixMetrics") + ".customMetrics"
    
     val maxOffsetsPerTrigger = prop.getProperty("cluster.maxOffsetsPerTrigger")
  
@@ -117,7 +117,7 @@ object ClusterLocalMGSummary {
 	.withWatermark("timestamp", windowLength + " minute")
 	.groupBy(window($"timestamp", windowLength + " minute") as "window")
 	.agg(summary('value).as("MG summary"))
-	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
+//	.filter($"window.end".as("timestamp") < current_timestamp()) // filter window starting now and ending 'windowLength' in the future
 
     import org.apache.spark.sql.types.DataTypes
     import scala.collection.mutable.ListBuffer
@@ -174,7 +174,8 @@ object ClusterLocalMGSummary {
     import java.net._
     import scala.io._
 
-    var totalDataSize = spark.sparkContext.longAccumulator("totalDataSize")
+    val totalDataSize = spark.sparkContext.longAccumulator("totalDataSize")
+    val summaryBytes = spark.sparkContext.longAccumulator("summarybytes")
     val writer = new ForeachWriter[Row] {
 
       var socket: Socket = _
@@ -198,46 +199,31 @@ object ClusterLocalMGSummary {
 	lastTime = time
 	val size = value.getLong(1)
 	val error = value.getDouble(3)
-	val correctValues = value.getDouble(4)
+//	val correctValues = value.getDouble(4)
 
-	val summaryBytes = value.toString.getBytes.length
-
-	totalDataSize.add(summaryBytes)
+	val thisSummaryBytes = value.toString.getBytes.length
+	totalDataSize.add(thisSummaryBytes)
+	summaryBytes.add(thisSummaryBytes)
 
 	/* Build message to send to Graphite */
 	val sizeMetric = s"""${prefixMetrics}.summary.size ${size} ${time}"""
 	val errorMetric = s"""${prefixMetrics}.summary.error ${error} ${time}"""
-	val correctValuesMetric = s"""${prefixMetrics}.summary.correctValues ${correctValues} ${time}"""
-        val dataSizeMetric = s"""${prefixMetrics}.dataSize.${partition}.summaryBytes ${summaryBytes} ${time}"""
+//	val correctValuesMetric = s"""${prefixMetrics}.summary.correctValues ${correctValues} ${time}"""
+//	val dataSizeMetric = s"""${prefixMetrics}.dataSize.${partition}.summaryBytes ${summaryBytes} ${time}"""
 
 	/* Send data to Graphite */
 	out.println(sizeMetric)
 	out.flush
         out.println(errorMetric)
         out.flush
-        out.println(correctValuesMetric)
-        out.flush
-	out.println(dataSizeMetric)
-	out.flush
+//      out.println(correctValuesMetric)
+//      out.flush
+//	out.println(dataSizeMetric)
+//	out.flush
 
       }
 
       override def close(errorOrNull: Throwable) = {
-        val out = new PrintStream(socket.getOutputStream)
-
-	val totalDataSizeValue = totalDataSize.value
-
-//	val totalDataSizeMetric = s"""${prefixMetrics}.dataSize.${partition}.allSummariesBytes ${totalDataSizeValue} ${lastTime}"""
-//	val totalDataSizeAtTriggerMetric = s"""${prefixMetrics}.dataSize.${partition}.allRecordsBytesAtTriggerTime ${totalDataSizeValue} ${Calendar.getInstance().getTimeInMillis/1000}"""
-
-
-        val summarySizeMetric = s"""${prefixMetrics}.summary.maxSummarySize ${maxSummarySize} ${lastTime}"""
-
-//	out.println(totalDataSizeAtTriggerMetric)
-//	out.flush
-	out.println(summarySizeMetric)
-	out.flush
-	
 	socket.close
       }
     }
@@ -267,7 +253,7 @@ object ClusterLocalMGSummary {
 
         /* When posted: ProgressReporter reports query progress (which is when StreamExecution runs batches and a trigger has finished) */
         override def onQueryProgress(queryProgress: QueryProgressEvent): Unit = {
-	    if(queryProgress.progress.name == toKafkaStreamingQueryName){
+//	    if(queryProgress.progress.sources(0).description.startsWith("KakfaSource")){
 		val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
 		val out = new PrintStream(socket.getOutputStream)
 
@@ -276,24 +262,40 @@ object ClusterLocalMGSummary {
 		val parsedDate = dateFormat.parse(queryProgress.progress.timestamp)
 		val time = (new java.sql.Timestamp(parsedDate.getTime()).getTime)/1000
 
-		val numInputRows = s"""${clusterName}.queryProgress.numInputRows ${queryProgress.progress.numInputRows} ${time}"""
+		val numInputRows = s"""${prefixMetrics}.queryProgress.numInputRows ${queryProgress.progress.numInputRows} ${time}"""
 		out.println(numInputRows)
 		out.flush
 
-		val inputRowsPerSecond = s"""${clusterName}.queryProgress.inputRowsPerSecond ${queryProgress.progress.inputRowsPerSecond} ${time}"""
+		val inputRowsPerSecond = s"""${prefixMetrics}.queryProgress.inputRowsPerSecond ${queryProgress.progress.inputRowsPerSecond} ${time}"""
 		out.println(inputRowsPerSecond)
 		out.flush
 
-		val processedRowsPerSecond = s"""${clusterName}.queryProgress.processedRowsPerSecond ${queryProgress.progress.processedRowsPerSecond} ${time}"""
+		val processedRowsPerSecond = s"""${prefixMetrics}.queryProgress.processedRowsPerSecond ${queryProgress.progress.processedRowsPerSecond} ${time}"""
 		out.println(processedRowsPerSecond)
 		out.flush
+
+		val totalData = totalDataSize.value
+	        val dataSizeMetric = s"""${prefixMetrics}.dataSize.dataUntilNow ${totalData} ${time}"""
+		out.println(dataSizeMetric)
+		out.flush
+
+                val summary = summaryBytes.value
+		if(summary > 0){
+                  val mSummaryBytes = s"""${prefixMetrics}.dataSize.summaryBytes ${summary} ${time}"""
+                  out.println(mSummaryBytes)
+                  out.flush
+		  summaryBytes.reset
+                  println("summaryBytes: " + summary)
+		}
 
 		println(queryProgress.progress.numInputRows)
 		println(queryProgress.progress.inputRowsPerSecond)
 		println(queryProgress.progress.processedRowsPerSecond)
+		println("dataSize: " + totalData)
+
 		   
 		socket.close
-	   }
+//	   }
         }
     }
 
@@ -317,7 +319,7 @@ object ClusterLocalMGSummary {
 	   /* Buil message to send to Graphite */
 	   val metric = v.name.get.replaceAll("\\s+|[(),]+", "_")
 	   val value = v.value.getOrElse(0)
-	   val m = s"""${clusterName}.stages.${metric} ${value} ${time}"""
+	   val m = s"""${prefixMetrics}.stages.${metric} ${value} ${time}"""
 
 	   /* Send data to Graphite */
 	   out.println(m)
@@ -344,8 +346,8 @@ object ClusterLocalMGSummary {
 	   val duration = jobEnd.time - startTimes.get(jobEnd.jobId).get
 	   totalDuration  = totalDuration + duration
 
-           val mDuration = s"""${clusterName}.jobs.duration ${duration} ${jobEnd.time/1000}"""
-	   val mTotalDuration = s"""${clusterName}.jobs.totalDuration ${totalDuration} ${jobEnd.time/1000}"""
+           val mDuration = s"""${prefixMetrics}.jobs.duration ${duration} ${jobEnd.time/1000}"""
+	   val mTotalDuration = s"""${prefixMetrics}.jobs.totalDuration ${totalDuration} ${jobEnd.time/1000}"""
 
 	   out.println(mDuration)
 	   out.flush
@@ -356,36 +358,6 @@ object ClusterLocalMGSummary {
 
            socket.close
       }
-/*
-      override def onExecutorMetricsUpdate(executorMetricsUpdate: SparkListenerExecutorMetricsUpdate): Unit = {
-        val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
-        val out = new PrintStream(socket.getOutputStream)
-
-        /* Get accumulables values */
-        val accumulablesSeq = executorMetricsUpdate.accumUpdates
-        for((k,v) <- accumulablesSeq){
-           /* Buil message to send to Graphite */
-           val metric = v.name.get.replaceAll("\\s+|[(),]+", "_")
-           val value = v.value.getOrElse(0)
-           val m = s"""${clusterName}.stages.${metric} ${value} ${time}"""
-
-           /* Send data to Graphite */
-           out.println(m)
-           out.flush
-
-        }
-
-
-           val mDuration = s"""${clusterName}.jobs.totalduration ${totalDuration} ${jobEnd.time/1000}"""
-
-           out.println(mDuration)
-           out.flush
-
-//           logger.warn(s"JobEnd: ${mDuration}")
-
-           socket.close
-      }
-*/
     }
     
     val accumulablesListener = new CustomListener

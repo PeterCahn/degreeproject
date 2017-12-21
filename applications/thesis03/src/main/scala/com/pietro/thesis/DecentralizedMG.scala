@@ -61,6 +61,7 @@ object DecentralizedMGMerge {
     val sliding = prop.getProperty("dec.sliding.minutes")
 
     val maxOffsetsPerTrigger = prop.getProperty("dec.maxOffsetsPerTrigger")
+    val prefix = prop.getProperty("dec.prefixMetrics") + ".customMetrics"
 
     import org.apache.spark.sql.streaming.StreamingQuery    
     import org.apache.spark.sql.functions._
@@ -107,9 +108,9 @@ object DecentralizedMGMerge {
         .format("kafka")
         .option("kafka.bootstrap.servers", inputKafkaBroker)
         .option("subscribe", inputKafkaTopic)
-        .option("startingOffsets", "earliest")
+        .option("startingOffsets", "latest")
 	.option("failOnDataLoss", "false")
-	.option("maxOffsetsPerTrigger", maxOffsetsPerTrigger.toInt)
+//	.option("maxOffsetsPerTrigger", maxOffsetsPerTrigger.toInt)
         .load()
         .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") // cast key and value as string to be read in the following
 
@@ -163,16 +164,71 @@ object DecentralizedMGMerge {
     	.format("kafka")
 	.option("kafka.bootstrap.servers", outputBroker)
     	.option("topic", outputTopic)
-    	.option("checkpointLocation", "ccl-ss") // ComputeClusterLocal-StructuredStreaming
+    	.option("checkpointLocation", "dec-ss") // ComputeClusterLocal-StructuredStreaming
     	.start()
-
-    import org.apache.spark.sql.streaming.{OutputMode, Trigger, ProcessingTime}
 
     /* Prepare sending metrics to Graphite */
     import java.net.Socket
     import java.io._
     import java.net._
     import scala.io._
+
+    var totalDataSize = spark.sparkContext.longAccumulator("totalDataSize")
+    val writer = new ForeachWriter[Row] {
+      var socket: Socket = _
+
+      override def open(partitionId: Long, version: Long) = {
+        socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
+        true
+      }
+
+      override def process(value: Row) = {
+
+        val out = new PrintStream(socket.getOutputStream)
+
+        /* Get data from Row */
+        val time = (new java.sql.Timestamp(value.getAs[Row](0).getTimestamp(1).getTime).getTime)/1000
+        val size = value.getLong(1)
+        val error = value.getDouble(2)
+        val accuracy = value.getDouble(3)
+        val stddev = value.getDouble(6)
+
+        val summaryBytes = value.toString.getBytes.length
+
+        totalDataSize.add(summaryBytes)
+
+        /* Build message to send to Graphite */
+        val sizeMetric = s"""${prefix}.summary.size ${size} ${time}"""
+        val errorMetric = s"""${prefix}.summary.error ${error} ${time}"""
+        val accuracyMetric = s"""${prefix}.summary.accuracy ${accuracy} ${time}"""
+        val stddevMetric = s"""${prefix}.summary.stddev ${stddev} ${time}"""
+        val summarySizeMetric = s"""${prefix}.dataSize.summaryBytes ${summaryBytes} ${time}"""
+
+        /* Send data to Graphite */
+        out.println(sizeMetric)
+        out.flush
+        out.println(errorMetric)
+        out.flush
+        out.println(accuracyMetric)
+        out.flush
+        out.println(stddevMetric)
+        out.flush
+        out.println(summarySizeMetric)
+        out.flush
+      }
+
+      override def close(errorOrNull: Throwable) = {
+        socket.close
+      }
+    }
+
+    val metrics = windowedRecords
+        .writeStream
+        .foreach(writer)
+        .outputMode("complete")
+        .trigger(ProcessingTime(60.seconds))
+        .start()
+
 
     /* Add listener to extract statistics */
     import org.apache.spark.sql.streaming.StreamingQueryListener
@@ -193,7 +249,7 @@ object DecentralizedMGMerge {
 
         /* When posted: ProgressReporter reports query progress (which is when StreamExecution runs batches and a trigger has finished) */
         override def onQueryProgress(queryProgress: QueryProgressEvent): Unit = {
-	    if(queryProgress.progress.sources(0).description.startsWith("KafkaSource")){
+//	    if(queryProgress.progress.sources(0).description.startsWith("KafkaSource")){
 		val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
 		val out = new PrintStream(socket.getOutputStream)
 
@@ -202,31 +258,36 @@ object DecentralizedMGMerge {
 		val parsedDate = dateFormat.parse(queryProgress.progress.timestamp)
 		val time = (new java.sql.Timestamp(parsedDate.getTime()).getTime)/1000
 
-		val numInputRows = s"""decentralized.queryProgress.numInputRows ${queryProgress.progress.numInputRows} ${time}"""
+		val numInputRows = s"""${prefix}.queryProgress.numInputRows ${queryProgress.progress.numInputRows} ${time}"""
 		out.println(numInputRows)
 		out.flush
 
-		val inputRowsPerSecond = s"""decentralized.queryProgress.inputRowsPerSecond ${queryProgress.progress.inputRowsPerSecond} ${time}"""
+		val inputRowsPerSecond = s"""${prefix}.queryProgress.inputRowsPerSecond ${queryProgress.progress.inputRowsPerSecond} ${time}"""
 		out.println(inputRowsPerSecond)
 		out.flush
 
-		val processedRowsPerSecond = s"""decentralized.queryProgress.processedRowsPerSecond ${queryProgress.progress.processedRowsPerSecond} ${time}"""
+		val processedRowsPerSecond = s"""${prefix}.queryProgress.processedRowsPerSecond ${queryProgress.progress.processedRowsPerSecond} ${time}"""
 		out.println(processedRowsPerSecond)
 		out.flush
+
+		val totalData = totalDataSize.sum
+                val totalDataSizeMetric = s"""${prefix}.dataSize.dataUntilNow ${totalData} ${time}"""
+                out.println(totalDataSizeMetric)
+                out.flush
 
 		println(queryProgress.progress.numInputRows)
 		println(queryProgress.progress.inputRowsPerSecond)
 		println(queryProgress.progress.processedRowsPerSecond)
 		   
 		socket.close
-	    }
+//	    }
         }
     }
 
     /* Listener to monitor stages information */
     import org.apache.spark.scheduler._
     val stagesLogger = LogManager.getLogger("Stages")
- 
+
     class CustomListener extends SparkListener  {
 
       override def onStageCompleted(stageCompleted: SparkListenerStageCompleted): Unit = {
@@ -239,26 +300,54 @@ object DecentralizedMGMerge {
 
 	/* Get accumulables values */
         val accumulables = stageCompleted.stageInfo.accumulables
+
 	for((k,v) <- accumulables){
 	   /* Buil message to send to Graphite */
 	   val metric = v.name.get.replaceAll("\\s+|[(),]+", "_")
 	   val value = v.value.getOrElse(0)
-	   val m = s"""decentralized.stages.${metric} ${value} ${time}"""
+	   val m = s"""${prefix}.stages.${metric} ${value} ${time}"""
 
 	   /* Send data to Graphite */
 	   out.println(m)
 	   out.flush
 
-//           stagesLogger.warn(s"Stage completed, m: ${m}")
+//           logger.warn(s"Stage completed, m: ${m}")
 
 	}
 
 	socket.close
       }
+
+      var startTimes = Map[Int, Long]()
+      var totalDuration = 0L
+
+      override def onJobStart(jobStart: SparkListenerJobStart): Unit = {	
+	startTimes = startTimes + (jobStart.jobId -> jobStart.time)
+      }
+
+      override def onJobEnd(jobEnd: SparkListenerJobEnd): Unit = {
+           val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
+           val out = new PrintStream(socket.getOutputStream)
+
+	   val duration = jobEnd.time - startTimes.get(jobEnd.jobId).get
+	   totalDuration = totalDuration + duration
+
+           val mDuration = s"""${prefix}.jobs.duration ${duration} ${jobEnd.time/1000}"""
+	   val mTotalDuration = s"""${prefix}.jobs.totalDuration ${totalDuration} ${jobEnd.time/1000}"""
+
+	   out.println(mDuration)
+	   out.flush
+	   out.println(mTotalDuration)
+	   out.flush
+
+//           logger.warn(s"JobEnd: ${mDuration}")
+
+           socket.close
+      }
     }
+
     val accumulablesListener = new CustomListener
     spark.sparkContext.addSparkListener(accumulablesListener)
-
     spark.streams.addListener(queryListener)
 
 /*
@@ -273,57 +362,6 @@ object DecentralizedMGMerge {
         .start()
     toConsole.awaitTermination
 */
-
-    val writer = new ForeachWriter[Row] {
-      val dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-      dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+0"))
-      var socket: Socket = _
-
-      override def open(partitionId: Long, version: Long) = {
-        socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
-        true
-      }
-
-      override def process(value: Row) = {
-
-        val out = new PrintStream(socket.getOutputStream)
-
-	/* Get data from Row */
-	val time = (new java.sql.Timestamp(value.getAs[Row](0).getTimestamp(1).getTime).getTime)/1000
-        val size = value.getLong(1)
-        val error = value.getDouble(2)
-        val accuracy = value.getDouble(3)
-        val stddev = value.getDouble(6)
-
-        /* Build message to send to Graphite */
-        val sizeMetric = s"""decentralized.decSummary.size ${size} ${time}"""
-        val errorMetric = s"""decentralized.decSummary.error ${error} ${time}"""
-        val accuracyMetric = s"""decentralized.decSummary.accuracy ${accuracy} ${time}"""
-        val stddevMetric = s"""decentralized.decSummary.stddev ${stddev} ${time}"""
-
-        /* Send data to Graphite */ 
-        out.println(sizeMetric)
-        out.flush
-        out.println(errorMetric)
-        out.flush
-        out.println(accuracyMetric)
-        out.flush
-        out.println(stddevMetric)
-        out.flush
-
-      }
-
-      override def close(errorOrNull: Throwable) = {
-        socket.close
-      }
-    }
-
-    val metrics = windowedRecords
-        .writeStream
-        .foreach(writer)
-        .outputMode("complete")
-        .trigger(ProcessingTime(60.seconds))
-        .start()
 
     metrics.awaitTermination
     toKafka.awaitTermination

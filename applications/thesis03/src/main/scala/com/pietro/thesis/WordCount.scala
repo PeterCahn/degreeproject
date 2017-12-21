@@ -30,6 +30,9 @@ import java.io.FileInputStream
 import java.io.FileOutputStream
 import org.json._
 
+import java.util.Timer
+import java.util.TimerTask
+
 import org.apache.log4j._
 import scala.concurrent.duration._
 
@@ -45,7 +48,8 @@ object WCProducer {
    prop.load(in)
    val brokers = prop.getProperty("producer.brokers")
    val topic = prop.getProperty("producer.topic")
-   in.close
+
+   val rowsPerSecond = prop.getProperty("producer.rowsPerSecond").toInt
 
    /* Set kafka configuration properties */
    val conf = new HashMap[String, Object]()
@@ -55,11 +59,51 @@ object WCProducer {
 
    val producer = new KafkaProducer[String, String](conf)
 
+   import org.apache.log4j.LogManager
    val LOG = Logger.getLogger("Producer")
    val producerId = "1"
 
    val dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
    dateFormat.setTimeZone(TimeZone.getTimeZone("GMT+1"))
+
+   /* Send input data size to Graphite every minute */
+   import java.net.Socket
+   import java.io._
+   import java.net._
+   import scala.io._
+
+   val prefix = prop.getProperty("producer.prefixMetrics") + ".customMetrics"
+   var producedDataSize = 0L
+   var recordsDataSize = 0L
+   var producerRows = 0L
+
+   val MINUTES = 1 // The delay in minutes
+   val timer = new Timer()
+   timer.schedule(new TimerTask() {
+      override def run(): Unit =  { // Function runs every MINUTES minutes.
+	
+           val socket = new Socket(InetAddress.getByName("sky2.it.kth.se"), 2003)
+           val out = new PrintStream(socket.getOutputStream)
+
+	   val time = Calendar.getInstance().getTimeInMillis()/1000
+
+           val mProducedDataSize = s"""${prefix}.producer.producedBytes ${producedDataSize} ${time}"""
+           val mRecordsDataSize = s"""${prefix}.producer.recordsBytes ${recordsDataSize} ${time}"""
+	   val mProducerRows = s"""${prefix}.producer.producedRows ${producerRows} ${time}"""
+
+	   out.println(mProducedDataSize)
+	   out.flush
+	   out.println(mRecordsDataSize)
+	   out.flush
+	   out.println(mProducerRows)
+	   out.flush
+
+           LOG.warn(s"dataSize: ${producedDataSize}, recordsDataSize: ${recordsDataSize}, producedRows: ${producerRows}")
+
+           socket.close
+
+      }
+   }, 0, 1000 * 60 * MINUTES)   // 1000 milliseconds in a second * 60 per minute * the MINUTES variable
 
    // Get the word stream from the source 
    import scala.io.Source
@@ -68,9 +112,16 @@ object WCProducer {
    val in2 = new FileInputStream("producer.properties")
    producerProp.load(in2)
    var offset = producerProp.getProperty("producer.offset").toInt
-   var count = 0L
-   val filename = "data/reviews_Books.json"
 
+   /* Compute milliseconds and nanoseconds for waiting anc calibrate producing rate */
+   val rate = (1000.toDouble / rowsPerSecond.toDouble).toString.split("\\.")
+   val millis = rate(0).toInt
+   val nanos = String.format("%1$-" + 6 + "s", rate(1)).replace(' ', '0').toInt // pad with zeros to transform in nanoseconds
+//   val nanos =  String.format("%6d", rate(1).toString ).toInt
+//   val nanos = rate(1).subString(0,5) toInt * 100 * 1000
+   println("nanos: " + nanos)
+
+   val filename = "data/reviews_Books.json"
    for (line <- Source.fromFile(filename).getLines.drop(offset)) {
            val json = new org.json.JSONObject(line)
            val words = json.getString("reviewText").split("[.,\\W+]")
@@ -84,10 +135,20 @@ object WCProducer {
 		val line  = s"""{"created_at":"${created_at}","value":"#${word}", "producer_id":"${producerId}"}"""
 	   	val msg = new ProducerRecord[String, String](topic, line)
 
-		count = count + 1
+		val msgBytes = msg.toString.getBytes.length
+		val lineBytes = line.getBytes.length
+
+		producedDataSize = producedDataSize + msgBytes
+		recordsDataSize = recordsDataSize + lineBytes
+		producerRows = producerRows + 1
+
+//		LOG.warn(s"msgBytes: ${msgBytes}, lineBytes: ${line.getBytes.length}")		
+//		LOG.warn(s"line: ${line}, msg: ${msg.toString}")	
+	
                 producer.send(msg)
 
-		Thread.sleep(1)
+		Thread.sleep(millis, nanos)
+//		Thread.sleep(1000)
 
 	   })
 
