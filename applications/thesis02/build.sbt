@@ -1,6 +1,6 @@
 //import AssemblyKeys._
 
-name         := "Thesis02"
+name         := "AverageApp"
 
 version      := "1.0"
 
@@ -12,8 +12,12 @@ libraryDependencies ++= Seq(
     "org.apache.spark" % "spark-core_2.11" % "2.1.1" % "provided",
     "org.apache.kafka" % "kafka_2.11" % "0.10.0.0",
     "org.apache.spark" % "spark-sql_2.11" % "2.1.1" % "provided",
-    "org.json4s" % "json4s-jackson_2.11" % "3.5.0",
-    "org.json4s" % "json4s-native_2.11" % "3.5.0"
+    "org.twitter4j" % "twitter4j-stream" % "3.0.6",
+    "org.json" % "json" % "20171018",
+    "org.apache.logging.log4j" % "log4j-core" % "2.9.1",
+    "io.dropwizard.metrics" % "metrics-core" % "3.1.0",
+    "com.codahale.metrics" % "metrics-graphite" % "3.0.2" % "compile",
+    "ch.cern.sparkmeasure" % "spark-measure_2.11" % "0.11"
 )
 
 resolvers ++= Seq(
