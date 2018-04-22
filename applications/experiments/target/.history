@@ -1,0 +1,3 @@
+run-main com.htvu.producer.TwitterProducerApp -Dlog4j.configuration=file:/home/pietro/thesis03/log4j.properties
+quit
+exit

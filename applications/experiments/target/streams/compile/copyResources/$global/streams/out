@@ -1,0 +1,4 @@
+[0m[[0mdebug[0m] [0mCopy resource mappings: [0m
+[0m[[0mdebug[0m] [0m	(/home/pietro/experiments/src/main/resources/log4j.properties,/home/pietro/experiments/target/scala-2.11/classes/log4j.properties)[0m
+[0m[[0mdebug[0m] [0m	(/home/pietro/experiments/src/main/resources/jettison-1.3.5.jar,/home/pietro/experiments/target/scala-2.11/classes/jettison-1.3.5.jar)[0m
+[0m[[0mdebug[0m] [0m	(/home/pietro/experiments/src/main/resources/json-20171018.jar,/home/pietro/experiments/target/scala-2.11/classes/json-20171018.jar)[0m
