@@ -69,9 +69,10 @@ object ComputeMGSummary {
 	.option("maxOffsetsPerTrigger", maxOffsetsPerTrigger.toInt)
         .load()
         .selectExpr("CAST(key AS STRING)", "CAST(value AS STRING)") // cast key and value as string to be read in the following
+	.filter($"value" > "")
 	.select("value")
 
-    spark.udf.register("create_mg_summary", CreateMGSummary)
+    spark.udf.register("create_mg_summary", CreateMGSummaryTest)
 
     lazy val summaryTest: UserDefinedAggregateFunction = CreateMGSummaryTest
     lazy val summary = summaryTest
@@ -81,8 +82,8 @@ object ComputeMGSummary {
 	.withColumn("timestamp", current_timestamp())
 	.withWatermark("timestamp", 10 + " minute")
 	.groupBy(window($"timestamp", windowLength + " seconds") as "window")
-	.agg(summary('value).as("MG summary"))
-	.orderBy($"window".desc)
+	.agg(summary('value).as("MGSummary"))
+//	.orderBy($"window".desc)
 
     import org.apache.spark.sql.types.DataTypes
     import scala.collection.mutable.ListBuffer
@@ -100,7 +101,7 @@ object ComputeMGSummary {
     mgs.add(DataTypes.createStructField("size", DataTypes.LongType, true))
     mgs.add(DataTypes.createStructField("clusterDistinctValues", DataTypes.LongType, true))
     mgs.add(DataTypes.createStructField("error", DataTypes.DoubleType, true))
-    mgs.add(DataTypes.createStructField("correctValues", DataTypes.DoubleType, true))
+    mgs.add(DataTypes.createStructField("truePositives", DataTypes.DoubleType, true))
     mgs.add(DataTypes.createStructField("summary", summaryStruct, true))
 
     val mgSchema = DataTypes.createStructType(mgs)
@@ -108,8 +109,9 @@ object ComputeMGSummary {
     val orderingTest = udf { list: WrappedArray[Row] => list.map(r => {(r.getString(0), r.getLong(1), r.getLong(2))}).sortWith(_._2 > _._2) }
 
     val expandedRecords = windowedRecords	
-        .select($"window", from_json($"MG summary", mgSchema) as "parsed" )
-        .select($"window", $"parsed.*")
+        .select($"window", from_json($"MGSummary", mgSchema) as "parsed" )
+        .select($"window", $"parsed.*")	
+        .withColumn("clusterId", lit(clusterId))
 
     /* Show schema after computation */
     expandedRecords.printSchema()
@@ -117,7 +119,7 @@ object ComputeMGSummary {
     import org.apache.spark.sql.streaming.{OutputMode, Trigger, ProcessingTime}
 
     /* Produce to Kafka topic */
-    val toKafka = windowedRecords
+    val toKafka = expandedRecords
 //	.orderBy($"exactFrequency".desc)	
 	.selectExpr("CAST(window AS STRING) AS key", "to_json(struct(*)) AS value")
 	.writeStream
@@ -141,7 +143,7 @@ object ComputeMGSummary {
         .start()
 
     toConsole.awaitTermination
-    toKafka.awaitTermination
+//    toKafka.awaitTermination
 
   }
 
@@ -287,7 +289,7 @@ object ComputeMGSummary {
 
 	import scala.collection.mutable.ArrayBuffer
 
-	val filename = "frequencies_complete"
+	val filename = "frequencies_input1.txt"
 	trues = 0
 	var index = 0
 

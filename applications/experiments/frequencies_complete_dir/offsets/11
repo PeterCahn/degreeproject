@@ -1,3 +1,3 @@
 v1
-{"batchWatermarkMs":1524433558804,"batchTimestampMs":1524434162837,"conf":{"spark.sql.shuffle.partitions":"200"}}
-{"dataset_complete":{"0":840000}}
+{"batchWatermarkMs":1524756898671,"batchTimestampMs":1524757500996,"conf":{"spark.sql.shuffle.partitions":"200"}}
+{"dataset_input_1":{"0":420000}}
